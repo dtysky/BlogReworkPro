@@ -15,6 +15,7 @@ else
 fi
 echo "Install python modules"
 python/bin/pip install pymongo
+python/bin/pip install tornado
 python/bin/pip install watchdog
 python/bin/pip install flask
 python/bin/pip install flask-compress

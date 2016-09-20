@@ -15,6 +15,10 @@ from file_monitor import FileMonitor
 from web_server import WebServer
 from config import config
 from utils import init_database
+from tornado.wsgi import WSGIContainer
+from tornado.httpserver import HTTPServer
+from tornado.ioloop import IOLoop
+
 
 if __name__ == "__main__":
     client = MongoClient()
@@ -33,7 +37,17 @@ if __name__ == "__main__":
         recursive=True
     )
     observer.start()
-    server.run(
-        config["server_ip"],
-        config["server_port"]
-    )
+    if (config["env"] == "development"):
+        server.run(
+            config["server_ip"],
+            config["server_port"]
+        )
+    else:
+        server = HTTPServer(
+            WSGIContainer(server.web_server)
+        )
+        server.listen(
+            config["server_ip"],
+            config["server_port"]
+        )
+        IOLoop.instance().start()
