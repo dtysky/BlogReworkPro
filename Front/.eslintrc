@@ -1,0 +1,124 @@
+{
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "plugins": [
+    "flowtype"
+  ],
+  "rules": {
+    "object-curly-spacing": [2, "never"],
+    "space-before-function-paren": [2, {"anonymous": "always", "named": "ignore"}],
+    "comma-dangle": [2, "never"],
+    "indent": ["error", 4],
+    "max-len": [1, 115, 2, {
+      "ignoreUrls": true,
+      "ignoreComments": true
+    }],
+    "no-script-url": 0,
+    "no-unused-expressions": [2, { "allowShortCircuit": true }],
+    "no-use-before-define": [2, { "functions": false, "classes": true }],
+    "no-underscore-dangle": [2, { "allowAfterThis": true }],
+    "no-param-reassign": [2, {"props": false}],
+    "react/prefer-stateless-function": 0,
+    "consistent-return": 0,
+    "new-cap": [2, {"capIsNewExceptions": ["ObjectId"]}],
+    "jsx-quotes": 0,
+    "react/jsx-no-bind": [2, {
+      "ignoreRefs": true,
+      "allowArrowFunctions": true,
+      "allowBind": false,
+    }],
+    "react/sort-comp": [2, {
+      "order": [
+        "lifecycle",
+        "everything-else",
+        "renderstuff"
+      ],
+      "groups": {
+        "lifecycle": [
+          "displayName",
+          "fragments",
+          "panelSettings",
+          "propTypes",
+          "contextTypes",
+          "childContextTypes",
+          "mixins",
+          "statics",
+          "defaultProps",
+          "defaultChildren",
+          "propsSchema",
+          "settings",
+          "style",
+          "constructor",
+          "getDefaultProps",
+          "getInitState",
+          "getChildContext",
+          "componentWillMount",
+          "componentDidMount",
+          "componentWillReceiveProps",
+          "shouldComponentUpdate",
+          "componentWillUpdate",
+          "componentDidUpdate",
+          "componentWillUnmount"
+        ],
+        "renderstuff": [
+          "render",
+          "/^render.+$/"
+        ]
+      }
+    }],
+    "flowtype/boolean-style": [
+      2,
+      "boolean"
+    ],
+    "flowtype/define-flow-type": 1,
+    "flowtype/delimiter-dangle": [
+      2,
+      "never"
+    ],
+    "flowtype/generic-spacing": [
+      2,
+      "never"
+    ],
+    "flowtype/no-weak-types": 2,
+    "flowtype/require-parameter-type": 2,
+    "flowtype/require-return-type": [
+      2,
+      "always",
+      {
+        "annotateUndefined": "never"
+      }
+    ],
+    "flowtype/require-valid-file-annotation": 2,
+    "flowtype/semi": [
+      2,
+      "always"
+    ],
+    "flowtype/space-after-type-colon": [
+      2,
+      "always"
+    ],
+    "flowtype/space-before-generic-bracket": [
+      2,
+      "never"
+    ],
+    "flowtype/space-before-type-colon": [
+      2,
+      "never"
+    ],
+    "flowtype/type-id-match": [
+      2,
+      "^([A-Z][a-z0-9]+)+Type$"
+    ],
+    "flowtype/union-intersection-spacing": [
+      2,
+      "always"
+    ],
+    "flowtype/use-flow-type": 1,
+    "flowtype/valid-syntax": 1
+  },
+  "settings": {
+    "flowtype": {
+      "onlyFilesWithFlowAnnotation": false
+    }
+  }
+}
