@@ -6,13 +6,27 @@
  * It just works for a part of search engine...
  */
 
+require('babel-register')({
+    presets: ['react', 'es2015', 'stage-0'],
+    plugins: [
+        'transform-runtime',
+        'add-module-exports',
+        'transform-decorators-legacy',
+        'transform-react-display-name',
+        'syntax-async-functions',
+        'transform-regenerator',
+        'transform-async-to-generator',
+        'transform-class-properties'
+    ]
+});
+
 import fs from 'fs';
 import express from 'express';
 import path from 'path';
 import tracer from 'tracer';
-import React from 'react';
-import {renderToString} from 'react-dom';
-import {match, RouterContext} from 'react-router';
+//import React from 'react';
+//import {renderToString} from 'react-dom';
+//import {match, RouterContext} from 'react-router';
 import request from 'superagent';
 import config from './config';
 
@@ -23,6 +37,7 @@ const loggerConsole = tracer.colorConsole();
 const loggerFile = tracer.dailyfile({root: logPath, maxLogFiles: 30});
 const serverUrl = config.server_url;
 const redirectTable = JSON.parse(fs.readFileSync('./table.json'));
+
 
 function logInfo() {
     loggerConsole.info(arguments); // eslint-disable-line
@@ -70,7 +85,7 @@ app.use(express.static(
 // Handlers for sitemap and feeds, forwarding to Back
 
 app.get('/sitemap', (req, res) => { // eslint-disable-line
-    const url = serverUrl + '/sitemap/all';
+    const url = `${serverUrl}/sitemap/all`;
     logInfo('Forwarding', url);
     request.get(url)
         .then(response => { // eslint-disable-line
@@ -82,7 +97,7 @@ app.get('/sitemap', (req, res) => { // eslint-disable-line
 });
 
 app.get('/feeds/:slug', (req, res) => { // eslint-disable-line
-    const url = serverUrl + '/' + path.join('feeds', req.params.slug.replace('.rss.xml', ''));
+    const url = `${serverUrl}/${path.join('feeds', req.params.slug.replace('.rss.xml', ''))}`;
     logInfo('Forwarding', url);
     request.get(url)
         .then(response => { // eslint-disable-line
@@ -93,7 +108,7 @@ app.get('/feeds/:slug', (req, res) => { // eslint-disable-line
         });
 });
 
-//app.get('*', (req, res) => { // eslint-disable-line
+// app.get('*', (req, res) => { // eslint-disable-line
 //    match(
 //        {
 //            routes: routes,
@@ -121,7 +136,8 @@ app.get('/feeds/:slug', (req, res) => { // eslint-disable-line
 //            }
 //            return res.status(404).send('Not found');
 //        });
-//});
+// });
+
 
 app.listen(port, () => {
     logInfo('Server start:', port);

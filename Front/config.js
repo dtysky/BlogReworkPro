@@ -4,10 +4,22 @@
  * Description:
  */
 
-const config = {
-    site_title: 'dtysky|一个行者的轨迹',
-    site_url: 'http://localhost:8000',
-    server_url: 'http://localhost:4444',
+
+const configDev = {
+    siteTitle: 'dtysky|一个行者的轨迹',
+    siteUrl: 'http://localhost:8000',
+    serverUrl: 'http://localhost:4444',
+    port: 8000
+};
+
+const configPd = {
+    siteTitle: 'dtysky|一个行者的轨迹',
+    siteUrl: 'http://localhost:8000',
+    serverUrl: 'http://localhost:4444',
+    port: 8000
+};
+
+const config = Object.assign({}, {
     disqusShortName: 'dtysky',
     gaTrackingId: '......',
     tagCloudStep: 4,
@@ -56,78 +68,7 @@ const config = {
         ['facebook', 'https://www.facebook.com/sharer/sharer.php?u={{URL}}'],
         ['twitter', 'https://twitter.com/intent/tweet?text={{TITLE}}&url={{URL}}&via={{SITE_URL}}'],
         ['google', 'https://plus.google.com/share?url={{URL}}']
-    ],
-    defaultMusic: {
-        url: 'http://localhost:5555',
-        info: [
-            {
-                slug: 'パーフェクトヴァニティ',
-                title: 'パーフェクトヴァニティ',
-                author: '茶太',
-                format: '.mp3'
-            },
-            {
-                slug: 'これから',
-                title: 'これから',
-                author: '坂本真綾',
-                format: '.ogg'
-            },
-            {
-                slug: '造花の距離感',
-                title: '造花の距離感',
-                author: 'のぶなが',
-                format: '.mp3'
-            },
-            {
-                slug: 'NULL',
-                title: '茶太',
-                author: 'TEPPAN',
-                format: '.mp3'
-            },
-            {
-                slug: 'ささめく竜は飛ぶ夢を見ない',
-                title: 'ささめく竜は飛ぶ夢を見ない',
-                author: 'やなぎなぎ',
-                format: '.mp3'
-            },
-            {
-                slug: '白い月、微笑んだ太陽',
-                title: '白い月、微笑んだ太陽',
-                author: '中恵光城',
-                format: '.mp3'
-            },
-            {
-                slug: '千年の花',
-                title: '千年の花',
-                author: '中恵光城',
-                format: '.mp3'
-            },
-            {
-                slug: '未来を謳う詩人',
-                title: '未来を謳う詩人',
-                author: '中恵光城',
-                format: '.mp3'
-            },
-            {
-                slug: '雪の羽　時の風',
-                title: '雪の羽　時の風',
-                author: '茶太',
-                format: '.mp3'
-            },
-            {
-                slug: 'Ordinary World',
-                title: 'Ordinary World',
-                author: '仲村芽衣子',
-                format: '.ogg'
-            },
-            {
-                slug: '疾走銀河',
-                title: '疾走銀河',
-                author: 'TEPPAN',
-                format: '.mp3'
-            }
-        ]
-    }
-};
+    ]
+}, process.env.NODE_ENV === 'development' ? configDev : configPd);
 
 export default config;

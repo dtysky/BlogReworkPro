@@ -1,6 +1,11 @@
 {
   "name": "BlogReworkPro",
   "version": "1.0.0",
+  "scripts": {
+    "run-dev": "NODE_ENV=development node server.js",
+    "run-pd": "NODE_ENV=production forver node server.js",
+    "watch": "./node_modules/.bin/webpack --config webpack.dev.config.js"
+  },
   "dependencies": {
     "bluebird": "^3.4.1",
     "express": "^4.14.0",
