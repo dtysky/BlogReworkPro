@@ -6,6 +6,8 @@
 
 import React, {Component} from 'react';
 
+import './theme/css/sky.css';
+
 
 export default class APP extends Component {
     render() {

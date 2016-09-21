@@ -54,15 +54,15 @@ module.exports = {
             {
                 test: /\.less$/,
                 loader: ExtractTextPlugin.extract('less')
+            },
+            {
+                test: /\.(png|jpg|gif)$/,
+                loader: 'url?limit=0'
+            },
+            {
+                test: /\.woff|\.woff2|\.svg|.eot|\.ttf/,
+                loader: 'url?prefix=font/&limit=0'
             }
-//            {
-//                test: /\.(png|jpg|gif|woff|woff2)$/,
-//                loader: 'url?limit=10'
-//            },
-//            {
-//                test: /\.woff|\.woff2|\.svg|.eot|\.ttf/,
-//                loader: 'url?prefix=font/&limit=10000'
-//            }
         ],
         noParse: [
             'jquery',

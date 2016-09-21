@@ -11,5 +11,6 @@ import App from './app';
 
 
 ReactDom.render(
-    <App />
+    <App />,
+    document.getElementById('content')
 );
