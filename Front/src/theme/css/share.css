@@ -1,0 +1,111 @@
+a:-webkit-any-link {
+    text-decoration: none;
+}
+
+.share{
+    position: absolute;
+    margin-top: -60px;
+    right: 0;
+    width: 60px;
+}
+
+.share-button {
+    height: 50px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    opacity: 0.8;
+    width: 32px;
+    font-size: 32px;
+    color: black;
+    transition: opacity .5s ease-in;
+    background: none;
+}
+
+.share-button:hover{
+    opacity: 1;
+}
+
+@font-face {
+    font-family: socialshare;
+    src: url('/theme/font/iconfont.eot'); /* IE9*/
+    src: url('/theme/font/iconfont.eot?#iefix') format("embedded-opentype"), /* IE6-IE8 */
+    url('/theme/font/iconfont.woff') format("woff"), /* chrome, firefox */
+    url('/theme/font/iconfont.ttf') format("truetype"), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+    url('/theme/font/iconfont.svg#iconfont') format("svg"); /* iOS 4.1- */
+}
+
+.share-icon {
+    font-family: "socialshare" !important;
+    word-break: normal;
+    font-size: 30px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    margin-left: 10px;
+    margin-top: 10px;
+    text-align: center;
+    vertical-align: middle;
+    transition: background 0.6s ease-out 0s;
+}
+
+.share-icon:hover{
+     background: #666;
+     color: #fff;
+ }
+
+.icon-tencent:before { content: "\f07a"; }
+.icon-qq:before { content: "\f11a"; }
+.icon-weibo:before { content: "\f12a"; }
+.icon-wechat:before { content: "\f09a"; }
+.icon-douban:before { content: "\f10a"; }
+.icon-heart:before { content: "\f20a"; }
+.icon-like:before { content: "\f00a"; }
+.icon-qzone:before { content: "\f08a"; }
+.icon-linkedin:before { content: "\f01a"; }
+.icon-diandian:before { content: "\f05a"; }
+.icon-facebook:before { content: "\f03a"; }
+.icon-google:before { content: "\f04a"; }
+.icon-twitter:before { content: "\f06a"; }
+
+.icon-weibo {
+    color: #ff763b;
+    border-color: #ff763b;
+}
+
+.icon-tencent{
+    color:#56b6e7;border-color:#56b6e7;
+}
+
+.icon-qq{
+    color:#56b6e7;border-color:#56b6e7;
+}
+.icon-qzone{
+    color:#FDBE3D;border-color:#FDBE3D;
+}
+
+.icon-douban{
+    color:#33b045;border-color:#33b045;
+}
+
+.icon-linkedin{
+    color:#0077B5;border-color:#0077B5;
+}
+
+.icon-facebook {
+    color:#44619D;border-color:#44619D;
+}
+
+.icon-google {
+    color:#db4437;border-color:#db4437;
+}
+
+.icon-twitter {
+    color:#55acee;border-color:#55acee;
+}

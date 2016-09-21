@@ -1,0 +1,299 @@
+h1,h2,h3,h4,h5,h6,p,a{
+	word-break: break-all;
+}
+
+@font-face {
+	font-family: 'icomoon';
+	src:    url('../font/icomoon.eot?c8cymx');
+	src:    url('../font/icomoon.eot?c8cymx#iefix') format('embedded-opentype'),
+	url('../font/icomoon.ttf?c8cymx') format('truetype'),
+	url('../font/icomoon.woff?c8cymx') format('woff'),
+	url('../font/icomoon.svg?c8cymx#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.home-article-middle a:after{
+	/* use !important to prevent issues with browser extensions that change fonts */
+	font-family: 'icomoon' !important;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.home-icon-disqus:before {
+	content: "\e22b";
+}
+
+.home-article{
+	margin-top: 80px;
+	width: 100%;
+}
+
+.home-article-top{
+	margin-top: 40px;
+	margin-bottom: 40px;
+	width: 100%;
+	text-align: center;
+}
+
+.home-article-top p{
+	font-size: 1em;
+	margin-top: 0;
+	margin-bottom: 0;
+	width: 100%;
+	color: gray;
+	text-align: center;
+}
+
+.home-article-top a{
+	color: #666666;
+	font-weight: bolder;
+}
+
+.home-article-top a:hover{
+	color: black;
+}
+
+.home-article-sphr{
+	margin-top: 20px;
+	margin-bottom: 20px;
+	width: 100%;
+	height: 2px;
+}
+
+.home-article-middle{
+	margin-bottom: 20px;
+	font-size: 1em;
+	line-height: 1.5em;
+	font-family: "Microsoft YaHei", Arial ! important;
+}
+
+.home-article-middle h1{
+	font-size: 1.5em;
+	margin-top: 0.8em;
+	margin-bottom: 0.4em;
+}
+
+.home-article-middle h2{
+	font-size: 1.4em;
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+.home-article-middle h3{
+	font-size: 1.3em;
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+.home-article-middle h4,h5,h6{
+	font-size: 1.2em;
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+.home-article-middle p,.home-article-middle a,.home-article-middle code,.highlight,.home-article-middle ol{
+    font-size: 1em;
+	line-height: 1.5em;
+}
+
+.home-article-middle p{
+	margin-bottom: 1em;
+    margin-top: 1em;
+	color: black;
+	word-break: break-all;
+	text-align: left;
+	display: block;
+}
+
+.home-article-middle a{
+	word-break: break-all;
+	color: #444444;
+}
+
+.home-article-middle a:after{
+	margin-left: 2px;
+	content: "\e906";
+}
+
+.home-article-bottom{
+	margin-top: 40px;
+}
+
+.home-article-bottom p{
+	width: 100%;
+	color: black;
+	font-weight: bolder;
+	text-align: center;
+}
+
+.index-preview{
+	width: 100%;
+	margin-top: 30px;
+	margin-bottom: 20px;
+}
+
+.index-preview p{
+	width: 98%;
+	margin-left: 1%;
+	color: black;
+	font-size: 14px;
+	font-weight: bolder;
+}
+
+.authors-list{
+	margin-top: 100px;
+	width: 100%;
+	text-align: center;
+    list-style: none;
+}
+
+.authors-list li{
+    margin-bottom: 40px;
+}
+
+.authors-list a{
+	width: 100%;
+	font-size: 40px;
+	color: #444444;
+}
+
+blockquote{
+	background-color: #00d6b2;
+	padding: 1px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+pre{
+}
+
+#disqus_container {
+	margin-top: 30px;
+}
+
+#disqus_button{
+    border: none;
+    cursor: pointer;
+	font-size:16px;
+	background: none;
+}
+
+.highlight{
+	margin-top: 4px;
+	margin-bottom: 4px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 12px;
+	word-break: break-all;
+	overflow: auto;
+}
+
+.text-center{
+	text-align: center;
+}
+
+.tag-cloud{
+	margin-top: 10%;
+	line-height: 30px;
+}
+
+.tag-cloud a{
+    padding: 4px;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+center {
+	font-size: 14px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.MathJax {
+	font-size: 22px;
+	line-height: 60px;
+}
+
+table{
+	border-color: black;
+	padding: 0;
+	border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-spacing: 0;
+    margin: 10px;
+}
+
+tr{
+	text-align: center;
+}
+
+th{
+	background-color: #aaaaaa;
+	padding: 10px;
+	text-align: center;
+}
+
+td{
+	padding: 10px;
+	text-align: center;
+}
+
+table, th, td {
+    border: 1px solid;
+    border-color: rgba(20, 20, 20,0.8);
+}
+
+blockquote{
+    -webkit-transition: background-color 1s ease-in;
+    -moz-transition: background-color 1s ease-in;
+    -o-transition: background-color 1s ease-in;
+    transition: background-color 1s ease-in;
+}
+
+code{
+	font-weight: bolder;
+	background-color: #ddd;
+}
+
+#resume-header{
+	width: 100%;
+	height: 140px;
+}
+
+#resume-photo{
+	position: absolute;
+	right: 0;
+	max-height: 140px;
+}
+
+.resume-title{
+	position: absolute;
+	left: 0;
+}
+
+.resume-title h2{
+	font-size: 20px;
+	margin-top: 0px;
+	margin-bottom: 20px;
+}
+
+.resume-title p, .resume-title a{
+	font-size: 16px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}

@@ -1,30 +1,25 @@
 /*
- * Webpack development server configuration
+ * Webpack development configuration
  *
  * This file is set up for serving the webpack-dev-server, which will watch for changes and recompile as required if
  * the subfolder /webpack-dev-server/ is visited. Visiting the root will not automatically reload.
  */
+
+require('babel-polyfill');
 const webpack = require('webpack');
-const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const paths = require('./config').paths;
-const srcPath = paths.srcPath;
 
 module.exports = {
+    watch: true,
     cache: true,
     debug: true,
     entry: {
-        main: [
-            'webpack-dev-server/client?' + paths.urlPath,
-            'webpack/hot/only-dev-server',
-            path.join(srcPath, 'index.js')
-        ]
-    }
-    ,
+        main: ['./src/index.js']
+    },
 
     output: {
-        filename: "main.js",
-        publicPath: '/assets/'
+        filename: 'name].bundle.js',
+        path: './dist/assets/'
     },
 
     stats: {
@@ -33,61 +28,59 @@ module.exports = {
         errorDetails: true
     },
 
-    devtool: false,
-
     resolve: {
-        //root: [srcPath],
-        extensions: ["", ".webpack.js", ".web.js", ".js"],
-        alias: {
-            config: "config.js"
-        }
+        modulesDirectories: ['node_modules'],
+        extensions: ['', '.js', '.jsx', '.json']
     },
 
     module: {
-        preLoaders: [{
-            test: /\.js$/,
-            exclude: /node_modules|src\/theme\/*/,
-            loader: 'jsxhint'
-        }],
+        preLoaders: [
+            {
+                test: /\.js/,
+                loader: 'eslint'
+            }
+        ],
         loaders: [
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                loaders: [
-                    'react-hot',
-                    'babel?presets[]=react,presets[]=es2015'
-                ],
-                include : srcPath
+                loaders: ['babel']
             },
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+                loader: ExtractTextPlugin.extract('style', 'css')
             },
             {
-                test: /\.(png|jpg|gif|woff|woff2)$/,
-                loader: 'url?limit=10'
-            },
-            {
-                test   : /\.woff|\.woff2|\.svg|.eot|\.ttf/,
-                loader : 'url?prefix=font/&limit=10000'
-            },
-            {
-                test: /\.json$/,
-                loader: "json-loader"
+                test: /\.less$/,
+                loader: ExtractTextPlugin.extract('less')
             }
+//            {
+//                test: /\.(png|jpg|gif|woff|woff2)$/,
+//                loader: 'url?limit=10'
+//            },
+//            {
+//                test: /\.woff|\.woff2|\.svg|.eot|\.ttf/,
+//                loader: 'url?prefix=font/&limit=10000'
+//            }
         ],
-        noParse:[
-            "jquery",
+        noParse: [
+            'jquery',
             /autoit.js/
         ]
     },
 
     plugins: [
-        new ExtractTextPlugin("main.css"),
+        new ExtractTextPlugin('main.css'),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
         new webpack.ProvidePlugin({
-            $:'jquery'
+            $: 'jquery'
+        }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify('development'),
+                BROWSER: JSON.stringify(true)
+            }
         })
     ]
 };

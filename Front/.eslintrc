@@ -8,7 +8,7 @@
     "object-curly-spacing": [2, "never"],
     "space-before-function-paren": [2, {"anonymous": "always", "named": "ignore"}],
     "comma-dangle": [2, "never"],
-    "indent": ["error", 4],
+    "indent": [2, 4],
     "max-len": [1, 115, 2, {
       "ignoreUrls": true,
       "ignoreComments": true
@@ -22,10 +22,11 @@
     "consistent-return": 0,
     "new-cap": [2, {"capIsNewExceptions": ["ObjectId"]}],
     "jsx-quotes": 0,
+    "react/jsx-indent": [2, 4],
     "react/jsx-no-bind": [2, {
       "ignoreRefs": true,
       "allowArrowFunctions": true,
-      "allowBind": false,
+      "allowBind": false
     }],
     "react/sort-comp": [2, {
       "order": [
@@ -80,14 +81,14 @@
       "never"
     ],
     "flowtype/no-weak-types": 2,
-    "flowtype/require-parameter-type": 2,
-    "flowtype/require-return-type": [
-      2,
-      "always",
-      {
-        "annotateUndefined": "never"
-      }
-    ],
+//    "flowtype/require-parameter-type": 2,
+//    "flowtype/require-return-type": [
+//      2,
+//      "always",
+//      {
+//        "annotateUndefined": "never"
+//      }
+//    ],
     "flowtype/require-valid-file-annotation": 2,
     "flowtype/semi": [
       2,

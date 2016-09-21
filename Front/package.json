@@ -1,10 +1,11 @@
 {
   "name": "BlogReworkPro",
   "version": "1.0.0",
+  "description": "Rework my blog II.",
   "scripts": {
-    "run-dev": "NODE_ENV=development node server.js",
-    "run-pd": "NODE_ENV=production forver node server.js",
-    "watch": "./node_modules/.bin/webpack --config webpack.dev.config.js"
+    "server-dev": "NODE_ENV=development node server.js",
+    "server-pd": "NODE_ENV=production forver node server.js",
+    "watch": "./node_modules/.bin/gulp development"
   },
   "dependencies": {
     "bluebird": "^3.4.1",
@@ -13,25 +14,24 @@
     "jquery": "^2.2.3",
     "lodash": "^4.11.1",
     "moment": "^2.13.0",
+    "qrcode.react": "^0.6.0",
     "react": "^15.0.1",
     "react-addons-create-fragment": "^15.0.1",
     "react-color": "^2.2.2",
     "react-dom": "^15.0.1",
-    "react-redux": "^4.4.5",
-    "react-router": "^2.6.1",
     "react-ga": "^1.2.0",
     "react-helmet": "^2.3.1",
-    "react-modal": "^0.6.1",
+    "react-modal": "^1.4.0",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.6.1",
     "react-tap-event-plugin": "^1.0.0",
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
     "serve-favicon": "~2.3.0",
     "superagent": "^2.0.0",
-    "velocity-animate": "^1.2.3",
-    "velocity-react": "^1.1.3",
     "tracer": "^0.8.3",
-    "qrcode.react": "^0.6.0"
-
+    "velocity-animate": "^1.2.3",
+    "velocity-react": "^1.1.3"
   },
   "devDependencies": {
     "babel-core": "^6.7.6",
@@ -59,10 +59,11 @@
     "eslint": "^2.9.0",
     "eslint-config-airbnb": "^9.0.1",
     "eslint-loader": "^1.3.0",
+    "eslint-plugin-flowtype": "^2.18.2",
     "eslint-plugin-import": "^1.7.0",
     "eslint-plugin-jsx-a11y": "^1.2.0",
     "eslint-plugin-react": "^5.0.1",
-    "eslint-plugin-flowtype": "^2.18.2",
+    "extract-text-webpack-plugin": "^0.8.2",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-clean": "^0.3.2",
@@ -72,6 +73,7 @@
     "gulp-copy": "0.0.2",
     "gulp-if": "^2.0.1",
     "gulp-rename": "^1.2.2",
+    "gulp-sync": "^0.1.4",
     "gulp-uglify": "^1.5.3",
     "less": "^2.6.1",
     "less-loader": "^2.2.3",
@@ -84,7 +86,7 @@
     "sinon": "^1.17.5",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.0",
-    "winston": "^2.2.0",
-    "extract-text-webpack-plugin": "^0.8.2"
+    "webpack-stream": "^3.2.0",
+    "winston": "^2.2.0"
   }
 }
