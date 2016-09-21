@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "Rework my blog II.",
   "scripts": {
-    "server-dev": "NODE_ENV=development node server.js",
-    "server-pd": "NODE_ENV=production forver node server.js",
+    "server-dev": "NODE_ENV=development node server/server.js",
+    "server-pd": "NODE_ENV=production forver node server/server.js",
     "watch": "./node_modules/.bin/gulp development"
   },
   "dependencies": {
     "bluebird": "^3.4.1",
+    "compression": "^1.6.2",
     "express": "^4.14.0",
     "immutable": "^3.8.1",
     "jquery": "^2.2.3",
@@ -75,6 +76,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-sync": "^0.1.4",
     "gulp-uglify": "^1.5.3",
+    "gulp-util": "^3.0.7",
     "less": "^2.6.1",
     "less-loader": "^2.2.3",
     "postcss-loader": "^0.8.2",

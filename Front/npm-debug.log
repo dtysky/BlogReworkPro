@@ -10,7 +10,7 @@
 6 silly lifecycle BlogReworkPro@1.0.0~prewatch: no script for prewatch, continuing
 7 info lifecycle BlogReworkPro@1.0.0~watch: BlogReworkPro@1.0.0
 8 verbose lifecycle BlogReworkPro@1.0.0~watch: unsafe-perm in lifecycle true
-9 verbose lifecycle BlogReworkPro@1.0.0~watch: PATH: /Users/dtysky/.nvm/versions/node/v5.9.0/lib/node_modules/npm/bin/node-gyp-bin:/Users/dtysky/Complex_Mind/BlogReworkPro/Front/node_modules/.bin:/Users/dtysky/.nvm/versions/node/v5.9.0/bin:/Users/dtysky/.nvm/versions/node/v5.9.0/bin:/Users/dtysky/bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/share/dotnet
+9 verbose lifecycle BlogReworkPro@1.0.0~watch: PATH: /Users/dtysky/.nvm/versions/node/v5.9.0/lib/node_modules/npm/bin/node-gyp-bin:/Users/dtysky/Complex_Mind/BlogReworkPro/Front/node_modules/.bin:/Users/dtysky/.nvm/versions/node/v5.9.0/bin:/Users/dtysky/.nvm/versions/node/v5.9.0/bin:/Users/dtysky/bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/share/dotnet:/Users/dtysky/bin
 10 verbose lifecycle BlogReworkPro@1.0.0~watch: CWD: /Users/dtysky/Complex_Mind/BlogReworkPro/Front
 11 silly lifecycle BlogReworkPro@1.0.0~watch: Args: [ '-c', 'gulp development' ]
 12 silly lifecycle BlogReworkPro@1.0.0~watch: Returned: code: 1  signal: null

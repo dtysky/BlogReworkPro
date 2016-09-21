@@ -8,18 +8,19 @@
 require('babel-polyfill');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
 
 module.exports = {
     watch: true,
     cache: true,
     debug: true,
     entry: {
-        main: ['./src/index.js']
+        main: [path.resolve(__dirname, './src/index.js')]
     },
 
     output: {
-        filename: 'name].bundle.js',
-        path: './dist/assets/'
+        filename: '[name].bundle.js',
+        path: path.resolve(__dirname, './dist/assets/')
     },
 
     stats: {

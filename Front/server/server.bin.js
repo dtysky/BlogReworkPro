@@ -1,60 +1,44 @@
 /**
- * Created by dtysky on 16/2/27.
- * A mini size page which rendering from jade templates will be sent while the visitor is bot.
- * This server uses this method for SEO:
- * http://blog.vararu.org/adding-pushstate-support-mean-seo/
- * It just works for a part of search engine...
+ * Copyright(c) dtysky<dtysky@outlook.com>
+ * Created: 16/9/21
+ * Description:
  */
-
-require('babel-register')({
-    presets: ['react', 'es2015', 'stage-0'],
-    plugins: [
-        'transform-runtime',
-        'add-module-exports',
-        'transform-decorators-legacy',
-        'transform-react-display-name',
-        'syntax-async-functions',
-        'transform-regenerator',
-        'transform-async-to-generator',
-        'transform-class-properties'
-    ]
-});
 
 import fs from 'fs';
 import express from 'express';
 import path from 'path';
 import tracer from 'tracer';
+import compression from 'compression';
 // import React from 'react';
 // import {renderToString} from 'react-dom';
 // import {match, RouterContext} from 'react-router';
 import request from 'superagent';
-import config from './config';
+import config from '../config';
 
 const port = config.port;
-const publicPath = './dist/';
-const logPath = path.resolve(publicPath, 'logs');
+const publicPath = path.resolve(__dirname, '../dist');
+const logPath = path.resolve(__dirname, '../logs');
 const loggerConsole = tracer.colorConsole();
 const loggerFile = tracer.dailyfile({root: logPath, maxLogFiles: 30});
-const serverUrl = config.server_url;
-const redirectTable = JSON.parse(fs.readFileSync('./table.json'));
-
+const serverUrl = config.serverUrl;
+const redirectTable = JSON.parse(fs.readFileSync(path.resolve(__dirname, './table.json')));
 
 function logInfo() {
-    loggerConsole.info(arguments); // eslint-disable-line
-    loggerFile.info(arguments); // eslint-disable-line
+    loggerConsole.info(arguments);
+    loggerFile.info(arguments);
 }
 
 function logError() {
-    loggerConsole.error(arguments); // eslint-disable-line
-    loggerFile.error(arguments); // eslint-disable-line
+    loggerConsole.error(arguments);
+    loggerFile.error(arguments);
 }
 
-function log(req, res, next) { // eslint-disable-line
+function log(req, res, next) {
     logInfo('Req', req.method, req.url);
     next();
 }
 
-function redirect(req, res, next) { // eslint-disable-line
+function redirect(req, res, next) {
     if (req.path in redirectTable) {
         logInfo('Redirect: from', req.path, 'to ', redirectTable[req.path]);
         return res.redirect(301, redirectTable[req.path]);
@@ -67,54 +51,58 @@ const app = express();
 
 app.use(log);
 app.use(redirect);
-app.use(express.static(
-    publicPath,
-    {
-        setHeaders: (res, p, stat) => { // eslint-disable-line
-            const name = path.extname(p);
-            if (name === '.js' || name === '.css') {
-                logInfo(name);
-                res.set({
-                    'Content-Encoding': 'gzip'
-                });
-            }
+app.use(compression({
+    filter: (req, res) => {
+        if (req.headers['x-no-compression']) {
+            return false;
         }
-    }
+        return compression.filter(req, res);
+    },
+    threshold: 0
+}));
+
+app.use(express.static(
+    publicPath
+//    {
+//        setHeaders: (res, p, stat) => { // eslint-disable-line
+//            res.set({'Content-Encoding': 'gzip'});
+//        }
+//    }
 ));
 
 // Handlers for sitemap and feeds, forwarding to Back
 
-app.get('/sitemap', (req, res) => { // eslint-disable-line
+app.get('/sitemap', (req, res) => {
     const url = `${serverUrl}/sitemap/all`;
     logInfo('Forwarding', url);
     request.get(url)
-        .then(response => { // eslint-disable-line
+        .then(response => {
             res.send(response);
         })
-        .catch(err => { // eslint-disable-line
+        .catch(err => {
             logError(url, err);
         });
 });
 
-app.get('/feeds/:slug', (req, res) => { // eslint-disable-line
+app.get('/feeds/:slug', (req, res) => {
     const url = `${serverUrl}/${path.join('feeds', req.params.slug.replace('.rss.xml', ''))}`;
     logInfo('Forwarding', url);
     request.get(url)
-        .then(response => { // eslint-disable-line
+        .then(response => {
             res.send(response);
         })
-        .catch(err => { // eslint-disable-line
+        .catch(err => {
             logError(url, err);
         });
 });
 
-// app.get('*', (req, res) => { // eslint-disable-line
+// app.get('*', (req, res) => {
 //    match(
 //        {
 //            routes: routes,
 //            location: req.url
 //        },
-//        function (error, redirectLocation, renderProps) { // eslint-disable-line
+//        function (error, redirectLocation, renderProps) {
 //            if (error) {
 //                return res.status(500)
 //                    .send(error.message);
