@@ -22,6 +22,11 @@ python/bin/pip install flask-compress
 python/bin/pip install pygments
 python/bin/pip install markdown
 
+echo "Change the default encoding..."
+echo "import sys" > python/lib/python2.7/sitecustomize.py
+echo "reload(sys)" >> python/lib/python2.7/sitecustomize.py
+echo "sys.setdefaultencoding('utf-8')" >> python/lib/python2.7/sitecustomize.py
+
 # Install node modules
 cd ../Front/
 echo "Install node modules"

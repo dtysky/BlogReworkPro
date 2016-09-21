@@ -15,8 +15,6 @@ const _ = require('lodash');
 const webpack = require('webpack');
 const webpackDevConfig = require('./webpack.dev.config.js');
 
-const fs = require('fs');
-
 gulp.task('default', ['development']);
 
 gulp.task('clean-all', () => {
@@ -36,7 +34,7 @@ gulp.task('copy-theme', () => {
     ).pipe(gulp.dest('dist/theme'));
 });
 
-gulp.task('development', gulpsync.sync(['clean-all', 'copy-index', 'copy-theme']), (callback) => {
+gulp.task('development', gulpsync.sync(['clean-all', 'copy-index', 'copy-theme']), () => {
     gulp.watch(['src/index.html'], ['copy-index']);
     gulp.watch(['src/theme/font/**/*', 'src/theme/image/**/*'], ['copy-theme']);
     webpack(webpackDevConfig, (err, stats) => {

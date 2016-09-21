@@ -73,26 +73,26 @@ class FileMonitor(FileSystemEventHandler):
             page = None
             try:
                 page = self._parse(path)
-            except:
-                self._error("Parsing error !")
+            except Exception, e:
+                self._error("Parsing error !", e)
                 return
             try:
                 page = self._wrap(page)
-            except:
-                self._error("Wrapping error !")
+            except Exception, e:
+                self._error("Wrapping error !", e)
                 return
             try:
                 self._write(path, mode, page)
-            except:
-                self._error("Writing error !")
+            except Exception, e:
+                self._error("Writing error !", e)
         try:
             self._sitemap_generator.generate()
-        except:
-            self._error("Sitemap generating error !")
+        except Exception, e:
+            self._error("Sitemap generating error !", e)
         try:
             self._feeds_generator.generate()
-        except:
-            self._error("Feeds generating error !")
+        except Exception, e:
+            self._error("Feeds generating error !", e)
 
     def on_created(self, event):
         path = event.src_path
@@ -127,8 +127,8 @@ class FileMonitor(FileSystemEventHandler):
         self._work(src_path, "delete")
         self._work(dst_path, "update")
 
-    def _error(self, message):
-        line = "%s\nFile: %s" % (message, self._file_path)
+    def _error(self, message, err):
+        line = "%s\n%s\nFile: %s" % (message, err, self._file_path)
         logger.error(line)
         if self._debug:
             raise

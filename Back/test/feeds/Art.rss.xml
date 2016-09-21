@@ -2,386 +2,386 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
 <title>dtysky|一个行者的轨迹</title>
-<link>http://dtysky.moe</link><description>自由地看待世界，真诚地走向死亡</description><atom:link href="http://dtysky.moe/feeds/feeds/Art.rss.xml" rel="self"></atom:link>
-<lastBuildDate>Sunday, 28 Feb 2016 20:52:51 -00:00</lastBuildDate>
+<link>http://dtysky.moe</link><description>自由地看待世界，真诚地走向死亡</description><atom:link href="http://dtysky.moe/test/feeds/test/feeds/Art.rss.xml" rel="self"></atom:link>
+<lastBuildDate>Wednesday, 21 Sep 2016 17:25:07 -00:00</lastBuildDate>
 
 <item>
 <title>【FPGA/图像处理】几何变换-旋转</title>
 <link>http://dtysky.moe/article/Art-test</link>
-<description><p>旋转同样是仿射变换的一种特例，它接受一个角度，将图像绕着某个中心进行转动，适合逆向映射。旋转的实现有多种，比如两次错切的旋转<sup>[26]</sup>、直接坐标变换<sup>[27]</sup>等，中心点的选取方式也有许多，但对于FPGA采用图像的几何中心较为合适。。本节将会说明如何用FPGA实现旋转的模块。
-这个IP核的资源在这里：
-<a href="https://github.com/dtysky/FPGA-Imaging-Library/tree/Publish/Geometry/Rotate">Rotate</a></p>
-<blockquote>
-<blockquote>
-<p>test quote
-q</p>
-</blockquote>
-</blockquote>
-<hr />
-<h1>3 算法实现</h1>
-<p>明确了设计和架构，便可以进行算法的实现。本章将会说明如何实现图像处理的算法，以及如何运用它们。</p>
-<h2>3.21 几何变换-旋转</h2>
-<p>旋转同样是仿射变换的一种特例，它接受一个角度，将图像绕着某个中心进行转动，适合逆向映射。旋转的实现有多种，比如两次错切的旋转<sup>[26]</sup>、直接坐标变换<sup>[27]</sup>等，中心点的选取方式也有许多，但对于FPGA采用图像的几何中心较为合适。。本节将会说明如何用FPGA实现旋转的模块。</p>
-<h3>3.21.1 原理</h3>
-<p>此设计中旋转的前向映射基本原理如式3-21-1，其中angle为旋转角度,$x_c$和$y_c$分别为图像中心横纵坐标。对于逆向映射应该对此式进行调整，变换为3-21-2的形式，可见旋转操作比较复杂，不仅涉及多次符号乘法、符号加法，还涉及到三角函数的计算。</p>
-<p>$$\begin{cases}Q[x_t,y_t] = I[x,y]  \\x_t = xc + (x - xc) * cos(a) - (y - yc)*sin(a)\\ y_t = yc + (x - xc) * sin(a) + (y - yc)*cos(a)\\x \in[0, w) ,y \in[0, h)\ \end{cases}.\ \ \ \ \ \ \ \ (3-21-1)$$</p>
+<description>&lt;p&gt;旋转同样是仿射变换的一种特例，它接受一个角度，将图像绕着某个中心进行转动，适合逆向映射。旋转的实现有多种，比如两次错切的旋转&lt;sup&gt;[26]&lt;/sup&gt;、直接坐标变换&lt;sup&gt;[27]&lt;/sup&gt;等，中心点的选取方式也有许多，但对于FPGA采用图像的几何中心较为合适。。本节将会说明如何用FPGA实现旋转的模块。&lt;br /&gt;
+这个IP核的资源在这里：&lt;br /&gt;
+&lt;a href=&amp;quot;https://github.com/dtysky/FPGA-Imaging-Library/tree/Publish/Geometry/Rotate&amp;quot;&gt;Rotate&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;test quote&lt;br /&gt;
+q&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;hr /&gt;
+&lt;h1&gt;3 算法实现&lt;/h1&gt;
+&lt;p&gt;明确了设计和架构，便可以进行算法的实现。本章将会说明如何实现图像处理的算法，以及如何运用它们。&lt;/p&gt;
+&lt;h2&gt;3.21 几何变换-旋转&lt;/h2&gt;
+&lt;p&gt;旋转同样是仿射变换的一种特例，它接受一个角度，将图像绕着某个中心进行转动，适合逆向映射。旋转的实现有多种，比如两次错切的旋转&lt;sup&gt;[26]&lt;/sup&gt;、直接坐标变换&lt;sup&gt;[27]&lt;/sup&gt;等，中心点的选取方式也有许多，但对于FPGA采用图像的几何中心较为合适。。本节将会说明如何用FPGA实现旋转的模块。&lt;/p&gt;
+&lt;h3&gt;3.21.1 原理&lt;/h3&gt;
+&lt;p&gt;此设计中旋转的前向映射基本原理如式3-21-1，其中angle为旋转角度,$x_c$和$y_c$分别为图像中心横纵坐标。对于逆向映射应该对此式进行调整，变换为3-21-2的形式，可见旋转操作比较复杂，不仅涉及多次符号乘法、符号加法，还涉及到三角函数的计算。&lt;/p&gt;
+&lt;p&gt;$$\begin{cases}Q[x_t,y_t] = I[x,y]  \\x_t = xc + (x - xc) * cos(a) - (y - yc)*sin(a)\\ y_t = yc + (x - xc) * sin(a) + (y - yc)*cos(a)\\x \in[0, w) ,y \in[0, h)\ \end{cases}.\ \ \ \ \ \ \ \ (3-21-1)$$&lt;/p&gt;
 
-<p>$$\begin{cases}I[x,y] = Q[x_t,y_t]  \\x = (x_t - xc) * cos(a) + (y_t - yc) * sin(a) + xc\\ y = (-x_t + xc) * sin(a) + (y_t - yc) * cos(a) + yc\\x_t \in[0, w) ,y_t \in[0, h)\ \end{cases}.\ \ \ \ \ \ \ \ (3-21-2)$$</p>
+&lt;p&gt;$$\begin{cases}I[x,y] = Q[x_t,y_t]  \\x = (x_t - xc) * cos(a) + (y_t - yc) * sin(a) + xc\\ y = (-x_t + xc) * sin(a) + (y_t - yc) * cos(a) + yc\\x_t \in[0, w) ,y_t \in[0, h)\ \end{cases}.\ \ \ \ \ \ \ \ (3-21-2)$$&lt;/p&gt;
 
-<p>首先要考虑三角函数的计算，如3.1中所述，FPGA中的特殊函数计算需要用查找表来实现，所以需要编写一个脚本来生成查找表，同时由于三角函数的值可能为负数，并且verilog中符号系统是补码系统，所以需要生成的是角度和此角度下三角函数值的补码。由于正弦和余弦的值域为[-1, 1]，同时一般用于变换的角度为[0,359]，所以综合考虑，最终选择将角度划分为360个点，使用1位符号位、1位整数位和18位的小数位的数据来表示函数值，这其中的难点在于如何将一个浮点数转换为20位的定点数补码，实现函数如下。</p>
-<div class="highlight"><pre>  <span class="k">def</span> <span class="nf">format</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
-    <span class="n">r</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">format</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="s">&#39;f&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="s">&#39;0&#39;</span> <span class="o">+</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="s">&#39;1&#39;</span> <span class="o">+</span> <span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s">&#39;0.&#39;</span> <span class="o">+</span> <span class="n">d</span><span class="p">)</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">18</span><span class="p">):</span>
-        <span class="n">d</span> <span class="o">=</span> <span class="n">d</span> <span class="o">*</span> <span class="mi">2</span>
-        <span class="n">res</span> <span class="o">+=</span> <span class="s">&#39;1&#39;</span> <span class="k">if</span> <span class="n">d</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="k">else</span> <span class="s">&#39;0&#39;</span>
-        <span class="n">d</span> <span class="o">=</span> <span class="n">d</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">d</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">d</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">res</span>
-    <span class="k">if</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;1&#39;</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">eval</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">res</span> <span class="o">=</span> <span class="s">&#39;0&#39;</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">res</span> <span class="o">=</span> <span class="nb">bin</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="mi">19</span> <span class="o">-</span> <span class="nb">eval</span><span class="p">(</span><span class="s">&#39;0b&#39;</span> <span class="o">+</span> <span class="n">res</span><span class="p">))[</span><span class="mi">2</span><span class="p">:]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">19</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)):</span>
-            <span class="n">res</span> <span class="o">=</span> <span class="s">&#39;0&#39;</span> <span class="o">+</span> <span class="n">res</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">res</span>
-    <span class="k">if</span> <span class="n">res</span> <span class="o">==</span> <span class="s">&#39;10000000000000000000&#39;</span><span class="p">:</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="s">&#39;00000000000000000000&#39;</span>
-    <span class="k">return</span> <span class="n">res</span>
-</pre></div>
+&lt;p&gt;首先要考虑三角函数的计算，如3.1中所述，FPGA中的特殊函数计算需要用查找表来实现，所以需要编写一个脚本来生成查找表，同时由于三角函数的值可能为负数，并且verilog中符号系统是补码系统，所以需要生成的是角度和此角度下三角函数值的补码。由于正弦和余弦的值域为[-1, 1]，同时一般用于变换的角度为[0,359]，所以综合考虑，最终选择将角度划分为360个点，使用1位符号位、1位整数位和18位的小数位的数据来表示函数值，这其中的难点在于如何将一个浮点数转换为20位的定点数补码，实现函数如下。&lt;/p&gt;
+&lt;div class=&amp;quot;highlight&amp;quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  &lt;span class=&amp;quot;k&amp;quot;&gt;def&lt;/span&gt; &lt;span class=&amp;quot;nf&amp;quot;&gt;format&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;n&amp;quot;&gt;num&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;):&lt;/span&gt;
+    &lt;span class=&amp;quot;n&amp;quot;&gt;r&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;,&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;d&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;format&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;n&amp;quot;&gt;num&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;,&lt;/span&gt; &lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;f&amp;#39;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;)&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;.&lt;/span&gt;&lt;span class=&amp;quot;n&amp;quot;&gt;split&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;.&amp;#39;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;)&lt;/span&gt;
+    &lt;span class=&amp;quot;n&amp;quot;&gt;r&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt; &lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;0&amp;#39;&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;+&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;r&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;[&lt;/span&gt;&lt;span class=&amp;quot;mi&amp;quot;&gt;0&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;]&lt;/span&gt; &lt;span class=&amp;quot;k&amp;quot;&gt;if&lt;/span&gt; &lt;span class=&amp;quot;nb&amp;quot;&gt;len&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;n&amp;quot;&gt;r&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;)&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;==&lt;/span&gt; &lt;span class=&amp;quot;mi&amp;quot;&gt;1&lt;/span&gt; &lt;span class=&amp;quot;k&amp;quot;&gt;else&lt;/span&gt; &lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;1&amp;#39;&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;+&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;r&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;[&lt;/span&gt;&lt;span class=&amp;quot;mi&amp;quot;&gt;1&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;]&lt;/span&gt;
+    &lt;span class=&amp;quot;n&amp;quot;&gt;d&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt; &lt;span class=&amp;quot;nb&amp;quot;&gt;float&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;0.&amp;#39;&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;+&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;d&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;)&lt;/span&gt;
+    &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt; &lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;&amp;#39;&lt;/span&gt;
+    &lt;span class=&amp;quot;k&amp;quot;&gt;for&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;i&lt;/span&gt; &lt;span class=&amp;quot;ow&amp;quot;&gt;in&lt;/span&gt; &lt;span class=&amp;quot;nb&amp;quot;&gt;xrange&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;mi&amp;quot;&gt;18&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;):&lt;/span&gt;
+        &lt;span class=&amp;quot;n&amp;quot;&gt;d&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;d&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;*&lt;/span&gt; &lt;span class=&amp;quot;mi&amp;quot;&gt;2&lt;/span&gt;
+        &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;+=&lt;/span&gt; &lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;1&amp;#39;&lt;/span&gt; &lt;span class=&amp;quot;k&amp;quot;&gt;if&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;d&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&amp;quot;mi&amp;quot;&gt;1&lt;/span&gt; &lt;span class=&amp;quot;k&amp;quot;&gt;else&lt;/span&gt; &lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;0&amp;#39;&lt;/span&gt;
+        &lt;span class=&amp;quot;n&amp;quot;&gt;d&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;d&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;-&lt;/span&gt; &lt;span class=&amp;quot;mi&amp;quot;&gt;1&lt;/span&gt; &lt;span class=&amp;quot;k&amp;quot;&gt;if&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;d&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&amp;quot;mi&amp;quot;&gt;1&lt;/span&gt; &lt;span class=&amp;quot;k&amp;quot;&gt;else&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;d&lt;/span&gt;
+    &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;r&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;[&lt;/span&gt;&lt;span class=&amp;quot;mi&amp;quot;&gt;1&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;]&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;+&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt;
+    &lt;span class=&amp;quot;k&amp;quot;&gt;if&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;r&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;[&lt;/span&gt;&lt;span class=&amp;quot;mi&amp;quot;&gt;0&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;]&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;==&lt;/span&gt; &lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;1&amp;#39;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;:&lt;/span&gt;
+        &lt;span class=&amp;quot;k&amp;quot;&gt;if&lt;/span&gt; &lt;span class=&amp;quot;nb&amp;quot;&gt;eval&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;)&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;==&lt;/span&gt; &lt;span class=&amp;quot;mi&amp;quot;&gt;0&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;:&lt;/span&gt;
+            &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt; &lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;0&amp;#39;&lt;/span&gt;
+        &lt;span class=&amp;quot;k&amp;quot;&gt;else&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;:&lt;/span&gt;
+            &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt; &lt;span class=&amp;quot;nb&amp;quot;&gt;bin&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;mi&amp;quot;&gt;2&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;**&lt;/span&gt; &lt;span class=&amp;quot;mi&amp;quot;&gt;19&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;-&lt;/span&gt; &lt;span class=&amp;quot;nb&amp;quot;&gt;eval&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;0b&amp;#39;&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;+&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;))[&lt;/span&gt;&lt;span class=&amp;quot;mi&amp;quot;&gt;2&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;:]&lt;/span&gt;
+        &lt;span class=&amp;quot;k&amp;quot;&gt;for&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;i&lt;/span&gt; &lt;span class=&amp;quot;ow&amp;quot;&gt;in&lt;/span&gt; &lt;span class=&amp;quot;nb&amp;quot;&gt;xrange&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;mi&amp;quot;&gt;19&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;-&lt;/span&gt; &lt;span class=&amp;quot;nb&amp;quot;&gt;len&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;)):&lt;/span&gt;
+            &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt; &lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;0&amp;#39;&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;+&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt;
+    &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;r&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;[&lt;/span&gt;&lt;span class=&amp;quot;mi&amp;quot;&gt;0&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;]&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;+&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt;
+    &lt;span class=&amp;quot;k&amp;quot;&gt;if&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;==&lt;/span&gt; &lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;10000000000000000000&amp;#39;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;:&lt;/span&gt;
+        &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt; &lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;00000000000000000000&amp;#39;&lt;/span&gt;
+    &lt;span class=&amp;quot;k&amp;quot;&gt;return&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 
-<p>旋转变换同样需要符号舍入，但整数位只有1位，所以没有溢出风险，可以将其简化，仅仅裁剪输出即可。</p>
-<h3>3.21.2 设计</h3>
-<p>根据原理可知，Rotate核(以下简称RTT核)需要四次符号乘法、四次符号舍入操作和四次符号加法，并且需要和基于行列计数的帧控制器进行合作。故其需要的配置参数与端口如表3-21-1和表3-21-2。</p>
-<p><center>
-<table border="1" cellspacing="0">
-<tr>
-<th>名字</th>
-<th>类型</th>
-<th>范围</th>
-<th>默认值</th>
-<th>说明</th>
-</tr>
-<td>work_mode</td>
-<td>无符号</td>
-<td>0为流水线模式，1为请求响应模式</td>
-<td>0</td>
-<td>模块的工作模式。</td>
-</tr>
-<tr>
-<tr>
-<td>data_width</td>
-<td>无符号</td>
-<td>1 - 12</td>
-<td>8</td>
-<td>数据位宽。</td>
-</tr>
-<tr>
-<td>im_width</td>
-<td>无符号</td>
-<td>1 - 4096</td>
-<td>320</td>
-<td>图像宽度。</td>
-</tr>
-<tr>
-<td>im_height</td>
-<td>无符号</td>
-<td>1 - 4096</td>
-<td>240</td>
-<td>图像高度。</td>
-</tr>
-<tr>
-<td>im_width_bits</td>
-<td>无符号</td>
-<td>取决于图像宽度</td>
-<td>9</td>
-<td>图像宽度的位宽。</td>
-</tr>
-<tr>
-<td>mul_delay</td>
-<td>无符号</td>
-<td>取决于乘法器配置，1-14</td>
-<td>3</td>
-<td>乘法器延迟。</td>
-</tr>
-<tr>
-<td>ram_RL</td>
-<td>无符号</td>
-<td>取决于帧控制器</td>
-<td>7</td>
-<td>帧控制器输出延迟。</td>
-</tr>
-</table>
-表3-21-1 配置参数
-</center>
-<br>
-<center>
-<table border="1" cellspacing="0">
-<tr>
-<th>名字</th>
-<th>端口</th>
-<th>类型</th>
-<th>范围</th>
-<th>默认值</th>
-<th>说明</th>
-</tr>
-<td>clk</td>
-<td>输入</td>
-<td>无符号</td>
-<td>无</td>
-<td>无</td>
-<td>Clock.</td>
-</tr>
-<tr>
-<td>rst_n</td>
-<td>输入</td>
-<td>无符号</td>
-<td>无</td>
-<td>无</td>
-<td>复位，低有效。</td>
-</tr>
-<tr>
-<td>angle</td>
-<td>input</td>
-<td>无符号</td>
-<td>0 - 359</td>
-<td>无</td>
-<td>旋转角度。</td>
-</tr>
-<tr>
-<td>in_enable</td>
-<td>输入</td>
-<td>无符号</td>
-<td>无</td>
-<td>无</td>
-<td>输入数据使能，在流水线模式下，它是另一个复位信号，在请求响应模式下，只有在它有效的时候in_data才会被真正地改变。</td>
-</tr>
-<tr>
-<td>frame_in_ready</td>
-<td>输入</td>
-<td>无符号</td>
-<td>无</td>
-<td>无</td>
-<td>连接到帧控制器的out_ready。</td>
-</tr>
-<tr>
-<td>frame_in_data</td>
-<td>输入</td>
-<td>无符号</td>
-<td>data_width - 1 : 0</td>
-<td>无</td>
-<td>连接到帧控制器的out_data。</td>
-</tr>
-<tr>
-<td>frame_enable</td>
-<td>output</td>
-<td>无符号</td>
-<td>无</td>
-<td>无</td>
-<td>连接到帧控制器的in_enable。</td>
-</tr>
-<tr>
-<td>frame_out_count_x</td>
-<td>output</td>
-<td>无符号</td>
-<td>im_width_bits - 1 : 0</td>
-<td>无</td>
-<td>连接到帧控制器的in_count_x。</td>
-</tr>
-<tr>
-<td>out_count_y</td>
-<td>output</td>
-<td>无符号</td>
-<td>im_width_bits - 1 : 0</td>
-<td>无</td>
-<td>连接到帧控制器的in_count_y。</td>
-</tr>
-<tr>
-<td>out_ready</td>
-<td>output</td>
-<td>无符号</td>
-<td>无</td>
-<td>无</td>
-<td>输出数据有效，在两种模式下，这个信号都会在out_data可以被读取的时候有效。</td>
-</tr>
-<tr>
-<td>out_data</td>
-<td>output</td>
-<td>无符号</td>
-<td>color_width - 1 : 0</td>
-<td>无</td>
-<td>输出数据，将会和out_ready同步输出。</td>
-</tr>
-</table>
-表3-21-2 端口
-</center>
-</center>
-<br>
-<center>
-<table border="1" cellspacing="0">
-<tr>
-<th>名字</th>
-<th>类型</th>
-<th>说明</th>
-</tr>
-<tr>
-<td>Sin</td>
-<td>SinLUT</td>
-<td>获取角度的正弦。</td>
-</tr>
-<tr>
-<td>Cos</td>
-<td>CosLUT</td>
-<td>获取角度的余弦。</td>
-</tr>
-<tr>
-<td>MulX1</td>
-<td>Multiplier13Sx20SRTT</td>
-<td>13位有符号数和20位有符号数的乘法器，被用于定点数的乘法。你可以自己配置这个乘法器，然后更改"mul_delay"，但所有的乘法器必须拥有相同的流水线级数，并且不能更改端口的配置！</td>
-</tr>
-<tr>
-<td>MulX2</td>
-<td>Multiplier13Sx20SRTT</td>
-<td>13位有符号数和20位有符号数的乘法器，被用于定点数的乘法。你可以自己配置这个乘法器，然后更改"mul_delay"，但所有的乘法器必须拥有相同的流水线级数，并且不能更改端口的配置！</td>
-</tr>
-<tr>
-<td>MulY1</td>
-<td>Multiplier13Sx20SRTT</td>
-<td>13位有符号数和20位有符号数的乘法器，被用于定点数的乘法。你可以自己配置这个乘法器，然后更改"mul_delay"，但所有的乘法器必须拥有相同的流水线级数，并且不能更改端口的配置！</td>
-</tr>
-<tr>
-<td>MulY2</td>
-<td>Multiplier13Sx20SRTT</td>
-<td>13位有符号数和20位有符号数的乘法器，被用于定点数的乘法。你可以自己配置这个乘法器，然后更改"mul_delay"，但所有的乘法器必须拥有相同的流水线级数，并且不能更改端口的配置！</td>
-</tr>
-<tr>
-<td>FRSX1</td>
-<td>FixedRoundSigned</td>
-<td>用于有符号浮点数的舍入。</td>
-</tr>
-<tr>
-<td>FRSX2</td>
-<td>FixedRoundSigned</td>
-<td>用于有符号浮点数的舍入。</td>
-</tr>
-<tr>
-<td>FRSY1</td>
-<td>FixedRoundSigned</td>
-<td>用于有符号浮点数的舍入。</td>
-</tr>
-<tr>
-<td>FRSY2</td>
-<td>FixedRoundSigned</td>
-<td>用于有符号浮点数的舍入。</td>
-</tr>
-</table>
-表3-3-3 子模块
-</center></p>
-<h3>3.21.3 实现</h3>
-<p>根据3.21.2的设计便可以实现一个RTT核，流水线模式和请求响应模式实现如下。</p>
-<h4>3.21.3.1 流水线模式</h4>
-<p>在帧控制器的输出使能后1个周期第一个结果被输出，开始流水化工作，波形如图3-21-1。
-<center>
-<img alt="图3-21-1 流水线模式时序" src="http://src.dtysky.moe/image/f-i-l/3/21/1.png" />
-图3-21-1 流水线模式时序
-</center></p>
-<h4>3.21.3.2 请求响应模式读取</h4>
-<p>基本同3.21.3.1，但只有在in_enable上升沿时计数器才会加1才会被改变，波形如图3-21-2。
-<center>
-<img alt="图3-21-1 流水线模式时序" src="http://src.dtysky.moe/image/f-i-l/3/21/2.png" />
-图3-21-1 流水线模式时序
-</center></p>
-<h4>3.21.3.3 IP核GUI</h4>
-<p>完成功能后对RTT核进行了封装，封装如图3-21-3。
-<center>
-<img alt="图3-21-3 RTT核的GUI" src="http://src.dtysky.moe/image/f-i-l/3/21/3.png" />
-图3-21-3 RTT核的GUI
-</center></p>
-<h3>3.21.4 仿真</h3>
-<p>只对RGB图像和灰度图像进行测试，考虑到仿真设计模块比较多，出于仿真压力，我选择了一张图像的灰度模式进行三套参数的测试，原始图像如图3-21-4。</p>
-<p><center>
-<img alt="图3-21-4 仿真原始图像" src="http://src.dtysky.moe/image/f-i-l/3/21/4.jpg" />
-图3-21-4 仿真原始图像
-</center></p>
-<p>仿真参数如表3-16-4所示，选择原则是可以被二进制表示和不可以被表示的值都包含。</p>
-<p><center>
-<table border="1" cellspacing="0">
-<tr>
-<th>angle</th>
-</tr>
-<tr>
-<td>45</td>
-</tr>
-<tr>
-<td>131</td>
-</tr>
-<tr>
-<td>270</td>
-</tr>
-</table>
-表3-16-4 仿真参数
-</center></p>
-<p>仿真并进行PSNR测试，仿真结果如图3-21-5所示。
-<center>
-<img alt="图3-21-5 仿真结果" src="http://src.dtysky.moe/image/f-i-l/3/21/5.png" />
-图3-21-5 仿真结果，左侧为流水线模式下的HDL功能仿真结果，中间为请求响应模式下的HDL功能仿真结果，右侧为软件仿真结果
-</center></p>
-<h3>3.21.5 资源和时序</h3>
-<p>最终实现与图像大小和数据位宽有关，这里只分析大小为512x512和数据位宽为8时的状况，根据Vivado生成的报表，主要资源耗费如表3-21-5。</p>
-<p><center>
-<table border="1" cellspacing="0">
-<tr>
-<th>Slice LUTs*</th>
-<th>Slice Registers</th>
-<th>DSP</th>
-</tr>
-<tr>
-<td>543</td>
-<td>245</td>
-<td>4</td>
-</tr>
-</table>
-表3-21-5 主要资源耗费
-</center></p>
-<p>同时根据时序报告，最大的Data Path Delay(数据路径延迟)为4.414ns，即：</p>
-<blockquote>
-<p>FMax = 226.55MHz</p>
-</blockquote>
-<p>即说明，Rotate核在流水线模式下，理论上在处理1080p全高清图像时可以达到109帧。
-与3.20相同，此FMax低于期望值，也来自于舍入核的加法，考虑时间此处暂时不做优化。
-由于数据路径延迟和应用的最终约束设置强相关，所以仅供参考。</p>
-<h3>3.21.6 分析与结论</h3>
-<p>PSNR如表3-21-6。</p>
-<p><center>
-<table border="1" cellspacing="0">
-<tr>
-<th>1-131</th>
-<th>1-270</th>
-<th>1-45</th>
-<th>Total</th>
-</tr>
-<tr>
-<td>1000000.00</td>
-<td>54.89</td>
-<td>1000000.00</td>
-<td>666684.96</td>
-</tr>
-</table>
-表3-21-6 PSNR
-</center></p>
-<p>PSNR对于某些参数为最大值，对于一些不是，最终误差来自于符号乘法和查找表自身的误差，但PSNR均为50以上，可见在测试范围内，RTT核可以满足处理需求，设计成功。</p>
-<hr />
-<h1>参考文献</h1>
-<p>[26] 陈芳.一种基于错切原理的图像旋转方法[J].淮阴师范学院学报（自然科学版）,2004,3(4):319-322.DOI:10.3969/j.issn.1671-6876.2004.04.016.
-[27] 王金辉.实时图像旋转系统的研究与FPGA实现[D].华中科技大学,2012.</p>
-<hr />
-<h1>感谢</h1>
-<p>仿真图像来源：
-<a href="http://www.pixiv.net/member_illust.php?mode=medium&amp;illust_id=49603329">041-マツムシソウ</a></p>
-<script type="text/javascript" src="http://src.dtysky.moe/MathJax/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></description>
+&lt;p&gt;旋转变换同样需要符号舍入，但整数位只有1位，所以没有溢出风险，可以将其简化，仅仅裁剪输出即可。&lt;/p&gt;
+&lt;h3&gt;3.21.2 设计&lt;/h3&gt;
+&lt;p&gt;根据原理可知，Rotate核(以下简称RTT核)需要四次符号乘法、四次符号舍入操作和四次符号加法，并且需要和基于行列计数的帧控制器进行合作。故其需要的配置参数与端口如表3-21-1和表3-21-2。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;br /&gt;
+&lt;table border=&amp;quot;1&amp;quot; cellspacing=&amp;quot;0&amp;quot;&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;th&gt;名字&lt;/th&gt;&lt;br /&gt;
+&lt;th&gt;类型&lt;/th&gt;&lt;br /&gt;
+&lt;th&gt;范围&lt;/th&gt;&lt;br /&gt;
+&lt;th&gt;默认值&lt;/th&gt;&lt;br /&gt;
+&lt;th&gt;说明&lt;/th&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;td&gt;work_mode&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无符号&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;0为流水线模式，1为请求响应模式&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;0&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;模块的工作模式。&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;data_width&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无符号&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;1 - 12&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;8&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;数据位宽。&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;im_width&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无符号&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;1 - 4096&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;320&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;图像宽度。&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;im_height&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无符号&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;1 - 4096&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;240&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;图像高度。&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;im_width_bits&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无符号&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;取决于图像宽度&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;9&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;图像宽度的位宽。&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;mul_delay&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无符号&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;取决于乘法器配置，1-14&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;3&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;乘法器延迟。&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;ram_RL&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无符号&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;取决于帧控制器&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;7&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;帧控制器输出延迟。&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;/table&gt;&lt;br /&gt;
+表3-21-1 配置参数&lt;br /&gt;
+&lt;/center&gt;&lt;br /&gt;
+&lt;br&gt;&lt;br /&gt;
+&lt;center&gt;&lt;br /&gt;
+&lt;table border=&amp;quot;1&amp;quot; cellspacing=&amp;quot;0&amp;quot;&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;th&gt;名字&lt;/th&gt;&lt;br /&gt;
+&lt;th&gt;端口&lt;/th&gt;&lt;br /&gt;
+&lt;th&gt;类型&lt;/th&gt;&lt;br /&gt;
+&lt;th&gt;范围&lt;/th&gt;&lt;br /&gt;
+&lt;th&gt;默认值&lt;/th&gt;&lt;br /&gt;
+&lt;th&gt;说明&lt;/th&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;td&gt;clk&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;输入&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无符号&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;Clock.&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;rst_n&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;输入&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无符号&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;复位，低有效。&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;angle&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;input&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无符号&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;0 - 359&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;旋转角度。&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;in_enable&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;输入&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无符号&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;输入数据使能，在流水线模式下，它是另一个复位信号，在请求响应模式下，只有在它有效的时候in_data才会被真正地改变。&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;frame_in_ready&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;输入&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无符号&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;连接到帧控制器的out_ready。&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;frame_in_data&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;输入&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无符号&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;data_width - 1 : 0&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;连接到帧控制器的out_data。&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;frame_enable&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;output&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无符号&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;连接到帧控制器的in_enable。&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;frame_out_count_x&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;output&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无符号&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;im_width_bits - 1 : 0&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;连接到帧控制器的in_count_x。&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;out_count_y&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;output&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无符号&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;im_width_bits - 1 : 0&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;连接到帧控制器的in_count_y。&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;out_ready&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;output&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无符号&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;输出数据有效，在两种模式下，这个信号都会在out_data可以被读取的时候有效。&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;out_data&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;output&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无符号&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;color_width - 1 : 0&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;无&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;输出数据，将会和out_ready同步输出。&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;/table&gt;&lt;br /&gt;
+表3-21-2 端口&lt;br /&gt;
+&lt;/center&gt;&lt;br /&gt;
+&lt;/center&gt;&lt;br /&gt;
+&lt;br&gt;&lt;br /&gt;
+&lt;center&gt;&lt;br /&gt;
+&lt;table border=&amp;quot;1&amp;quot; cellspacing=&amp;quot;0&amp;quot;&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;th&gt;名字&lt;/th&gt;&lt;br /&gt;
+&lt;th&gt;类型&lt;/th&gt;&lt;br /&gt;
+&lt;th&gt;说明&lt;/th&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;Sin&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;SinLUT&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;获取角度的正弦。&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;Cos&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;CosLUT&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;获取角度的余弦。&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;MulX1&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;Multiplier13Sx20SRTT&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;13位有符号数和20位有符号数的乘法器，被用于定点数的乘法。你可以自己配置这个乘法器，然后更改&amp;quot;mul_delay&amp;quot;，但所有的乘法器必须拥有相同的流水线级数，并且不能更改端口的配置！&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;MulX2&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;Multiplier13Sx20SRTT&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;13位有符号数和20位有符号数的乘法器，被用于定点数的乘法。你可以自己配置这个乘法器，然后更改&amp;quot;mul_delay&amp;quot;，但所有的乘法器必须拥有相同的流水线级数，并且不能更改端口的配置！&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;MulY1&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;Multiplier13Sx20SRTT&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;13位有符号数和20位有符号数的乘法器，被用于定点数的乘法。你可以自己配置这个乘法器，然后更改&amp;quot;mul_delay&amp;quot;，但所有的乘法器必须拥有相同的流水线级数，并且不能更改端口的配置！&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;MulY2&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;Multiplier13Sx20SRTT&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;13位有符号数和20位有符号数的乘法器，被用于定点数的乘法。你可以自己配置这个乘法器，然后更改&amp;quot;mul_delay&amp;quot;，但所有的乘法器必须拥有相同的流水线级数，并且不能更改端口的配置！&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;FRSX1&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;FixedRoundSigned&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;用于有符号浮点数的舍入。&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;FRSX2&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;FixedRoundSigned&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;用于有符号浮点数的舍入。&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;FRSY1&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;FixedRoundSigned&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;用于有符号浮点数的舍入。&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;FRSY2&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;FixedRoundSigned&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;用于有符号浮点数的舍入。&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;/table&gt;&lt;br /&gt;
+表3-3-3 子模块&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;h3&gt;3.21.3 实现&lt;/h3&gt;
+&lt;p&gt;根据3.21.2的设计便可以实现一个RTT核，流水线模式和请求响应模式实现如下。&lt;/p&gt;
+&lt;h4&gt;3.21.3.1 流水线模式&lt;/h4&gt;
+&lt;p&gt;在帧控制器的输出使能后1个周期第一个结果被输出，开始流水化工作，波形如图3-21-1。&lt;br /&gt;
+&lt;center&gt;&lt;br /&gt;
+&lt;img alt=&amp;quot;图3-21-1 流水线模式时序&amp;quot; src=&amp;quot;http://src.dtysky.moe/image/f-i-l/3/21/1.png&amp;quot; /&gt;&lt;br /&gt;
+图3-21-1 流水线模式时序&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;h4&gt;3.21.3.2 请求响应模式读取&lt;/h4&gt;
+&lt;p&gt;基本同3.21.3.1，但只有在in_enable上升沿时计数器才会加1才会被改变，波形如图3-21-2。&lt;br /&gt;
+&lt;center&gt;&lt;br /&gt;
+&lt;img alt=&amp;quot;图3-21-1 流水线模式时序&amp;quot; src=&amp;quot;http://src.dtysky.moe/image/f-i-l/3/21/2.png&amp;quot; /&gt;&lt;br /&gt;
+图3-21-1 流水线模式时序&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;h4&gt;3.21.3.3 IP核GUI&lt;/h4&gt;
+&lt;p&gt;完成功能后对RTT核进行了封装，封装如图3-21-3。&lt;br /&gt;
+&lt;center&gt;&lt;br /&gt;
+&lt;img alt=&amp;quot;图3-21-3 RTT核的GUI&amp;quot; src=&amp;quot;http://src.dtysky.moe/image/f-i-l/3/21/3.png&amp;quot; /&gt;&lt;br /&gt;
+图3-21-3 RTT核的GUI&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;h3&gt;3.21.4 仿真&lt;/h3&gt;
+&lt;p&gt;只对RGB图像和灰度图像进行测试，考虑到仿真设计模块比较多，出于仿真压力，我选择了一张图像的灰度模式进行三套参数的测试，原始图像如图3-21-4。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;br /&gt;
+&lt;img alt=&amp;quot;图3-21-4 仿真原始图像&amp;quot; src=&amp;quot;http://src.dtysky.moe/image/f-i-l/3/21/4.jpg&amp;quot; /&gt;&lt;br /&gt;
+图3-21-4 仿真原始图像&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;仿真参数如表3-16-4所示，选择原则是可以被二进制表示和不可以被表示的值都包含。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;br /&gt;
+&lt;table border=&amp;quot;1&amp;quot; cellspacing=&amp;quot;0&amp;quot;&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;th&gt;angle&lt;/th&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;45&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;131&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;270&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;/table&gt;&lt;br /&gt;
+表3-16-4 仿真参数&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;仿真并进行PSNR测试，仿真结果如图3-21-5所示。&lt;br /&gt;
+&lt;center&gt;&lt;br /&gt;
+&lt;img alt=&amp;quot;图3-21-5 仿真结果&amp;quot; src=&amp;quot;http://src.dtysky.moe/image/f-i-l/3/21/5.png&amp;quot; /&gt;&lt;br /&gt;
+图3-21-5 仿真结果，左侧为流水线模式下的HDL功能仿真结果，中间为请求响应模式下的HDL功能仿真结果，右侧为软件仿真结果&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;h3&gt;3.21.5 资源和时序&lt;/h3&gt;
+&lt;p&gt;最终实现与图像大小和数据位宽有关，这里只分析大小为512x512和数据位宽为8时的状况，根据Vivado生成的报表，主要资源耗费如表3-21-5。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;br /&gt;
+&lt;table border=&amp;quot;1&amp;quot; cellspacing=&amp;quot;0&amp;quot;&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;th&gt;Slice LUTs*&lt;/th&gt;&lt;br /&gt;
+&lt;th&gt;Slice Registers&lt;/th&gt;&lt;br /&gt;
+&lt;th&gt;DSP&lt;/th&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;543&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;245&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;4&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;/table&gt;&lt;br /&gt;
+表3-21-5 主要资源耗费&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;同时根据时序报告，最大的Data Path Delay(数据路径延迟)为4.414ns，即：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;FMax = 226.55MHz&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;即说明，Rotate核在流水线模式下，理论上在处理1080p全高清图像时可以达到109帧。&lt;br /&gt;
+与3.20相同，此FMax低于期望值，也来自于舍入核的加法，考虑时间此处暂时不做优化。&lt;br /&gt;
+由于数据路径延迟和应用的最终约束设置强相关，所以仅供参考。&lt;/p&gt;
+&lt;h3&gt;3.21.6 分析与结论&lt;/h3&gt;
+&lt;p&gt;PSNR如表3-21-6。&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;br /&gt;
+&lt;table border=&amp;quot;1&amp;quot; cellspacing=&amp;quot;0&amp;quot;&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;th&gt;1-131&lt;/th&gt;&lt;br /&gt;
+&lt;th&gt;1-270&lt;/th&gt;&lt;br /&gt;
+&lt;th&gt;1-45&lt;/th&gt;&lt;br /&gt;
+&lt;th&gt;Total&lt;/th&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;tr&gt;&lt;br /&gt;
+&lt;td&gt;1000000.00&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;54.89&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;1000000.00&lt;/td&gt;&lt;br /&gt;
+&lt;td&gt;666684.96&lt;/td&gt;&lt;br /&gt;
+&lt;/tr&gt;&lt;br /&gt;
+&lt;/table&gt;&lt;br /&gt;
+表3-21-6 PSNR&lt;br /&gt;
+&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;PSNR对于某些参数为最大值，对于一些不是，最终误差来自于符号乘法和查找表自身的误差，但PSNR均为50以上，可见在测试范围内，RTT核可以满足处理需求，设计成功。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h1&gt;参考文献&lt;/h1&gt;
+&lt;p&gt;[26] 陈芳.一种基于错切原理的图像旋转方法[J].淮阴师范学院学报（自然科学版）,2004,3(4):319-322.DOI:10.3969/j.issn.1671-6876.2004.04.016.&lt;br /&gt;
+[27] 王金辉.实时图像旋转系统的研究与FPGA实现[D].华中科技大学,2012.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h1&gt;感谢&lt;/h1&gt;
+&lt;p&gt;仿真图像来源：&lt;br /&gt;
+&lt;a href=&amp;quot;http://www.pixiv.net/member_illust.php?mode=medium&amp;amp;illust_id=49603329&amp;quot;&gt;041-マツムシソウ&lt;/a&gt;&lt;/p&gt;
+&lt;script type=&amp;quot;text/javascript&amp;quot; src=&amp;quot;http://src.dtysky.moe/MathJax/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML&amp;quot;&gt;&lt;/script&gt;</description>
 <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">dtysky</dc:creator>
 <pubDate>Saturday, 30 May 2015 00:30:00 -00:00</pubDate>
 <guid>tag:http://dtysky.moe,2015.05.30 00:30:article/Art-test</guid>
