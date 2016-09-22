@@ -31,7 +31,7 @@ export function articleListReducer(
         case actionTypes.get[tag].successful: {
             const {name, list} = action;
             const lists = state.get('lists');
-            const maxPage = list.length / config.articlesPerPage;
+            const maxPage = parseInt(list.length / config.articlesPerPage, 10);
             if (!name) {
                 return state.merge({
                     state: 'successful', currentList: list, maxPage, currentPage: 0

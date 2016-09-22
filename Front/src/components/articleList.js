@@ -20,42 +20,59 @@ export default class ArticleList extends Component {
     static propTypes = {
         dispatch: PropTypes.func,
         params: PropTypes.object,
-        theme: PropTypes.object
+        theme: PropTypes.object,
+        store: PropTypes.object
     };
 
     static defaultProps = {
         theme: themeReducer.defaultState
     };
 
+    static type = 'archives';
+    static theme = 'home';
+    static headInfo = {
+        description: '欢迎来到我的博客，这里是我在旅程中设立的一些路标，希望大家能够从我的一些经验中有所收获，可以是喜悦，也可以是悲伤，亦或是愤怒、讽刺与同情。',
+        keywords: 'dtysky,博客,blog,技术,文化',
+        author: 'dtysky,命月天宇',
+        rss: 'all'
+    };
+
     constructor(props) {
         super(props);
-        this.type = 'archives';
-        this.theme = 'home';
-        this.headInfo = {
-            description: '欢迎来到我的博客，这里是我在旅程中设立的一些路标，希望大家能够从我的一些经验中有所收获，可以是喜悦，也可以是悲伤，亦或是愤怒、讽刺与同情。',
-            keywords: 'dtysky,博客,blog,技术,文化',
-            author: 'dtysky,命月天宇',
-            rss: 'all'
-        };
+        this.type = this.constructor.type;
+        this.theme = this.constructor.theme;
+        this.headInfo = this.constructor.headInfo;
     }
 
     componentWillMount() {
         const {dispatch} = this.props;
-        console.log(this.props);
         this.getSource()
             .then(() => this.setHeadInfo())
             .then(() => dispatch({type: actionTypes.change.theme, theme: this.theme}));
     }
 
     componentWillReceiveProps(nextProps) {
-        const {dispatch} = this.props;
-        dispatch({type: actionTypes.change.page.articleList, currentPage: nextProps.params.index || 0});
-        this.setHeadInfo();
+        const {dispatch, store} = this.props;
+        const type = this.type;
+        const {state, name, currentPage} = store.toJS();
+        const nextStore = nextProps.store.toJS();
+        if (
+            state === 'successful' &&
+            (name !== nextStore.name || currentPage !== nextStore.currentPage)
+        ) {
+            dispatch({type: actionTypes.change.page[type], currentPage: nextProps.params.index || 0});
+            this.setHeadInfo();
+        }
     }
 
     shouldComponentUpdate(nextProps) {
-        const {name, currentPage} = this.props[this.type];
-        return name !== nextProps.articleList.name || currentPage !== nextProps.articleList.currentPage;
+        const {name, currentPage, state} = this.props.store.toJS();
+        const nextStore = nextProps.store.toJS();
+        return (
+            name !== nextStore.name ||
+            currentPage !== nextStore.currentPage ||
+            state !== nextStore.state
+        );
     }
 
     getSource() {
@@ -66,7 +83,7 @@ export default class ArticleList extends Component {
     setHeadInfo() {
         const {dispatch} = this.props;
         const type = this.type;
-        const store = this.props[type];
+        const {store} = this.props;
         const {currentName, currentPage} = store;
         const {siteTitle} = config;
         const title = this.title || `${currentName || type}-${currentPage} - ${siteTitle}`;
@@ -79,7 +96,7 @@ export default class ArticleList extends Component {
 
     render() {
         const type = this.type;
-        const store = this.props[type];
+        const store = this.props.store.toJS();
         const {state, currentName, maxPage, currentPage, currentList} = store;
 
         if (state === 'error') {
@@ -94,7 +111,7 @@ export default class ArticleList extends Component {
             <div>
                 {this.renderTop()}
                 <ul>
-                    {currentList.map(item => this.renderPage(item))}
+                    {currentList.map((item, index) => this.renderPage(item, index))}
                 </ul>
                 <Pagination
                     type={type}
@@ -112,9 +129,8 @@ export default class ArticleList extends Component {
         return (
             <article
                 key={index}
-                style={{opacity: 0}}
             >
-                <div>
+                <header>
                     <Link
                         to={getLocalUrl('article', item.slug)}
                         rel='bookmark'
@@ -122,16 +138,21 @@ export default class ArticleList extends Component {
                     >
                         <h3>{item.title.view}</h3>
                     </Link>
-                </div>
-                <div className='description'>
-                    <p dangerouslySetInnerHTML={{__html: item.summary}} />
+                </header>
+                <summary
+                    className='description'
+                    dangerouslySetInnerHTML={{__html: item.summary}}
+                />
+                <footer className='description'>
                     <hr className='home-main-content-ghr' />
                     <p>少女</p>
                     {
-                        item.authors.map(author => (
-                            <Link to={getLocalUrl('author', author.slug, 0)}>
-                                {author.view}
-                            </Link>
+                        item.authors.map((author, i) => (
+                            <li>
+                                <Link key={i} to={getLocalUrl('author', author.slug, 0)}>
+                                    {author.view}
+                                </Link>
+                            </li>
                         ))
                     }
                     <p>于</p>
@@ -139,13 +160,15 @@ export default class ArticleList extends Component {
                     <p>创作，</p>
                     <p>路标：</p>
                     {
-                        item.tags.map(tag => (
-                            <Link to={getLocalUrl('tag', tag.slug, 0)}>
-                                {tag.view}
-                            </Link>
+                        item.tags.map((tag, i) => (
+                            <li>
+                                <Link key={i} to={getLocalUrl('tag', tag.slug, 0)}>
+                                    {tag.view}
+                                </Link>
+                            </li>
                         ))
                     }
-                </div>
+                </footer>
             </article>
         );
     }

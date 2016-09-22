@@ -16,17 +16,23 @@ export function getArticleListSource(type: string, name: string = '') {
     let url = `${serverUrl}/${type}`;
     if (name) {
         url = `${url}/${name}`;
+    } else {
+        url = `${url}/all`;
     }
 
     return dispatch => {
         dispatch({type: actionTypes.get[type].waiting});
-        request.get(url)
+        return request.get(url)
+            .timeout(5000)
             .then(res => {
                 const list = res.body.content || [];
                 dispatch({type: actionTypes.get[type].successful, name, list});
             })
-            .catch(() => {
-                dispatch({type: actionTypes.get[type].failed});
+            .catch(err => {
+                if (process.env.NODE_ENV === 'development') {
+                    console.log(err);
+                }
+                dispatch({type: actionTypes.get[type].failed, name});
             });
     };
 }

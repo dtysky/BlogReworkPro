@@ -4,7 +4,7 @@
  * Description:
  */
 
-import React, {Component, cloneElement, PropTypes} from 'react';
+import React, {Component, PropTypes, cloneElement} from 'react';
 import {connect} from 'react-redux';
 
 import './theme/css/sky.css';
@@ -27,19 +27,17 @@ export default class APP extends Component {
     static defaultProps = {};
 
     render() {
-        const {content} = this.props;
-        console.log(cloneElement(content).type);
+        const {content, params, theme, dispatch} = this.props;
+        // Get component's type from static variable 'type'
+        const {type} = content.type;
+        const store = this.props[type];
 
         return (
-            <div
-                className="full"
-            >
+            <div className="full">
                 <div id="home-main">
-                    <div
-                        className="home-main-content"
-                    >
-                        {connect(state => ({store: state.archives}), cloneElement(content))}
-                    </div>
+                    <main className="home-main-content">
+                        {cloneElement(content, {store, params, theme, dispatch})}
+                    </main>
                 </div>
             </div>
         );
