@@ -5,22 +5,30 @@
  */
 
 import React, {Component, cloneElement, PropTypes} from 'react';
+import {connect} from 'react-redux';
 
 import './theme/css/sky.css';
 
+
+@connect(
+    (state) => ({...state}) // mapStateToProps
+)
 export default class APP extends Component {
     static propTypes = {
-        component: PropTypes.object,
+        params: PropTypes.object,
+        content: PropTypes.object,
+        component: PropTypes.func,
         dispatch: PropTypes.func,
         articleList: PropTypes.object,
-        theme: PropTypes.string,
+        theme: PropTypes.object,
         headInfo: PropTypes.object
     };
 
     static defaultProps = {};
 
     render() {
-        const {component, ...props} = this.props;
+        const {content} = this.props;
+        console.log(cloneElement(content).type);
 
         return (
             <div
@@ -30,7 +38,7 @@ export default class APP extends Component {
                     <div
                         className="home-main-content"
                     >
-                        {cloneElement(component, ...props)}
+                        {connect(state => ({store: state.archives}), cloneElement(content))}
                     </div>
                 </div>
             </div>

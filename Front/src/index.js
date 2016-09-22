@@ -6,13 +6,14 @@
 
 import React from 'react';
 import ReactDom from 'react-dom';
+import {Router, browserHistory} from 'react-router';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 
 import reducers from './reducers';
-import Routes from './routes';
+import routes from './routes';
 
 import './theme/css/sky.css';
 
@@ -30,7 +31,10 @@ const store = createStore(
 
 ReactDom.render(
     <Provider store={store}>
-        <Routes />
+        <Router
+            routes={routes}
+            history={browserHistory}
+        />
     </Provider>,
     document.getElementById('content')
 );

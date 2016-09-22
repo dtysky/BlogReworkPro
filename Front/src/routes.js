@@ -5,15 +5,15 @@
  */
 
 import React from 'react';
-import Route, {IndexRoute} from 'react-router';
+import {Route, IndexRoute} from 'react-router';
 
 import App from './app';
 import Home from './components/home';
 
 
 export default (
-    <Route component={App}>
-        <IndexRoute component={Home} />
+    <Route path="/" component={App}>
+        <IndexRoute components={{content: Home}} />
         {/*
         <Route path="archives(/:index)" component={ContentArchives} />
         <Route path="tag/:name(/:index)" component={ContentTag}/>

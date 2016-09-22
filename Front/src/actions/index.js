@@ -6,10 +6,25 @@
 
 export default {
     get: {
-        articleList: {
-            waiting: 'GET_ARTICLE_LIST_WAITING',
-            successful: 'GET_ARTICLE_LIST_SUCCESSFUL',
-            failed: 'GET_ARTICLE_LIST_FAILED'
+        archives: {
+            waiting: 'GET_ARCHIVES_WAITING',
+            successful: 'GET_ARCHIVES_SUCCESSFUL',
+            failed: 'GET_ARCHIVES_FAILED'
+        },
+        author: {
+            waiting: 'GET_AUTHOR_WAITING',
+            successful: 'GET_AUTHOR_SUCCESSFUL',
+            failed: 'GET_AUTHOR_FAILED'
+        },
+        tag: {
+            waiting: 'GET_TAG_WAITING',
+            successful: 'GET_TAG_SUCCESSFUL',
+            failed: 'GET_TAG_FAILED'
+        },
+        category: {
+            waiting: 'GET_CATEGORY_WAITING',
+            successful: 'GET_CATEGORY_SUCCESSFUL',
+            failed: 'GET_CATEGORY_FAILED'
         },
         article: {
             waiting: 'GET_ARCHIVES_WAITING',
@@ -29,7 +44,10 @@ export default {
     },
     change: {
         page: {
-            articleList: 'CHANGE_PAGE_ARTICLE_LIST',
+            archives: 'CHANGE_PAGE_ARCHIVES',
+            author: 'CHANGE_PAGE_AUTHOR',
+            tag: 'CHANGE_PAGE_TAG',
+            category: 'CHANGE_PAGE_CATEGORY',
             tags: 'CHANGE_PAGE_TAGS',
             authors: 'CHANGE_PAGE_AUTHORS'
         },

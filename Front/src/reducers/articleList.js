@@ -9,35 +9,50 @@ import actionTypes from '../actions';
 
 import config from '../../config';
 
+
 export const defaultState = Immutable.Map({
     state: 'wait',
-    tag: 'archives',
-    name: '',
+    currentName: '',
     maxPage: 0,
     currentPage: 0,
-    list: []
+    currentList: [],
+    lists: {}
 });
 
-export default function articleListReducer(
+export function articleListReducer(
     state = defaultState,
     action: {type: string, tag: string, name: string, list: Array, currentPage: number}
 ) {
+    const {tag} = action;
     switch (action.type) {
-        case actionTypes.get.articleList.waiting:
-            return defaultState;
+        case actionTypes.get[tag].waiting:
+            return defaultState.merge({lists: state.get('lists')});
 
-        case actionTypes.get.articleList.successful: {
-            const {tag, name, list} = action;
+        case actionTypes.get[tag].successful: {
+            const {name, list} = action;
+            const lists = state.get('lists');
             const maxPage = list.length / config.articlesPerPage;
-            return state.merge({state: 'successful', tag, name, list, maxPage, currentPage: 0});
+            if (!name) {
+                return state.merge({
+                    state: 'successful', currentList: list, maxPage, currentPage: 0
+                });
+            }
+            if (!(name in lists)) {
+                lists[name] = list;
+            }
+            const currentList = lists[name];
+            return state.merge({
+                state: 'successful', currentName: name, lists, currentList, maxPage, currentPage: 0
+            });
         }
 
-        case actionTypes.get.articleList.failed: {
-            const {tag, name} = action;
-            return state.merge({state: 'failed', tag, name, list: [], maxPage: 0, currentPage: 0});
+        case actionTypes.get[tag].failed: {
+            return state.merge({
+                state: 'failed', currentName: action.name, currentList: [], maxPage: 0, currentPage: 0
+            });
         }
 
-        case actionTypes.change.articleList:
+        case actionTypes.change.page[tag]:
             return state.merge({currentPage: action.currentPage});
 
         default:

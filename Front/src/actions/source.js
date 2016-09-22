@@ -12,20 +12,21 @@ import config from '../../config';
 
 const serverUrl = config.serverUrl;
 
-export function getArticleListSource(tag: string, name: string = '') {
-    let url = `${serverUrl}/${tag}`;
+export function getArticleListSource(type: string, name: string = '') {
+    let url = `${serverUrl}/${type}`;
     if (name) {
         url = `${url}/${name}`;
     }
 
     return dispatch => {
+        dispatch({type: actionTypes.get[type].waiting});
         request.get(url)
             .then(res => {
                 const list = res.body.content || [];
-                dispatch({type: actionTypes.get.articleList.successful, tag, name, list});
+                dispatch({type: actionTypes.get[type].successful, name, list});
             })
             .catch(() => {
-                dispatch({type: actionTypes.get.articleList.failed, tag, name});
+                dispatch({type: actionTypes.get[type].failed});
             });
     };
 }

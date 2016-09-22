@@ -15,6 +15,7 @@ const _ = require('lodash');
 const webpack = require('webpack');
 const webpackDevConfig = require('./webpack.dev.config.js');
 
+
 gulp.task('default', ['development']);
 
 gulp.task('clean-all', () => {
@@ -41,7 +42,7 @@ gulp.task('development', gulpsync.sync(['clean-all', 'copy-index', 'copy-theme']
         if(err) {
             throw new gutil.PluginError("webpack", err);
         }
-        gutil.log('[webpack:build]', stats.toString({
+        gutil.log('[webpack:build]', stats.toString('minimal', {
             colors: true
         }));
     });

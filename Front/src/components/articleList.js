@@ -11,7 +11,7 @@ import config from '../../config';
 import actionTypes from '../actions';
 import {getArticleListSource} from '../actions/source';
 import {getLocalUrl} from '../utils';
-import {defaultState} from '../reducers/articleList';
+import * as themeReducer from '../reducers/theme';
 
 import Pagination from './pagination';
 
@@ -19,14 +19,12 @@ import Pagination from './pagination';
 export default class ArticleList extends Component {
     static propTypes = {
         dispatch: PropTypes.func,
-        articleList: PropTypes.object,
-        params: actionTypes.object,
-        theme: PropTypes.string
+        params: PropTypes.object,
+        theme: PropTypes.object
     };
 
     static defaultProps = {
-        articleList: defaultState,
-        theme: ''
+        theme: themeReducer.defaultState
     };
 
     constructor(props) {
@@ -41,8 +39,12 @@ export default class ArticleList extends Component {
         };
     }
 
-    componentDidMount() {
-        this.getSource();
+    componentWillMount() {
+        const {dispatch} = this.props;
+        console.log(this.props);
+        this.getSource()
+            .then(() => this.setHeadInfo())
+            .then(() => dispatch({type: actionTypes.change.theme, theme: this.theme}));
     }
 
     componentWillReceiveProps(nextProps) {
@@ -52,7 +54,7 @@ export default class ArticleList extends Component {
     }
 
     shouldComponentUpdate(nextProps) {
-        const {name, currentPage} = this.props.articleList;
+        const {name, currentPage} = this.props[this.type];
         return name !== nextProps.articleList.name || currentPage !== nextProps.articleList.currentPage;
     }
 
@@ -62,19 +64,23 @@ export default class ArticleList extends Component {
     }
 
     setHeadInfo() {
-        const {dispatch, articleList} = this.props;
-        const {tag, name, currentPage} = articleList;
+        const {dispatch} = this.props;
+        const type = this.type;
+        const store = this.props[type];
+        const {currentName, currentPage} = store;
         const {siteTitle} = config;
-        const title = this.title || `${name || tag}-${currentPage} - ${siteTitle}`;
-        const keywords = this.keywords || name || tag;
-        const description = this.description || `这是有关${name || tag}的所有文章`;
+        const title = this.title || `${currentName || type}-${currentPage} - ${siteTitle}`;
+        const keywords = this.keywords || currentName || type;
+        const description = this.description || `这是有关${currentName || type}的所有文章`;
         const author = this.headInfo.author;
-        const rss = `/feeds/${this.rss || name || tag}`;
+        const rss = `/feeds/${this.rss || currentName || type}`;
         dispatch({type: actionTypes.change.headInfo, title, keywords, description, author, rss});
     }
 
     render() {
-        const {state, tag, name, maxPage, currentPage, list} = this.props.articleList;
+        const type = this.type;
+        const store = this.props[type];
+        const {state, currentName, maxPage, currentPage, currentList} = store;
 
         if (state === 'error') {
 //            return <NormalError key='normal-error'/>;
@@ -88,11 +94,11 @@ export default class ArticleList extends Component {
             <div>
                 {this.renderTop()}
                 <ul>
-                    {list.map(item => this.renderPage(item))}
+                    {currentList.map(item => this.renderPage(item))}
                 </ul>
                 <Pagination
-                    type={tag}
-                    name={name}
+                    type={type}
+                    name={currentName}
                     nowPage={currentPage}
                     maxPage={maxPage}
                 />

@@ -6,12 +6,18 @@
 
 import {combineReducers} from 'redux';
 
-import articleList from './articleList';
+import archives from './archives';
+import author from './author';
+import tag from './tag';
+import category from './category';
 import theme from './theme';
 import headInfo from './headInfo';
 
 export default combineReducers({
-    articleList,
+    archives,
+    author,
+    tag,
+    category,
     theme,
     headInfo
 });

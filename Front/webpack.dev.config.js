@@ -15,12 +15,12 @@ module.exports = {
     cache: true,
     debug: true,
     entry: {
-        main: [path.resolve(__dirname, './src/index.js')]
+        main: [path.resolve('./src/index.js')]
     },
 
     output: {
         filename: '[name].bundle.js',
-        path: path.resolve(__dirname, './dist/assets/')
+        path: path.resolve('./dist/assets/')
     },
 
     stats: {
@@ -73,7 +73,7 @@ module.exports = {
     plugins: [
         new ExtractTextPlugin('main.css'),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin(),
+//        new webpack.NoErrorsPlugin(),
         new webpack.ProvidePlugin({
             $: 'jquery'
         }),
