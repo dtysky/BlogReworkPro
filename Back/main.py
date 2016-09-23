@@ -40,7 +40,8 @@ if __name__ == "__main__":
     if (config["env"] == "development"):
         server.run(
             config["server_ip"],
-            config["server_port"]
+            config["server_port"],
+            debug = True
         )
     else:
         server = HTTPServer(

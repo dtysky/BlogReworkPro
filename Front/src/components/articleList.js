@@ -13,6 +13,8 @@ import {getArticleListSource} from '../actions/source';
 import {getLocalUrl} from '../utils';
 import * as themeReducer from '../reducers/theme';
 
+import Loading from './loading';
+import NormalError from './normalError';
 import Pagination from './pagination';
 
 
@@ -96,12 +98,10 @@ export default class ArticleList extends Component {
         const {state, currentName, maxPage, currentPage, currentList} = store;
 
         if (state === 'error') {
-//            return <NormalError key='normal-error'/>;
-            return <p>Error</p>;
+            return <NormalError key='normal-error' />;
         }
         if (state === 'wait') {
-//            return <Loading key='loading'/>;
-            return <p>Loading</p>;
+            return <Loading key='loading' />;
         }
         return (
             <div>
@@ -121,7 +121,7 @@ export default class ArticleList extends Component {
 
     renderTop() {}
 
-    renderPage(item, index) {
+    renderPage(item, index: number) {
         return (
             <article
                 key={index}

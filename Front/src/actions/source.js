@@ -8,7 +8,7 @@ import request from 'superagent';
 import actionTypes from '../actions';
 
 import config from '../../config';
-
+import {redirectTo404} from '../utils';
 
 const serverUrl = config.serverUrl;
 
@@ -31,6 +31,9 @@ export function getArticleListSource(type: string, name: string = '') {
             .catch(err => {
                 if (process.env.NODE_ENV === 'development') {
                     console.log(err);
+                }
+                if (err.status === 404) {
+                    redirectTo404();
                 }
                 dispatch({type: actionTypes.get[type].failed, name});
             });

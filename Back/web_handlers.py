@@ -98,7 +98,7 @@ class WebHandler(View):
         logger.warning("Web, 404: %s\nParameters: %s" % (
             self.url, parameters
         ))
-        return self._response("Error", 404)
+        return self._response(to_json({"message": "Not found!"}), 404)
 
     def _error(self, message):
         line = "Web: %s" % message
