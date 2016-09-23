@@ -96,6 +96,10 @@ app.get('/feeds/:slug', (req, res) => {
         });
 });
 
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve('./dist/index.html'));
+});
+
 // app.get('*', (req, res) => {
 //    match(
 //        {

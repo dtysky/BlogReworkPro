@@ -6,6 +6,7 @@
 
 import React, {Component, PropTypes, cloneElement} from 'react';
 import {connect} from 'react-redux';
+import Helmet from 'react-helmet';
 
 import './theme/css/sky.css';
 
@@ -31,11 +32,30 @@ export default class APP extends Component {
         // Get component's type from static variable 'type'
         const {type} = content.type;
         const store = this.props[type];
+        const headInfo = this.props.headInfo.toJS();
 
         return (
-            <div className="full">
-                <div id="home-main">
-                    <main className="home-main-content">
+            <div className='full'>
+                <Helmet
+                    key='helmet'
+                    title={headInfo.title}
+                    titleTemplate={'%s'}
+                    meta={[
+                            {name: 'keywords', content: headInfo.keywords},
+                            {name: 'author', content: headInfo.author},
+                            {name: 'description', content: headInfo.description}
+                    ]}
+                    link={[
+                        {
+                            href: headInfo.rss,
+                            rel: 'alternate',
+                            title: headInfo.title,
+                            type: 'application/rss+xml'
+                        }
+                    ]}
+                />
+                <div id='home-main'>
+                    <main className='home-main-content'>
                         {cloneElement(content, {store, params, theme, dispatch})}
                     </main>
                 </div>

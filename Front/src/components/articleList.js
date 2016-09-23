@@ -30,12 +30,7 @@ export default class ArticleList extends Component {
 
     static type = 'archives';
     static theme = 'home';
-    static headInfo = {
-        description: '欢迎来到我的博客，这里是我在旅程中设立的一些路标，希望大家能够从我的一些经验中有所收获，可以是喜悦，也可以是悲伤，亦或是愤怒、讽刺与同情。',
-        keywords: 'dtysky,博客,blog,技术,文化',
-        author: 'dtysky,命月天宇',
-        rss: 'all'
-    };
+    static headInfo = {};
 
     constructor(props) {
         super(props);
@@ -71,7 +66,8 @@ export default class ArticleList extends Component {
         return (
             name !== nextStore.name ||
             currentPage !== nextStore.currentPage ||
-            state !== nextStore.state
+            state !== nextStore.state ||
+            this.props.theme.equals(nextProps.theme)
         );
     }
 
@@ -84,13 +80,13 @@ export default class ArticleList extends Component {
         const {dispatch} = this.props;
         const type = this.type;
         const {store} = this.props;
-        const {currentName, currentPage} = store;
+        const {currentName, currentPage} = store.toJS();
         const {siteTitle} = config;
-        const title = this.title || `${currentName || type}-${currentPage} - ${siteTitle}`;
-        const keywords = this.keywords || currentName || type;
-        const description = this.description || `这是有关${currentName || type}的所有文章`;
-        const author = this.headInfo.author;
-        const rss = `/feeds/${this.rss || currentName || type}`;
+        const title = this.headInfo.title || `${currentName || type}-${currentPage || 0} - ${siteTitle}`;
+        const keywords = `${this.headInfo.keywords}, ${currentName || ''}`;
+        const description = this.headInfo.description || `这是有关${currentName || type}的所有文章`;
+        const author = this.headInfo.author || currentName;
+        const rss = `/feeds/${this.headInfo.rss || currentName || type}`;
         dispatch({type: actionTypes.change.headInfo, title, keywords, description, author, rss});
     }
 
@@ -148,8 +144,8 @@ export default class ArticleList extends Component {
                     <p>少女</p>
                     {
                         item.authors.map((author, i) => (
-                            <li>
-                                <Link key={i} to={getLocalUrl('author', author.slug, 0)}>
+                            <li key={i}>
+                                <Link to={getLocalUrl('author', author.slug, 0)}>
                                     {author.view}
                                 </Link>
                             </li>
@@ -161,8 +157,8 @@ export default class ArticleList extends Component {
                     <p>路标：</p>
                     {
                         item.tags.map((tag, i) => (
-                            <li>
-                                <Link key={i} to={getLocalUrl('tag', tag.slug, 0)}>
+                            <li key={i}>
+                                <Link to={getLocalUrl('tag', tag.slug, 0)}>
                                     {tag.view}
                                 </Link>
                             </li>

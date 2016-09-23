@@ -8,17 +8,17 @@ import React from 'react';
 import {Route, IndexRoute} from 'react-router';
 
 import App from './app';
-import Home from './components/home';
+import {Home, Archives, Category, Author, Tag} from './components';
 
 
 export default (
     <Route path="/" component={App}>
         <IndexRoute components={{content: Home}} />
+        <Route path="archives(/:index)" components={{content: Archives}} />
+        <Route path="category/:name(/:index)" components={{content: Category}} />
+        <Route path="tag/:name(/:index)" components={{content: Tag}} />
+        <Route path="author/:name(/:index)" components={{content: Author}} />
         {/*
-        <Route path="archives(/:index)" component={ContentArchives} />
-        <Route path="tag/:name(/:index)" component={ContentTag}/>
-        <Route path="category/:name(/:index)" component={ContentCategory} />
-        <Route path="author/:name(/:index)" component={ContentAuthor}/>
         <Route path="tags" component={ContentTags}/>
         <Route path="authors" component={ContentAuthors}/>
         <Route path="article/:name" component={ContentArticle}/>

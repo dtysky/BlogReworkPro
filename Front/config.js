@@ -35,10 +35,10 @@ const config = Object.assign({}, {
         {name: 'JerryFu', url: 'http://www.jerryfu.net'}
     ],
     themeColor: {
-        create: '#586181',
-        skill: '#808d6a',
-        art: '#a69e5c',
-        life: '#b57e79',
+        Create: '#586181',
+        Skill: '#808d6a',
+        Art: '#a69e5c',
+        Life: '#b57e79',
         home: '#6ca82b',
         tags: '#12678e',
         authors: '#72944e',
@@ -47,10 +47,10 @@ const config = Object.assign({}, {
         404: '#666666'
     },
     themeBackground: {
-        create: '/theme/image/create.jpg',
-        skill: '/theme/image/skill.jpg',
-        art: '/theme/image/art.jpg',
-        life: '/theme/image/life.jpg',
+        Create: '/theme/image/create.jpg',
+        Skill: '/theme/image/skill.jpg',
+        Art: '/theme/image/art.jpg',
+        Life: '/theme/image/life.jpg',
         home: '/theme/image/home.jpg',
         tags: '/theme/image/tags.jpg',
         authors: '/theme/image/authors.jpg',

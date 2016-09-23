@@ -11,6 +11,7 @@ import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
+import Immutable from 'immutable';
 
 import reducers from './reducers';
 import routes from './routes';
@@ -20,7 +21,19 @@ import './theme/css/sky.css';
 const middleware = [thunkMiddleware];
 
 if (process.env.NODE_ENV === 'development') {
-    middleware.push(createLogger());
+    middleware.push(createLogger({
+        stateTransformer: state => {
+            const newState = {};
+            for (const i of Object.keys(state)) {
+                if (Immutable.Iterable.isIterable(state[i])) {
+                    newState[i] = state[i].toJS();
+                } else {
+                    newState[i] = state[i];
+                }
+            }
+            return newState;
+        }
+    }));
 }
 
 const store = createStore(
