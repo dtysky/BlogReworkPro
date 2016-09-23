@@ -10,6 +10,7 @@ import {Route, IndexRoute} from 'react-router';
 import App from './app';
 import {
     Home, Archives, Category, Author, Tag,
+    Authors, Tags,
     NotFound
 } from './components';
 
@@ -21,11 +22,9 @@ export default (
         <Route path="category/:name(/:index)" components={{content: Category}} />
         <Route path="tag/:name(/:index)" components={{content: Tag}} />
         <Route path="author/:name(/:index)" components={{content: Author}} />
+        <Route path="tags" components={{content: Tags}} />
+        <Route path="authors" components={{content: Authors}} />
+        <Route path="article/:name" components={{content: NotFound}} />
         <Route path="*" components={{content: NotFound}} />
-        {/*
-        <Route path="tags" component={ContentTags}/>
-        <Route path="authors" component={ContentAuthors}/>
-        <Route path="article/:name" component={ContentArticle}/>
-        */}
     </Route>
 );

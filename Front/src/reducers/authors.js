@@ -4,30 +4,13 @@
  * Description:
  */
 
-import immutable from 'immutable';
-import actionTypes from '../actions';
+import * as articleListReducer from './articleList';
 
-export const defaultState = immutable({
-    state: 'wait',
-    tag: 'archives',
-    name: '',
-    maxIndex: 0,
-    currentIndex: 0,
-    list: []
-});
+export const defaultState = articleListReducer.defaultState;
 
-export default function articleListReducer(state = defaultState, action) {
-    switch (action.type) {
-        case actionTypes.get.articleList.waiting:
-            return defaultState;
-
-        case actionTypes.get.articleList.successful:
-            return actionTypes.content;
-
-        case actionTypes.get.articleList.failed:
-            return defaultState;
-
-        default:
-            return state;
-    }
+export default function authorsReducer(
+    state = defaultState,
+    action: {type: string, name: string, list: Array, currentPage: number}
+) {
+    return articleListReducer.articleListReducer(state, {...action, tag: 'authors'});
 }

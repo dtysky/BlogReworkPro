@@ -11,6 +11,7 @@ export default class Archives extends ArticleList {
     static type = 'archives';
     static theme = 'home';
     static headInfo = {
+        title: 'Archives',
         keywords: 'dtysky,博客,blog,技术,文化',
         author: 'dtysky,命月天宇',
         rss: 'all'

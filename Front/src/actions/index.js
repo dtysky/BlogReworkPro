@@ -32,14 +32,14 @@ export default {
             failed: 'GET_ARCHIVES_FAILED'
         },
         tags: {
-            waiting: 'GET_ARCHIVES_WAITING',
-            successful: 'GET_ARCHIVES_SUCCESSFUL',
-            failed: 'GET_ARCHIVES_FAILED'
+            waiting: 'GET_TAGS_WAITING',
+            successful: 'GET_TAGS_SUCCESSFUL',
+            failed: 'GET_TAGS_FAILED'
         },
         authors: {
-            waiting: 'GET_ARCHIVES_WAITING',
-            successful: 'GET_ARCHIVES_SUCCESSFUL',
-            failed: 'GET_ARCHIVES_FAILED'
+            waiting: 'GET_AUTHORS_WAITING',
+            successful: 'GET_AUTHORS_SUCCESSFUL',
+            failed: 'GET_AUTHORS_FAILED'
         }
     },
     change: {

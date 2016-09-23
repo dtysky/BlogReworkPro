@@ -9,6 +9,8 @@ import {combineReducers} from 'redux';
 import archives from './archives';
 import author from './author';
 import tag from './tag';
+import tags from './tags';
+import authors from './authors';
 import category from './category';
 import theme from './theme';
 import headInfo from './headInfo';
@@ -17,6 +19,8 @@ export default combineReducers({
     archives,
     author,
     tag,
+    tags,
+    authors,
     category,
     theme,
     headInfo

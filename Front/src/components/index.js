@@ -9,6 +9,8 @@ import Archives from './archives';
 import Category from './category';
 import Author from './author';
 import Tag from './tag';
+import Tags from './tags';
+import Authors from './authors';
 import Loading from './loading';
 import NormalError from './normalError';
 import NotFound from './notFound';
@@ -20,6 +22,8 @@ export default {
     Category,
     Author,
     Tag,
+    Authors,
+    Tags,
     Loading,
     NormalError,
     NotFound

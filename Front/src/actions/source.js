@@ -12,7 +12,7 @@ import {redirectTo404} from '../utils';
 
 const serverUrl = config.serverUrl;
 
-export function getArticleListSource(type: string, name: string = '') {
+export function getListSource(type: string, name: string = '') {
     let url = `${serverUrl}/${type}`;
     if (name) {
         url = `${url}/${name}`;
