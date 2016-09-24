@@ -3,7 +3,7 @@
 <channel>
 <title>dtysky|一个行者的轨迹</title>
 <link>http://dtysky.moe</link><description>自由地看待世界，真诚地走向死亡</description><atom:link href="http://dtysky.moe/test/feeds/test/feeds/dtysky.rss.xml" rel="self"></atom:link>
-<lastBuildDate>Wednesday, 21 Sep 2016 17:25:07 -00:00</lastBuildDate>
+<lastBuildDate>Saturday, 24 Sep 2016 16:52:59 -00:00</lastBuildDate>
 
 <item>
 <title>【FPGA/图像处理】几何变换-旋转</title>
@@ -394,11 +394,10 @@ q&lt;/p&gt;
 
 <item>
 <title>【FPGA/图像处理】几何变换-旋转</title>
-<link>http://dtysky.moe/article/Life-test</link>
+<link>http://dtysky.moe/article/Skill-test</link>
 <description>&lt;p&gt;旋转同样是仿射变换的一种特例，它接受一个角度，将图像绕着某个中心进行转动，适合逆向映射。旋转的实现有多种，比如两次错切的旋转&lt;sup&gt;[26]&lt;/sup&gt;、直接坐标变换&lt;sup&gt;[27]&lt;/sup&gt;等，中心点的选取方式也有许多，但对于FPGA采用图像的几何中心较为合适。。本节将会说明如何用FPGA实现旋转的模块。&lt;br /&gt;
 这个IP核的资源在这里：&lt;br /&gt;
 &lt;a href=&amp;quot;https://github.com/dtysky/FPGA-Imaging-Library/tree/Publish/Geometry/Rotate&amp;quot;&gt;Rotate&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;xxx&lt;/p&gt;
 &lt;hr /&gt;
 &lt;h1&gt;3 算法实现&lt;/h1&gt;
 &lt;p&gt;明确了设计和架构，便可以进行算法的实现。本章将会说明如何实现图像处理的算法，以及如何运用它们。&lt;/p&gt;
@@ -766,7 +765,7 @@ q&lt;/p&gt;
 &lt;script type=&amp;quot;text/javascript&amp;quot; src=&amp;quot;http://src.dtysky.moe/MathJax/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML&amp;quot;&gt;&lt;/script&gt;</description>
 <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">dtysky</dc:creator>
 <pubDate>Saturday, 30 May 2015 00:30:00 -00:00</pubDate>
-<guid>tag:http://dtysky.moe,2015.05.30 00:30:article/Life-test</guid>
+<guid>tag:http://dtysky.moe,2015.05.30 00:30:article/Skill-test</guid>
 <category>FPGA</category>
 <category>FPGA-Imaging-Library</category>
 <category>图像处理</category>
@@ -1157,10 +1156,11 @@ q&lt;/p&gt;
 
 <item>
 <title>【FPGA/图像处理】几何变换-旋转</title>
-<link>http://dtysky.moe/article/Skill-test</link>
+<link>http://dtysky.moe/article/Life-test</link>
 <description>&lt;p&gt;旋转同样是仿射变换的一种特例，它接受一个角度，将图像绕着某个中心进行转动，适合逆向映射。旋转的实现有多种，比如两次错切的旋转&lt;sup&gt;[26]&lt;/sup&gt;、直接坐标变换&lt;sup&gt;[27]&lt;/sup&gt;等，中心点的选取方式也有许多，但对于FPGA采用图像的几何中心较为合适。。本节将会说明如何用FPGA实现旋转的模块。&lt;br /&gt;
 这个IP核的资源在这里：&lt;br /&gt;
 &lt;a href=&amp;quot;https://github.com/dtysky/FPGA-Imaging-Library/tree/Publish/Geometry/Rotate&amp;quot;&gt;Rotate&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;xxx&lt;/p&gt;
 &lt;hr /&gt;
 &lt;h1&gt;3 算法实现&lt;/h1&gt;
 &lt;p&gt;明确了设计和架构，便可以进行算法的实现。本章将会说明如何实现图像处理的算法，以及如何运用它们。&lt;/p&gt;
@@ -1528,7 +1528,7 @@ q&lt;/p&gt;
 &lt;script type=&amp;quot;text/javascript&amp;quot; src=&amp;quot;http://src.dtysky.moe/MathJax/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML&amp;quot;&gt;&lt;/script&gt;</description>
 <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">dtysky</dc:creator>
 <pubDate>Saturday, 30 May 2015 00:30:00 -00:00</pubDate>
-<guid>tag:http://dtysky.moe,2015.05.30 00:30:article/Skill-test</guid>
+<guid>tag:http://dtysky.moe,2015.05.30 00:30:article/Life-test</guid>
 <category>FPGA</category>
 <category>FPGA-Imaging-Library</category>
 <category>图像处理</category>

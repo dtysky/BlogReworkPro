@@ -39,3 +39,44 @@ export function getListSource(type: string, name: string = '') {
             });
     };
 }
+
+export function getArticleSource(name) {
+    const url = `${serverUrl}/article/${name}`;
+
+    return dispatch => {
+        dispatch({type: actionTypes.get.article.waiting});
+        return request.get(url)
+            .timeout(5000)
+            .then(res => {
+                const article = res.body.content || {};
+                dispatch({type: actionTypes.get.article.successful, name, article});
+            })
+            .catch(err => {
+                if (process.env.NODE_ENV === 'development') {
+                    console.log(err);
+                }
+                if (err.status === 404) {
+                    redirectTo404();
+                }
+                dispatch({type: actionTypes.get.article.failed, name});
+            });
+    };
+}
+
+export function initMusic() {
+    const url = '/music.json';
+
+    return dispatch =>
+        request.get(url)
+            .timeout(5000)
+            .then(res => {
+                const music = res.body || [];
+                dispatch({type: actionTypes.init.music.successful, music});
+            })
+            .catch(err => {
+                if (process.env.NODE_ENV === 'development') {
+                    console.log(err);
+                }
+                dispatch({type: actionTypes.init.music.failed});
+            });
+}

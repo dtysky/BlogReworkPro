@@ -9,7 +9,6 @@ import React, {Component, PropTypes} from 'react';
 import config from '../../config';
 import actionTypes from '../actions';
 import {getListSource} from '../actions/source';
-import {getLocalUrl} from '../utils';
 import * as themeReducer from '../reducers/theme';
 
 
@@ -37,20 +36,20 @@ export default class Base extends Component {
     }
 
     componentWillMount() {
-        const {dispatch} = this.props;
         this.getSource()
             .then(() => this.setHeadInfo())
-            .then(() => dispatch({type: actionTypes.change.theme, theme: this.theme}));
+            .then(() => this.setTheme())
+            .then(() => this.setMusic());
     }
 
     componentWillReceiveProps(nextProps) {
         const {dispatch, store} = this.props;
         const type = this.type;
-        const {state, name, currentPage} = store.toJS();
+        const {state, currentName, currentPage} = store.toJS();
         const nextStore = nextProps.store.toJS();
         if (
             state === 'successful' &&
-            (name !== nextStore.name || currentPage !== nextStore.currentPage)
+            (currentName !== nextStore.currentName || currentPage !== nextStore.currentPage)
         ) {
             dispatch({type: actionTypes.change.page[type], currentPage: nextProps.params.index || 0});
             this.setHeadInfo();
@@ -58,10 +57,10 @@ export default class Base extends Component {
     }
 
     shouldComponentUpdate(nextProps) {
-        const {name, currentPage, state} = this.props.store.toJS();
+        const {currentName, currentPage, state} = this.props.store.toJS();
         const nextStore = nextProps.store.toJS();
         return (
-            name !== nextStore.name ||
+            currentName !== nextStore.currentName ||
             currentPage !== nextStore.currentPage ||
             state !== nextStore.state ||
             this.props.theme.equals(nextProps.theme)
@@ -85,6 +84,17 @@ export default class Base extends Component {
         const author = this.headInfo.author || currentName;
         const rss = `/feeds/${this.headInfo.rss || currentName || type}`;
         dispatch({type: actionTypes.change.headInfo, title, keywords, description, author, rss});
+    }
+
+    setTheme() {
+        const {dispatch} = this.props;
+        dispatch({type: actionTypes.change.theme.default, theme: this.theme});
+        dispatch({type: actionTypes.change.theme.current, theme: this.theme});
+    }
+
+    setMusic() {
+        const {dispatch} = this.props;
+        dispatch({type: actionTypes.change.music.default});
     }
 
     render() {

@@ -4,7 +4,7 @@
  * Description:
  */
 
-import React, {Component, PropTypes} from 'react';
+import React from 'react';
 import {Link} from 'react-router';
 
 import {getLocalUrl} from '../utils';

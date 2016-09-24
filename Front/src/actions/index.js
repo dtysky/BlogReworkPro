@@ -27,9 +27,9 @@ export default {
             failed: 'GET_CATEGORY_FAILED'
         },
         article: {
-            waiting: 'GET_ARCHIVES_WAITING',
-            successful: 'GET_ARCHIVES_SUCCESSFUL',
-            failed: 'GET_ARCHIVES_FAILED'
+            waiting: 'GET_ARTICLE_WAITING',
+            successful: 'GET_ARTICLE_SUCCESSFUL',
+            failed: 'GET_ARTICLE_FAILED'
         },
         tags: {
             waiting: 'GET_TAGS_WAITING',
@@ -42,6 +42,13 @@ export default {
             failed: 'GET_AUTHORS_FAILED'
         }
     },
+    init: {
+        theme: 'INIT_THEME',
+        music: {
+            successful: 'INIT_MUSIC_SUCCESSFUL',
+            failed: 'INIT_MUSIC_FAILED'
+        }
+    },
     change: {
         page: {
             archives: 'CHANGE_PAGE_ARCHIVES',
@@ -51,7 +58,14 @@ export default {
             tags: 'CHANGE_PAGE_TAGS',
             authors: 'CHANGE_PAGE_AUTHORS'
         },
-        theme: 'CHANGE_THEME',
-        headInfo: 'CHANGE_HEAD_INFO'
+        theme: {
+            current: 'CHANGE_THEME_CURRENT',
+            default: 'CHANGE_THEME_DEFAULT'
+        },
+        headInfo: 'CHANGE_HEAD_INFO',
+        music: {
+            default: 'CHANGE_MUSIC_DEFAULT',
+            current: 'CHANGE_MUSIC_CURRENT'
+        }
     }
 };

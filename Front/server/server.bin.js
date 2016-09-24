@@ -61,6 +61,8 @@ app.use(compression({
     threshold: 0
 }));
 
+app.use('/music.json', express.static(path.resolve(__dirname, './music.json')));
+
 app.use(express.static(
     publicPath
 //    {

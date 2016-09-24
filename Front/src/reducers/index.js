@@ -12,7 +12,9 @@ import tag from './tag';
 import tags from './tags';
 import authors from './authors';
 import category from './category';
+import article from './article';
 import theme from './theme';
+import music from './music';
 import headInfo from './headInfo';
 
 export default combineReducers({
@@ -22,6 +24,8 @@ export default combineReducers({
     tags,
     authors,
     category,
+    article,
     theme,
+    music,
     headInfo
 });

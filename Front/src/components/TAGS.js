@@ -7,6 +7,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 
+import config from '../../config';
 import {getLocalUrl} from '../utils';
 import Base from './base';
 import Loading from './loading';
@@ -35,14 +36,17 @@ export default class Tags extends Base {
             return <Loading key='loading' />;
         }
 
+        const max = currentList.sort((a, b) => (b.count - a.count))[0].count;
+        const base = (max + 1) / config.tagCloudStep;
+
         return (
             <ul className="tag-cloud">
                 {
                     currentList.map((tag, index) =>
                         <Link
                             key={index}
-                            to={tag.url}
-                            style={{fontSize: tag.font_size}}
+                            to={getLocalUrl('tag', tag.slug)}
+                            style={{fontSize: 14 + parseInt(tag.count / base, 10) * 2}}
                         >
                             {tag.view}
                         </Link>

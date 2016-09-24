@@ -66,7 +66,7 @@ const config = Object.assign({}, {
         ['douban', 'http://shuo.douban.com/!service/share?href={{URL}}&name={{TITLE}}&text={{DESCRIPTION}}&image={{IMAGE}}&starid=0&aid=0&style=11'],
         ['linkedin', 'http://www.linkedin.com/shareArticle?mini=true&ro=true&title={{TITLE}}&url={{URL}}&summary={{SUMMARY}}&source={{SOURCE}}&armin=armin'],
         ['facebook', 'https://www.facebook.com/sharer/sharer.php?u={{URL}}'],
-        ['twitter', 'https://twitter.com/intent/tweet?text={{TITLE}}&url={{URL}}&via={{SITE_URL}}'],
+        ['twitter', 'https://twitter.com/intent/tweet?text={{TITLE}}&url={{URL}}&via={{SITEURL}}'],
         ['google', 'https://plus.google.com/share?url={{URL}}']
     ]
 }, process.env.NODE_ENV === 'development' ? configDev : configPd);

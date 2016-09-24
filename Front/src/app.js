@@ -8,6 +8,8 @@ import React, {Component, PropTypes, cloneElement} from 'react';
 import {connect} from 'react-redux';
 import Helmet from 'react-helmet';
 
+import {initMusic} from './actions/source';
+
 import './theme/css/sky.css';
 
 
@@ -26,6 +28,12 @@ export default class APP extends Component {
     };
 
     static defaultProps = {};
+
+    componentWillMount() {
+        const {dispatch} = this.props;
+
+        dispatch(initMusic());
+    }
 
     render() {
         const {content, params, theme, dispatch} = this.props;

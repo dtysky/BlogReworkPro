@@ -11,8 +11,7 @@ import Author from './author';
 import Tag from './tag';
 import Tags from './tags';
 import Authors from './authors';
-import Loading from './loading';
-import NormalError from './normalError';
+import Article from './article';
 import NotFound from './notFound';
 
 
@@ -24,7 +23,6 @@ export default {
     Tag,
     Authors,
     Tags,
-    Loading,
-    NormalError,
+    Article,
     NotFound
 };

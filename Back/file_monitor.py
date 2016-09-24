@@ -67,8 +67,8 @@ class FileMonitor(FileSystemEventHandler):
         if mode == "delete":
             try:
                 self._write(path, mode)
-            except:
-                self._error("Writing error !")
+            except Exception, e:
+                self._error("Writing error !", e)
         else:
             page = None
             try:

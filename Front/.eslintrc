@@ -21,6 +21,7 @@
     "no-param-reassign": [2, {"props": false}],
     "react/prefer-stateless-function": 0,
     "consistent-return": 0,
+    "newline-per-chained-call": 0,
     "new-cap": [0, {"capIsNewExceptions": ["ObjectId"]}],
     "jsx-quotes": 0,
     "react/jsx-indent": [2, 4],
@@ -83,7 +84,7 @@
       2,
       "never"
     ],
-    "flowtype/no-weak-types": 2,
+//    "flowtype/no-weak-types": 2,
 //    "flowtype/require-parameter-type": 2,
 //    "flowtype/require-return-type": [
 //      2,

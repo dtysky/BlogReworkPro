@@ -13,6 +13,7 @@
     "express": "^4.14.0",
     "immutable": "^3.8.1",
     "jquery": "^2.2.3",
+    "katex": "^0.6.0",
     "lodash": "^4.11.1",
     "moment": "^2.13.0",
     "qrcode.react": "^0.6.0",
