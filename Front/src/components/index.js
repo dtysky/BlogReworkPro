@@ -12,6 +12,7 @@ import Tag from './tag';
 import Tags from './tags';
 import Authors from './authors';
 import Article from './article';
+import NavBar from './navBar';
 import NotFound from './notFound';
 
 
@@ -24,5 +25,6 @@ export default {
     Authors,
     Tags,
     Article,
+    NavBar,
     NotFound
 };

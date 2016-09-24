@@ -9,14 +9,16 @@ import actionTypes from '../actions';
 
 import config from '../../config';
 
-export const defaultState = Immutable.Map({
+export const defaultState = Immutable.fromJS({
     default: {
-        background: config.themeBackground.home,
-        color: config.themeColor.home
+        name: '',
+        leftImage: '',
+        color: ''
     },
     current: {
-        background: config.themeBackground.home,
-        color: config.themeColor.home
+        name: '',
+        leftImage: '',
+        color: ''
     }
 });
 
@@ -26,15 +28,17 @@ export default function themeReducer(
 ) {
     switch (action.type) {
         case actionTypes.init.theme: {
-            const background = config.themeBackground[action.theme];
-            const color = config.themeColor[action.theme];
-            return state.merge({default: {background, color}});
+            const name = action.theme;
+            const leftImage = config.themeLeftImage[name];
+            const color = config.themeColor[name];
+            return state.merge({default: {name, leftImage, color}});
         }
 
         case actionTypes.change.theme.current: {
-            const background = config.themeBackground[action.theme];
-            const color = config.themeColor[action.theme];
-            return state.merge({current: {background, color}});
+            const name = action.theme;
+            const leftImage = config.themeLeftImage[name];
+            const color = config.themeColor[name];
+            return state.merge({current: {name, leftImage, color}});
         }
 
         case actionTypes.change.theme.default: {

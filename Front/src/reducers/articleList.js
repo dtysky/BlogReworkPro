@@ -10,7 +10,7 @@ import actionTypes from '../actions';
 import config from '../../config';
 
 
-export const defaultState = Immutable.Map({
+export const defaultState = Immutable.fromJS({
     state: 'wait',
     currentName: '',
     maxPage: 0,

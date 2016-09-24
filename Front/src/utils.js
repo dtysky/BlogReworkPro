@@ -6,7 +6,7 @@
 
 import {browserHistory} from 'react-router';
 import katex from 'katex';
-import _ from'lodash';
+import _ from 'lodash';
 
 export function getLocalUrl(type: string, name: string, index: number): string {
     if (!name) {

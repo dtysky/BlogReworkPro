@@ -63,7 +63,7 @@ export default class Base extends Component {
             currentName !== nextStore.currentName ||
             currentPage !== nextStore.currentPage ||
             state !== nextStore.state ||
-            this.props.theme.equals(nextProps.theme)
+            !this.props.theme.get('current').equals(nextProps.theme.get('current'))
         );
     }
 
@@ -88,8 +88,8 @@ export default class Base extends Component {
 
     setTheme() {
         const {dispatch} = this.props;
-        dispatch({type: actionTypes.change.theme.default, theme: this.theme});
-        dispatch({type: actionTypes.change.theme.current, theme: this.theme});
+        dispatch({type: actionTypes.init.theme, theme: this.theme});
+        dispatch({type: actionTypes.change.theme.default});
     }
 
     setMusic() {

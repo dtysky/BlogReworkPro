@@ -40,12 +40,12 @@ export default class Article extends Base {
         return (
             currentName !== nextStore.currentName ||
             state !== nextStore.state ||
-            this.props.theme.equals(nextProps.theme)
+            !this.props.theme.get('current').equals(nextProps.theme.get('current'))
         );
     }
 
     componentDidUpdate() {
-        const backgroundColor = this.props.theme.get('current').backgroundColor;
+        const backgroundColor = this.props.theme.get('current').get('color');
 
         [].forEach.call(document.getElementsByTagName('blockquote') || [], element => {
             element.style.backgroundColor = backgroundColor;
@@ -77,13 +77,13 @@ export default class Article extends Base {
     setTheme() {
         const {dispatch, store} = this.props;
         const theme = store.get('currentArticle').get('category').get('view');
-        dispatch({type: actionTypes.change.theme.default, theme});
-        dispatch({type: actionTypes.change.theme.current, theme});
+        dispatch({type: actionTypes.init.theme, theme});
+        dispatch({type: actionTypes.change.theme.default});
     }
 
     setMusic() {
         const {dispatch, store} = this.props;
-        const music = store.get('currentArticle').get('music').toJS();
+        const music = store.get('currentArticle').get('music');
 
         if (music) {
             dispatch({type: actionTypes.change.music.current, music});

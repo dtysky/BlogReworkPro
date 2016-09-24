@@ -9,8 +9,11 @@ import {connect} from 'react-redux';
 import Helmet from 'react-helmet';
 
 import {initMusic} from './actions/source';
+import {NavBar} from './components';
 
 import './theme/css/sky.css';
+import './theme/css/article.css';
+import './theme/css/pygments.css';
 
 
 @connect(
@@ -63,6 +66,10 @@ export default class APP extends Component {
                     ]}
                 />
                 <div id='home-main'>
+                    <NavBar
+                        theme={theme}
+                        dispatch={dispatch}
+                    />
                     <main className='home-main-content'>
                         {cloneElement(content, {store, params, theme, dispatch})}
                     </main>

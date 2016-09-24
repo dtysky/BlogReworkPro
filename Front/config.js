@@ -46,7 +46,7 @@ const config = Object.assign({}, {
         author: '#72944e',
         404: '#666666'
     },
-    themeBackground: {
+    themeLeftImage: {
         Create: '/theme/image/create.jpg',
         Skill: '/theme/image/skill.jpg',
         Art: '/theme/image/art.jpg',

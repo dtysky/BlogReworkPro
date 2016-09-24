@@ -10,7 +10,7 @@ import {renderWithKatex} from '../utils';
 
 import config from '../../config';
 
-export const defaultState = Immutable.Map({
+export const defaultState = Immutable.fromJS({
     state: 'wait',
     currentName: '',
     currentArticle: {},
