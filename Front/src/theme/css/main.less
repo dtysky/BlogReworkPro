@@ -1,0 +1,97 @@
+@import "base";
+
+#main {
+  .left {
+    float: left;
+  }
+
+  .middle {
+    float: left;
+  }
+
+  .right {
+    float: left;
+  }
+}
+
+@media (min-width: 960px) {
+  #main {
+    .size(100%, 100%);
+
+    .left {
+      .size(30%, 100%);
+    }
+
+    .middle {
+      .size(50%, 100%);
+
+      .top {
+        .size(100%, 20px)
+      }
+    }
+
+    .right {
+      .size(20%, 100%);
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  #main {
+    .size(@w: 100%);
+
+    .left {
+      .size(10%, 100%);
+    }
+
+    .middle {
+      .size(80%, 100%);
+
+      .top {
+        .size(100%, 20px)
+      }
+    }
+
+    .right {
+      .size(10%, 100%);
+    }
+  }
+}
+
+
+#content {
+  .position(@t: 10px);
+  .no-padding;
+  .size(100%, 85%);
+
+  ul {
+    .no-padding;
+  }
+
+  a {
+    .margin(@t: 0);
+    .text(@color: #888, @size: 0.9em, @weight: border, @deco: none);
+    line-height: 1.5em;
+
+    &:hover {
+      .text(@color: black, @deco: none);
+    }
+  }
+
+  h3 {
+    .margin(@t: 40px);
+    .text(@size: 1.3em, @color: black);
+  }
+
+  p {
+    .margin(@t: 0);
+    .text(@size: 0.9em, @color: gray, @align: left);
+    line-height: 1.5em;
+  }
+
+  .ghr {
+    .no-border;
+    .margin(@all: -10px);
+  }
+
+}

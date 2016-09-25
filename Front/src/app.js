@@ -120,6 +120,9 @@ export default class APP extends Component {
                     headInfo={headInfo}
                     dispatch={dispatch}
                 />
+                <div id="return-top">
+                    <button className="home-icon-return" onClick={() => window.scrollTo(0, 0)}/>
+                </div>
             </div>
         );
     }

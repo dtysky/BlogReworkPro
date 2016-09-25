@@ -1,0 +1,28 @@
+@import "base";
+
+#pagination {
+  .margin(@t: 20px);
+  .text(@align: center);
+
+  ul {
+    list-style: none;
+
+    li {
+      display: inline;
+      padding: 5px;
+
+      a {
+        .text(@size: 16px);
+      }
+    }
+  }
+
+  .active ul li a{
+    .text(@size: 20px);
+  }
+
+  .disable a:hover{
+    .text(@color: #888);
+  }
+
+}

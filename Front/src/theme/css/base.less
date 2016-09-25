@@ -37,7 +37,7 @@
   }
 }
 
-.position-prefix(@l: undefined, @r: undefined, @t: undefined, @b: undefined, @prefix) {
+.position-prefix(@l: undefined, @r: undefined, @t: undefined, @b: undefined, @all: undefined, @prefix) {
   .test();
   .eval-args(length(@arguments));  // requires LESS 1.5.+
   .eval-args(@narguments){
@@ -55,26 +55,37 @@
   .test() when not (@b = undefined) {
       @{prefix}-bottom: @b;
   }
+  .test() when not (@all = undefined) {
+      @{prefix}: @all;
+  }
 }
 
-.padding(@l: undefined, @r: undefined, @t: undefined, @b: undefined) {
-  .position-prefix(@l, @r, @t, @b, padding);
+.padding(@l: undefined, @r: undefined, @t: undefined, @b: undefined, @all: undefined) {
+  .position-prefix(@l, @r, @t, @b, @all, padding);
 }
 
-.margin(@l: undefined, @r: undefined, @t: undefined, @b: undefined) {
-  .position-prefix(@l, @r, @t, @b, margin);
+.margin(@l: undefined, @r: undefined, @t: undefined, @b: undefined, @all: undefined) {
+  .position-prefix(@l, @r, @t, @b, @all, margin);
 }
 
-.border(@l: undefined, @r: undefined, @t: undefined, @b: undefined) {
-  .position-prefix(@l, @r, @t, @b, border);
+.border(@l: undefined, @r: undefined, @t: undefined, @b: undefined, @all: undefined, @rad: undefined) {
+  .test();
+  .position-prefix(@l, @r, @t, @b, @all, border);
+  .test() when not (@rad = undefined) {
+      border-radius: @rad;
+  }
 }
 
 .no-padding {
-  .padding;
+  .padding();
 }
 
 .no-margin {
-  .margin;
+  .margin();
+}
+
+.no-border {
+  .border();
 }
 
 .full {
@@ -106,7 +117,7 @@
   }
 }
 
-.text(@size: undefined, @color: undefined, @align: undefined, @deco: undefined) {
+.text(@size: undefined, @color: undefined, @align: undefined, @deco: undefined, @weight: undefined) {
   .test();
   .test() when not (@size = undefined) {
     font-size: @size;
@@ -119,5 +130,8 @@
   }
   .test() when not (@deco = undefined) {
     text-decoration: @deco;
+  }
+  .test() when not (@weight = undefined) {
+    font-weight: @weight;
   }
 }
