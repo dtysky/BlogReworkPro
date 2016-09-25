@@ -9,7 +9,7 @@ import actionTypes from '../actions';
 
 import config from '../../config';
 
-export const defaultState = Immutable.Map({
+export const defaultState = Immutable.fromJS({
     title: config.siteTitle,
     description: '欢迎来到我的博客，这里是我在旅程中设立的一些路标，希望大家能够从我的一些经验中有所收获，可以是喜悦，也可以是悲伤，亦或是愤怒、讽刺与同情。',
     keywords: 'dtysky,博客,blog,技术,文化',

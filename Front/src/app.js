@@ -8,8 +8,9 @@ import React, {Component, PropTypes, cloneElement} from 'react';
 import {connect} from 'react-redux';
 import Helmet from 'react-helmet';
 
+import actionTypes from './actions';
 import {initMusic} from './actions/source';
-import {NavBar} from './components';
+import {NavBar, MenuPC, MenuPhoneHeader, MenuPhoneFooter, LeftImage} from './components';
 
 import './theme/css/sky.css';
 import './theme/css/article.css';
@@ -38,12 +39,19 @@ export default class APP extends Component {
         dispatch(initMusic());
     }
 
+    changeThemeToDefault() {
+        const {dispatch, theme} = this.props;
+        if (!theme.get('current').equals(theme.get('default'))) {
+            dispatch({type: actionTypes.change.theme.default});
+        }
+    }
+
     render() {
         const {content, params, theme, dispatch} = this.props;
         // Get component's type from static variable 'type'
         const {type} = content.type;
         const store = this.props[type];
-        const headInfo = this.props.headInfo.toJS();
+        const headInfo = this.props.headInfo;
 
         return (
             <div className='full'>
@@ -52,28 +60,66 @@ export default class APP extends Component {
                     title={headInfo.title}
                     titleTemplate={'%s'}
                     meta={[
-                            {name: 'keywords', content: headInfo.keywords},
-                            {name: 'author', content: headInfo.author},
-                            {name: 'description', content: headInfo.description}
+                            {name: 'keywords', content: headInfo.get('keywords')},
+                            {name: 'author', content: headInfo.get('author')},
+                            {name: 'description', content: headInfo.get('description')}
                     ]}
                     link={[
                         {
-                            href: headInfo.rss,
+                            href: headInfo.get('rss'),
                             rel: 'alternate',
-                            title: headInfo.title,
+                            title: headInfo.get('title'),
                             type: 'application/rss+xml'
                         }
                     ]}
                 />
+                <LeftImage
+                    theme={theme}
+                />
+                <MenuPC
+                    theme={theme}
+                    headInfo={headInfo}
+                    dispatch={dispatch}
+                />
+                <MenuPhoneHeader
+                    theme={theme}
+                    headInfo={headInfo}
+                    dispatch={dispatch}
+                />
                 <div id='home-main'>
-                    <NavBar
-                        theme={theme}
-                        dispatch={dispatch}
-                    />
-                    <main className='home-main-content'>
-                        {cloneElement(content, {store, params, theme, dispatch})}
-                    </main>
+                    <div
+                        id="home-main-left"
+                        onMouseEnter={::this.changeThemeToDefault}
+                    >
+                    </div>
+                    <div id="home-main-middle">
+                        <div
+                            id="home-main-top"
+                            onMouseEnter={::this.changeThemeToDefault}
+                        >
+                        </div>
+                        <NavBar
+                            theme={theme}
+                            dispatch={dispatch}
+                        />
+                        <main
+                            className='home-main-content'
+                            onMouseEnter={::this.changeThemeToDefault}
+                        >
+                            {cloneElement(content, {store, params, theme, dispatch})}
+                        </main>
+                    </div>
+                    <div
+                        id="home-main-right"
+                        onMouseEnter={::this.changeThemeToDefault}
+                    >
+                    </div>
                 </div>
+                <MenuPhoneFooter
+                    theme={theme}
+                    headInfo={headInfo}
+                    dispatch={dispatch}
+                />
             </div>
         );
     }

@@ -53,27 +53,21 @@ export default class NavBar extends Component {
         dispatch({type: actionTypes.change.theme.current, theme});
     }
 
-    changeThemeToDefault() {
-        const {dispatch} = this.props;
-        dispatch({type: actionTypes.change.theme.default});
-    }
-
     render() {
+        // Todo: 修改样式注意, 拥有修改主题能力的链接之间区块空隙应当为0,来防止不必要的执行!
         const titleBar = this.refs.titleBar;
         const theme = this.props.theme.get('current').toJS();
-        let marginLeft = 0;
-        let width = 0;
-        let backgroundColor = 'rgba(0, 0, 0)';
+        const titleBarStyle = {};
 
         if (titleBar) {
             const id = (this.list.filter(item =>
                 item.theme === theme.name
             )[0] || []).id;
             const nav = this.refs[id];
-            const left = nav ? nav.offsetLeft : titleBar.offsetLeft;
-            marginLeft = left - this.refs.title.offsetLeft - 10;
-            width = nav ? nav.offsetWidth + 20 : width;
-            backgroundColor = nav ? theme.color : backgroundColor;
+            const left = nav ? nav.offsetLeft : titleBar.offsetLeft + 10;
+            titleBarStyle.marginLeft = left - this.refs.title.offsetLeft - 10;
+            titleBarStyle.width = nav ? nav.offsetWidth + 20 : titleBar.offsetWidth;
+            titleBarStyle.backgroundColor = nav ? theme.color : 'rgba(0, 0, 0, 0)';
         }
 
         return (
@@ -88,7 +82,6 @@ export default class NavBar extends Component {
                                 key={item.id}
                                 id={item.id}
                                 onMouseEnter={() => this.changeTheme(item.theme)}
-                                onMouseLeave={::this.changeThemeToDefault}
                             >
                                 <Link to={getLocalUrl('category', item.theme)}>
                                     <span ref={item.id}>{item.theme}</span>
@@ -97,22 +90,12 @@ export default class NavBar extends Component {
                         )
                     }
                 </nav>
-                <div
-                    id="home-main-title-bar"
-                >
-                    {/*
-                        <VelocityComponent
-                            key="velocity"
-                            animation={this.titleEffect()}
-                        >
-                            <span id="title-bar"/>
-                        </VelocityComponent>
-                    */}
+                <div id="home-main-title-bar">
                     <span
                         id="title-bar"
                         ref="titleBar"
                         className="duration-1s"
-                        style={{marginLeft, width, backgroundColor}}
+                        style={titleBarStyle}
                     />
                 </div>
             </div>

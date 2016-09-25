@@ -13,6 +13,9 @@ import Tags from './tags';
 import Authors from './authors';
 import Article from './article';
 import NavBar from './navBar';
+import MenuPC from './menuPC';
+import {MenuPhoneHeader, MenuPhoneFooter} from './menuPhone';
+import LeftImage from './leftImage';
 import NotFound from './notFound';
 
 
@@ -26,5 +29,9 @@ export default {
     Tags,
     Article,
     NavBar,
+    MenuPC,
+    MenuPhoneHeader,
+    MenuPhoneFooter,
+    LeftImage,
     NotFound
 };

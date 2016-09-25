@@ -1,0 +1,31 @@
+2016-09-24T16:27:53+0800 <info> server.bin.js:28 (logInfo) { '0': 'Server start:', '1': 8000 }
+2016-09-24T16:27:56+0800 <info> server.bin.js:28 (logInfo) { '0': 'Req', '1': 'GET', '2': '/article/Life-test' }
+2016-09-24T16:27:56+0800 <info> server.bin.js:28 (logInfo) { '0': 'Req', '1': 'GET', '2': '/assets/main.css' }
+2016-09-24T16:27:56+0800 <info> server.bin.js:28 (logInfo) { '0': 'Req', '1': 'GET', '2': '/assets/main.bundle.js' }
+2016-09-24T16:28:08+0800 <info> server.bin.js:28 (logInfo) { '0': 'Req', '1': 'GET', '2': '/article/Life-test' }
+2016-09-24T16:28:08+0800 <info> server.bin.js:28 (logInfo) { '0': 'Req', '1': 'GET', '2': '/assets/main.css' }
+2016-09-24T16:28:08+0800 <info> server.bin.js:28 (logInfo) { '0': 'Req', '1': 'GET', '2': '/assets/main.bundle.js' }
+2016-09-24T16:28:30+0800 <info> server.bin.js:28 (logInfo) { '0': 'Req', '1': 'GET', '2': '/article/Life-test' }
+2016-09-24T16:28:30+0800 <info> server.bin.js:28 (logInfo) { '0': 'Req', '1': 'GET', '2': '/assets/main.css' }
+2016-09-24T16:28:30+0800 <info> server.bin.js:28 (logInfo) { '0': 'Req', '1': 'GET', '2': '/assets/main.bundle.js' }
+2016-09-24T16:29:14+0800 <info> server.bin.js:28 (logInfo) { '0': 'Server start:', '1': 8000 }
+2016-09-24T16:29:16+0800 <info> server.bin.js:28 (logInfo) { '0': 'Req', '1': 'GET', '2': '/article/Life-test' }
+2016-09-24T16:29:16+0800 <info> server.bin.js:28 (logInfo) { '0': 'Req', '1': 'GET', '2': '/assets/main.css' }
+2016-09-24T16:29:16+0800 <info> server.bin.js:28 (logInfo) { '0': 'Req', '1': 'GET', '2': '/assets/main.bundle.js' }
+2016-09-24T16:29:27+0800 <info> server.bin.js:28 (logInfo) { '0': 'Server start:', '1': 8000 }
+2016-09-24T16:29:29+0800 <info> server.bin.js:28 (logInfo) { '0': 'Req', '1': 'GET', '2': '/article/Life-test' }
+2016-09-24T16:29:29+0800 <info> server.bin.js:28 (logInfo) { '0': 'Req', '1': 'GET', '2': '/assets/main.css' }
+2016-09-24T16:29:29+0800 <info> server.bin.js:28 (logInfo) { '0': 'Req', '1': 'GET', '2': '/assets/main.bundle.js' }
+2016-09-24T16:29:34+0800 <info> server.bin.js:28 (logInfo) { '0': 'Req', '1': 'GET', '2': '/article/Life-test' }
+2016-09-24T16:29:35+0800 <info> server.bin.js:28 (logInfo) { '0': 'Req', '1': 'GET', '2': '/assets/main.css' }
+2016-09-24T16:29:35+0800 <info> server.bin.js:28 (logInfo) { '0': 'Req', '1': 'GET', '2': '/assets/main.bundle.js' }
+2016-09-24T16:30:18+0800 <info> server.bin.js:28 (logInfo) { '0': 'Server start:', '1': 8000 }
+2016-09-24T16:30:30+0800 <info> server.bin.js:28 (logInfo) { '0': 'Req', '1': 'GET', '2': '/article/Life-test' }
+2016-09-24T16:30:30+0800 <info> server.bin.js:28 (logInfo) { '0': 'Req', '1': 'GET', '2': '/assets/main.css' }
+2016-09-24T16:30:30+0800 <info> server.bin.js:28 (logInfo) { '0': 'Req', '1': 'GET', '2': '/assets/main.bundle.js' }
+2016-09-24T16:30:32+0800 <info> server.bin.js:28 (logInfo) { '0': 'Req', '1': 'GET', '2': '/article/Life-test' }
+2016-09-24T16:30:32+0800 <info> server.bin.js:28 (logInfo) { '0': 'Req', '1': 'GET', '2': '/assets/main.css' }
+2016-09-24T16:30:32+0800 <info> server.bin.js:28 (logInfo) { '0': 'Req', '1': 'GET', '2': '/assets/main.bundle.js' }
+2016-09-24T16:30:49+0800 <info> server.bin.js:28 (logInfo) { '0': 'Req', '1': 'GET', '2': '/article/Life-test' }
+2016-09-24T16:30:50+0800 <info> server.bin.js:28 (logInfo) { '0': 'Req', '1': 'GET', '2': '/assets/main.css' }
+2016-09-24T16:30:50+0800 <info> server.bin.js:28 (logInfo) { '0': 'Req', '1': 'GET', '2': '/assets/main.bundle.js' }
