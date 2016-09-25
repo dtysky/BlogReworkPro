@@ -19,28 +19,28 @@ export default class LeftImage extends Component {
 
     shouldComponentUpdate(nextProps) {
         const shouldUpdate = !this.props.theme.get('current').equals(nextProps.theme.get('current'));
-        this.image1 = shouldUpdate && `url(${this.props.theme.get('current').get('leftImage')})`;
-        this.image2 = shouldUpdate && `url(${nextProps.theme.get('current').get('leftImage')})`;
+        this.imagePre = shouldUpdate && `url(${this.props.theme.get('current').get('leftImage')})`;
+        this.imageNext = shouldUpdate && `url(${nextProps.theme.get('current').get('leftImage')})`;
         return shouldUpdate;
+    }
+
+    componentDidUpdate() {
+        const imageNode = this.refs.image;
+        clearTimeout(this.timeID || 0);
+        imageNode.style.opacity = 0;
+        this.timeID = setTimeout(() => {
+            imageNode.style.backgroundImage = this.imageNext;
+            imageNode.style.opacity = 1;
+        }, 500);
     }
 
     render() {
         return (
             <aside id="home-left">
                 <div
-                    className="home-left-image"
-                    style={{
-                        backgroundImage: this.image1,
-                        left: 0
-                    }}
-                >
-                </div>
-                <div
-                    className="home-left-image"
-                    style={{
-                        backgroundImage: this.image2,
-                        left: '50%'
-                    }}
+                    ref="image"
+                    className="home-left-image duration-image"
+                    style={{backgroundImage: this.imagePre}}
                 >
                 </div>
             </aside>

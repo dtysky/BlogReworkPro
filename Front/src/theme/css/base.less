@@ -1,0 +1,123 @@
+@menu-width: 160;
+@menu-height: 280;
+@fonts: Verdana,Helvetica,arial,sans-serif;
+@font-size: 16;
+
+.size(@w: undefined, @h: undefined) {
+  .test();
+  .test() when not (@w = undefined) {
+    width: @w;
+  }
+  .test() when not (@h = undefined) {
+    height: @h;
+  }
+}
+
+.full-width {
+  .size(@w: 100%);
+}
+
+.full-height {
+  .size(@h: 100%);
+}
+
+.position(@l: undefined, @r: undefined, @t: undefined, @b: undefined) {
+  .test();
+  .test() when not (@l = undefined) {
+    left: @l;
+  }
+  .test() when not (@r = undefined) {
+    right: @r;
+  }
+  .test() when not (@t = undefined) {
+    top: @t;
+  }
+  .test() when not (@b = undefined) {
+    bottom: @b;
+  }
+}
+
+.position-prefix(@l: undefined, @r: undefined, @t: undefined, @b: undefined, @prefix) {
+  .test();
+  .eval-args(length(@arguments));  // requires LESS 1.5.+
+  .eval-args(@narguments){
+    prefix: none;
+  }
+  .test() when not (@l = undefined) {
+      @{prefix}-left: @l;
+  }
+  .test() when not (@r = undefined) {
+      @{prefix}-right: @r;
+  }
+  .test() when not (@t = undefined) {
+      @{prefix}-top: @t;
+  }
+  .test() when not (@b = undefined) {
+      @{prefix}-bottom: @b;
+  }
+}
+
+.padding(@l: undefined, @r: undefined, @t: undefined, @b: undefined) {
+  .position-prefix(@l, @r, @t, @b, padding);
+}
+
+.margin(@l: undefined, @r: undefined, @t: undefined, @b: undefined) {
+  .position-prefix(@l, @r, @t, @b, margin);
+}
+
+.border(@l: undefined, @r: undefined, @t: undefined, @b: undefined) {
+  .position-prefix(@l, @r, @t, @b, border);
+}
+
+.no-padding {
+  .padding;
+}
+
+.no-margin {
+  .margin;
+}
+
+.full {
+  .full-width;
+  .full-height;
+  .no-padding;
+  .no-margin;
+}
+
+.background(@size: undefined, @pos: undefined, @re: undefined, @clip: undefined, @image: undefined, @color: undefined) {
+  .test();
+  .test() when not (@size = undefined) {
+      background-size: @size;
+  }
+  .test() when not (@pos = undefined) {
+      background-position: @pos;
+  }
+  .test() when not (@re = undefined) {
+      background-repeat: @re;
+  }
+  .test() when not (@clip = undefined) {
+      background-clip: @clip;
+  }
+  .test() when not (@image = undefined) {
+    background-image: @image;
+  }
+  .test() when not (@color = undefined) {
+    background-color: @color;
+  }
+}
+
+.text(@size: undefined, @color: undefined, @align: undefined, @deco: undefined) {
+  .test();
+  .test() when not (@size = undefined) {
+    font-size: @size;
+  }
+  .test() when not (@color = undefined) {
+    color: @color;
+  }
+  .test() when not (@align = undefined) {
+    text-align: @align;
+  }
+  .test() when not (@deco = undefined) {
+    text-decoration: @deco;
+  }
+}

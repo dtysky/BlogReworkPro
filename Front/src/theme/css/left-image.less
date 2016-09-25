@@ -1,0 +1,15 @@
+@import "base";
+
+#left {
+  position: fixed;
+  .position(@t: 0);
+  .size(25%, 100%);
+  .background(@size: cover, @color: white, @pos: center);
+  overflow: hidden;
+
+  .image {
+    position: absolute;
+    .size(50%, 100%);
+    .background(@size: cover, @pos: center);
+  }
+}

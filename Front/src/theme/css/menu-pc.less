@@ -1,0 +1,101 @@
+@import "base";
+
+#menu {
+  position: fixed;
+  .size(@menu-width, @menu-height);
+  .position(@r: 0, @b: 0);
+  .background(@color: #6ca82b);
+
+  a, p {
+    display: inline-block;
+    .text(@color: black, @deco: none, @align: center);
+  }
+
+  .name {
+    display: block;
+    .margin(@t: 10px);
+    .size(@h: 35px);
+    .text(@size: 24px);
+  }
+
+  .icons {
+    .margin(@t: 15px);
+  }
+
+  .icon {
+    display: inline-block;
+    .margin(@l: 12px);
+    .size(@w: 25px);
+    .text(@size: 26px);
+  }
+
+  .home {
+    display: block;
+    .margin(@t: 5px);
+    .size(@w: 100%);
+    .text(@size: 20px);
+  }
+
+  .tag-ath {
+    display: block;
+    .margin(@t: 5px, @l: 30px);
+    .text(@size: 16px);
+  }
+
+  .tags {
+    .padding(@r: 2px);
+  }
+
+  .authors {
+    .padding(@l: 2px);
+  }
+
+  .links-p {
+    display: block;
+    .margin(@t: 10px, @b: 5px);
+    .size(@w: 100%);
+    .text(@size: 20px, @align: center);
+  }
+
+  .links {
+    display: block;
+    .margin(@b: 5px);
+    .text(@size: 16px);
+  }
+
+  .proj {
+    .padding(@l: 20px, @r: 2px);
+  }
+
+  .friend {
+    .border();
+    .padding(@l: 2px);
+    .text(@size: 16px, @color: #000, @align: right);
+  }
+
+  .end {
+    display: block;
+    .margin(@t: 10px, @l: 10px);
+    .size(@h: 30px);
+    .text(@size: 12px);
+  }
+
+  .hr(@width) when (isnumber(@width)) {
+    border: 1px solid;
+    .size(@w: @width);
+    .text(@color: black);
+    .margin(@t: 10px, @l: (@menu-width - @width) / 2);
+  }
+
+  .hr1 {
+    .hr(10);
+  }
+
+  .hr2 {
+    .hr(20);
+  }
+
+  .hr3 {
+    .hr(10);
+  }
+}

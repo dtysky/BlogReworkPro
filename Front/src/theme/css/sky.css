@@ -25,6 +25,7 @@ a{
 .home-menu{
 	display: none;
 	position: fixed;
+	z-index: 4;
 	width: 160px;
 	height: 280px;
 	bottom: 0;
@@ -144,18 +145,19 @@ a{
 
 #home-left{
 	position: fixed;
-    left: -25%;
-	top: 0px;
-	width: 50%;
+	z-index: 4;
+    left: 0;
+	top: 0;
+	width: 25%;
 	height: 100%;
     background-size: cover;
-    background: #000 50% 50%;
+    background: #fff 50% 50%;
     overflow: hidden;
 }
 
 .home-left-image{
     height: 100%;
-    width: 50%;
+    width: 100%;
     position: absolute;
     background-size: cover;
     background-position: 50% 50%;
@@ -407,10 +409,17 @@ footer a, p {
 }
 
 .duration-1s{
-    -webkit-transition: opacity .5s ease-in,background-color 1s ease-in;
-    -moz-transition: opacity .5s ease-in,background-color 1s ease-in;
-    -o-transition: opacity .5s ease-in,background-color 1s ease-in;
-    transition: opacity .5s ease-in,background-color 1s ease-in;
+    -webkit-transition: opacity .5s ease-in, background-color 1s ease-in, .5s ease-in-out;
+    -moz-transition: opacity .5s ease-in, background-color 1s ease-in, .5s ease-in-out;
+    -o-transition: opacity .5s ease-in, background-color 1s ease-in, .5s ease-in-out;
+    transition: opacity .5s ease-in, background-color 1s ease-in, .5s ease-in-out;
+}
+
+.duration-image{
+	-webkit-transition: opacity .5s ease-in-out;
+	-moz-transition: opacity .5s ease-in-out;
+	-o-transition: opacity .5s ease-in-out;
+	transition: opacity .5s ease-in-out;
 }
 
 article{
@@ -763,7 +772,7 @@ article .description a{
 	}
 	#home-main-top{
 		width: 100%;
-		height: 60px;
+		height: 20px;
 	}
     #player1{
         opacity: 0.6;

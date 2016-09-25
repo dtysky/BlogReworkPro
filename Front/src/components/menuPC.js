@@ -46,7 +46,10 @@ export default class MenuPC extends Component {
     render() {
         // Todo: 修改样式注意, 拥有修改主题能力的链接之间区块空隙应当为0,来防止不必要的执行!
         return (
-            <div className="home-menu duration-1s">
+            <div
+                className="home-menu duration-1s"
+                style={{backgroundColor: this.props.theme.get('current').get('color')}}
+            >
                 <Link to="/article/Create-MyResume" id="home-menu-name">dtysky</Link>
                 <address className="home-menu-icons">
                     <a

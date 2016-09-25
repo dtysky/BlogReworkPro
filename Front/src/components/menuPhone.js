@@ -38,7 +38,10 @@ export class MenuPhoneHeader extends Component {
     render() {
         // Todo: 修改样式注意, 拥有修改主题能力的链接之间区块空隙应当为0,来防止不必要的执行!
         return (
-            <header className="home-menu-phone duration-1s">
+            <header
+                className="home-menu-phone duration-1s"
+                style={{backgroundColor: this.props.theme.get('current').get('color')}}
+            >
                 <address className="top">
                     <a
                         href={this.props.headInfo.get('rss')}
@@ -115,7 +118,10 @@ export class MenuPhoneFooter extends Component {
     render() {
         // Todo: 修改样式注意, 拥有修改主题能力的链接之间区块空隙应当为0,来防止不必要的执行!
         return (
-            <footer className="duration-1s">
+            <footer
+                className="duration-1s"
+                style={{backgroundColor: this.props.theme.get('current').get('color')}}
+            >
                 <p>Links</p>
                 <address id="home-links-phone">
                     {

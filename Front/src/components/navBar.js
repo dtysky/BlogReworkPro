@@ -65,16 +65,14 @@ export default class NavBar extends Component {
             )[0] || []).id;
             const nav = this.refs[id];
             const left = nav ? nav.offsetLeft : titleBar.offsetLeft + 10;
-            titleBarStyle.marginLeft = left - this.refs.title.offsetLeft - 10;
+//            titleBarStyle.marginLeft = left - 10;
             titleBarStyle.width = nav ? nav.offsetWidth + 20 : titleBar.offsetWidth;
             titleBarStyle.backgroundColor = nav ? theme.color : 'rgba(0, 0, 0, 0)';
+            titleBarStyle.transform = nav ? `translateX(${left - 10}px)` : titleBar.style.transform;
         }
 
         return (
-            <div
-                id="home-main-title"
-                ref="title"
-            >
+            <div id="home-main-title">
                 <nav id="title-list">
                     {
                         this.list.map(item =>
