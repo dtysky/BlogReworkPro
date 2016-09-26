@@ -34,9 +34,10 @@ export default class Article extends Base {
             .catch(() => {
                 dispatch({type: actionTypes.init.theme, theme: 'home'});
                 dispatch({type: actionTypes.change.theme.default});
-            })
-            .catch(() => this.setMusic());
+            });
     }
+
+    componentWillReceiveProps() {}
 
     shouldComponentUpdate(nextProps) {
         const {currentName, state} = this.props.store.toJS();

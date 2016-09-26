@@ -34,8 +34,9 @@ export default class APP extends Component {
 
     componentWillMount() {
         const {dispatch} = this.props;
-
         dispatch(initMusic());
+        // Todo: resize => title-bar
+        window.addEventListener('resize', () => this.forceUpdate());
     }
 
     changeThemeToDefault() {

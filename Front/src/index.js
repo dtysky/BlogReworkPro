@@ -48,5 +48,5 @@ ReactDom.render(
             history={browserHistory}
         />
     </Provider>,
-    document.getElementById('content')
+    document.getElementById('container')
 );
