@@ -40,7 +40,7 @@ export default class Tags extends Base {
         const base = (max + 1) / config.tagCloudStep;
 
         return (
-            <ul className="tag-cloud">
+            <ul id="tag-cloud">
                 {
                     currentList.map((tag, index) =>
                         <Link

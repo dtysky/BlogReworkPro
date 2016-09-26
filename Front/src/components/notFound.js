@@ -10,6 +10,9 @@ import {Link} from 'react-router';
 import config from '../../config';
 import actionTypes from '../actions';
 
+import '../theme/css/status.less';
+
+
 export default class NotFound extends Component {
     static propTypes = {
         dispatch: PropTypes.func
@@ -55,8 +58,8 @@ export default class NotFound extends Component {
 
     render() {
         return (
-            <article className='my404'>
-                <figure className='my404-img'>
+            <article id='status-404'>
+                <figure className="img">
                     {
                         ['1', '2', '3', '4'].map(e =>
                             <img
@@ -68,7 +71,7 @@ export default class NotFound extends Component {
                         )
                     }
                 </figure>
-                <summary className='my404-content'>
+                <summary className='content'>
                     {this.text.p.map(e => <div key={e}><p>{e}</p></div>)}
                     <Link to='/'>{this.text.a}</Link>
                 </summary>

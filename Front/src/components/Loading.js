@@ -6,11 +6,13 @@
 
 import React, {Component} from 'react';
 
+import '../theme/css/status.less';
+
 
 export default class Loading extends Component {
     render() {
         return (
-            <div className="content-wait">
+            <div id="status-wait">
                 <figure>
                     <img src="/theme/image/logo.svg" alt="wait" />
                 </figure>

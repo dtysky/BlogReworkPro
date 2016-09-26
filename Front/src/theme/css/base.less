@@ -13,12 +13,40 @@
   }
 }
 
+.max-size(@w: undefined, @h: undefined) {
+  .test();
+  .test() when not (@w = undefined) {
+    max-width: @w;
+  }
+  .test() when not (@h = undefined) {
+    max-height: @h;
+  }
+}
+
 .full-width {
   .size(@w: 100%);
 }
 
 .full-height {
   .size(@h: 100%);
+}
+
+.full-size {
+  .full-width;
+  .full-height;
+}
+
+.full-max-width {
+  .max-size(@w: 100%);
+}
+
+.full-max-height {
+  .max-size(@h: 100%);
+}
+
+.full-max-size {
+  .full-max-width;
+  .full-max-height;
 }
 
 .position(@l: undefined, @r: undefined, @t: undefined, @b: undefined) {
@@ -68,11 +96,20 @@
   .position-prefix(@l, @r, @t, @b, @all, margin);
 }
 
-.border(@l: undefined, @r: undefined, @t: undefined, @b: undefined, @all: undefined, @rad: undefined) {
+.border(
+  @l: undefined, @r: undefined, @t: undefined, @b: undefined,
+  @all: undefined, @rad: undefined, @color: undefined, @spac: undefined
+) {
   .test();
   .position-prefix(@l, @r, @t, @b, @all, border);
   .test() when not (@rad = undefined) {
       border-radius: @rad;
+  }
+  .test() when not (@color = undefined) {
+    border-color: @color;
+  }
+  .test() when not (@spac = undefined) {
+    border-spacing: @spac;
   }
 }
 
@@ -89,13 +126,12 @@
 }
 
 .full {
-  .full-width;
-  .full-height;
+  .full-size;
   .no-padding;
   .no-margin;
 }
 
-.background(@size: undefined, @pos: undefined, @re: undefined, @clip: undefined, @image: undefined, @color: undefined) {
+.background(@all: undefined, @size: undefined, @pos: undefined, @re: undefined, @clip: undefined, @image: undefined, @color: undefined) {
   .test();
   .test() when not (@size = undefined) {
       background-size: @size;
@@ -114,6 +150,9 @@
   }
   .test() when not (@color = undefined) {
     background-color: @color;
+  }
+  .test() when not (@all = undefined) {
+      background: @all;
   }
 }
 
@@ -134,4 +173,32 @@
   .test() when not (@weight = undefined) {
     font-weight: @weight;
   }
+}
+
+.text-center {
+  .text(@align: center);
+}
+
+@font-face {
+  font-family: 'icomoon';
+  src:    url('../font/icomoon.eot?c8cymx');
+  src:    url('../font/icomoon.eot?c8cymx#iefix') format('embedded-opentype'),
+  url('../font/icomoon.ttf?c8cymx') format('truetype'),
+  url('../font/icomoon.woff?c8cymx') format('woff'),
+  url('../font/icomoon.svg?c8cymx#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+.icon-font-family {
+  font-family: 'icomoon' !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

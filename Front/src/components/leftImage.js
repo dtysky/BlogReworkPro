@@ -45,16 +45,16 @@ export default class LeftImage extends Component {
         }
 
         return (
-            <aside id="home-left">
+            <aside id="left">
                 <div
                     ref="image1"
-                    className="home-left-image duration-image"
+                    className="image"
                     style={image1Style}
                 >
                 </div>
                 <div
                     ref="image2"
-                    className="home-left-image duration-image"
+                    className="image"
                     style={image2Style}
                 >
                 </div>

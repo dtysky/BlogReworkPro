@@ -11,6 +11,8 @@ import actionTypes from '../actions';
 import {getLocalUrl} from '../utils';
 import * as themeReducer from '../reducers/theme';
 
+import '../theme/css/nav-bar.less';
+
 
 export default class NavBar extends Component {
     static propTypes = {
@@ -65,15 +67,14 @@ export default class NavBar extends Component {
             )[0] || []).id;
             const nav = this.refs[id];
             const left = nav ? nav.offsetLeft : titleBar.offsetLeft + 10;
-//            titleBarStyle.marginLeft = left - 10;
             titleBarStyle.width = nav ? nav.offsetWidth + 20 : titleBar.offsetWidth;
             titleBarStyle.backgroundColor = nav ? theme.color : 'rgba(0, 0, 0, 0)';
             titleBarStyle.transform = nav ? `translateX(${left - 10}px)` : titleBar.style.transform;
         }
 
         return (
-            <div id="home-main-title">
-                <nav id="title-list">
+            <div id="nav-bar">
+                <nav className="list">
                     {
                         this.list.map(item =>
                             <li
@@ -88,11 +89,10 @@ export default class NavBar extends Component {
                         )
                     }
                 </nav>
-                <div id="home-main-title-bar">
+                <div className="bar-container">
                     <span
-                        id="title-bar"
+                        className="bar duration-1s"
                         ref="titleBar"
-                        className="duration-1s"
                         style={titleBarStyle}
                     />
                 </div>

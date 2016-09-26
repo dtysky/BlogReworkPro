@@ -36,14 +36,14 @@ export default class Pagination extends Component {
         const indexes = new Array(right - left + 1).fill(0).map((i, index) => index + left);
 
         return (
-            <div className="pagination">
+            <div id="pagination">
                 <ul>
                     {[
                         currentPage === 0
                             ?
                             <li key="prev" className="prev disabled">&larr;</li>
                             :
-                            <li key="prev" className="prev">
+                            <li key="prev" className="prev active">
                                 <Link to={getLocalUrl(type, name, currentPage - 1)}>&larr;</Link>
                             </li>,
 
@@ -60,7 +60,7 @@ export default class Pagination extends Component {
                             ?
                             <li key="next" className="next disabled">&rarr;</li>
                             :
-                            <li key="next" className="next">
+                            <li key="next" className="next active">
                                 <Link to={getLocalUrl(type, name, currentPage + 1)}>&rarr;</Link>
                             </li>
                     ]}

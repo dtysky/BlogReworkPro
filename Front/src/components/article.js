@@ -17,7 +17,9 @@ import Loading from './loading';
 import NormalError from './normalError';
 import Share from './share';
 
+import '../theme/css/article.less';
 import '../theme/css/katex.css';
+import '../theme/css/pygments.css';
 
 
 export default class Article extends Base {
@@ -117,12 +119,12 @@ export default class Article extends Base {
         const {title, authors, tags, category, date, content, shareInfo} = currentArticle;
 
         return (
-            <article className="home-article">
+            <article id="article">
                 <Share
                     theme={theme}
                     info={shareInfo}
                 />
-                <header className="home-article-top description">
+                <header className="top">
                     <h1>{title.view}</h1>
                     <p>
                         少女
@@ -155,22 +157,22 @@ export default class Article extends Base {
                             )
                         }
                     </p>
-                    <div className="home-article-sphr duration-1s"></div>
+                    <div className="sphr duration-1s"></div>
                 </header>
-                <article className="home-article-middle" dangerouslySetInnerHTML={{__html: content}} />
+                <article className="middle" dangerouslySetInnerHTML={{__html: content}} />
                 <div id="disqus_container">
                     <div id="disqus_thread">
                         <a
                             id="disqus_button"
                             onClick={::this.openComments}
                         >
-                            <span className="home-icon-disqus" />
+                            <span className="disqus" />
                             点击查看评论
                         </a>
                     </div>
                 </div>
-                <footer className="home-article-bottom">
-                    <div className="home-article-sphr duration-1s"></div>
+                <footer className="bottom">
+                    <div className="sphr duration-1s"></div>
                     <p>如果不是自己的创作,少女是会标识出来的,所以要告诉别人是少女写的哦。</p>
                 </footer>
             </article>

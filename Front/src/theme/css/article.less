@@ -1,0 +1,188 @@
+@import "base";
+
+#article {
+  .margin(@t: 80%);
+  .full-width;
+  .icon-font-family;
+
+  .top {
+    .margin(@t: 40px, @b: 40px);
+    .full-width;
+    .text(@align: center);
+
+    p {
+      .margin(@t: 0, @b: 0);
+      .full-width;
+      .text(@size: 1em, @color: gray, @align: center);
+    }
+
+    a {
+      .text(@color: #666, @weight: bolder);
+
+      &:hover {
+        .text(@color: black);
+      }
+    }
+
+    .jump:before {
+      content: "\e906";
+    }
+    .share:before {
+      content: "\e907";
+    }
+  }
+
+  .sphr {
+    .margin(@t: 20px, @b: 20px);
+    .size(100%, 2px);
+  }
+
+  .middle {
+    .margin(@b: 20px);
+    .text(@size: 1em);
+    line-height: 1.5em;
+
+    h1 {
+       .margin(@t: 0.8em, @b: 0.4em);
+       .text(@size: 1.5em);
+     }
+
+    h2 {
+      .margin(@t: 1em, @b: 1em);
+      .text(@size: 1.4em);
+    }
+
+    h3 {
+      .margin(@t: 1em, @b: 1em);
+      .text(@size: 1.3em);
+    }
+
+    h4, h5, h6 {
+      .margin(@t: 1em, @b: 1em);
+      .text(@size: 1.2em);
+    }
+
+    p, a, code, .highlight, li, blockquote {
+      .text(@size: 1em);
+      line-height: 1.5em;
+    }
+
+    p {
+      display: block;
+      .margin(@t: 1em, @b: 1em);
+      .text(@color: black, @align: left);
+    }
+
+    a {
+      .text(@color: #444);
+
+      &:after {
+        .margin(@l: 2px);
+        content: "\e906";
+      }
+    }
+
+    blockquote {
+      .background(@color: #00d6b2);
+      .padding(@all: 1px, 10px, 10px, 1px);
+      .margin(@l: 0, @r: 0);
+      -webkit-transition: background-color 1s ease-in;
+      -moz-transition: background-color 1s ease-in;
+      -o-transition: background-color 1s ease-in;
+      transition: background-color 1s ease-in;
+    }
+
+    pre {
+
+    }
+
+    img {
+      .full-max-size;
+    }
+
+    center {
+      .margin(@t: 15px, @b: 15px);
+      .text(@size: 14px);
+    }
+
+    table{
+      .margin(@all: 10px);
+      .padding(@all: 0);
+      .border(@all: 1px, @color: black, @spac: 0);
+    }
+
+    tr{
+      .text-center;
+    }
+
+    th{
+      .padding(@all: 10px);
+      .background(@color: #aaa);
+      .text-center;
+    }
+
+    td{
+      .padding(@all: 10px);
+      .text-center;
+    }
+
+    table, th, td {
+      .border(@all: 1px solid rgba(20, 20, 20, 0.8));
+    }
+
+    code{
+      .text(@weight: bolder);
+      .background(@color: #ddd);
+    }
+
+    #resume-header{
+      .size(100%, 140px);
+    }
+
+    #resume-photo{
+      position: absolute;
+      .position(@r: 0);
+      .max-size(@h: 140px);
+    }
+
+    .resume-title{
+      position: absolute;
+      .position(@l: 0);
+
+      h2{
+        .margin(@t: 0, @b: 20px);
+        .text(@size: 20px);
+      }
+
+      a, p {
+        .margin(@t: 10px, @b: 10px);
+        .text(@size: 16px);
+      }
+    }
+  }
+
+  .bottom {
+    .margin(@t: 40px);
+
+    p {
+      .full-width;
+      .text(@color: black, @weight: bolder, @align: center);
+    }
+  }
+
+  #disqus_container {
+    .margin(@t: 30px);
+  }
+
+  #disqus_button{
+    .border(@all: none);
+    cursor: pointer;
+    .text(@size: 16px);
+    background: none;
+    .background(@all: none);
+  }
+
+  .disqus:before {
+    content: "\e22b";
+  }
+}

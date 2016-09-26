@@ -11,6 +11,8 @@ import config from '../../config';
 import actionTypes from '../actions';
 import * as themeReducer from '../reducers/theme';
 
+import '../theme/css/menu-phone.less';
+
 
 export class MenuPhoneHeader extends Component {
     static propTypes = {
@@ -39,54 +41,51 @@ export class MenuPhoneHeader extends Component {
         // Todo: 修改样式注意, 拥有修改主题能力的链接之间区块空隙应当为0,来防止不必要的执行!
         return (
             <header
-                className="home-menu-phone duration-1s"
+                id="menu-phone-header"
                 style={{backgroundColor: this.props.theme.get('current').get('color')}}
             >
                 <address className="top">
                     <a
                         href={this.props.headInfo.get('rss')}
-                        className="home-menu-icon-phone home-icon-rss"
+                        className="icon rss"
                         target="_blank"
                     />
                     <a
                         href="https://github.com/dtysky"
-                        className="home-menu-icon-phone home-icon-github"
+                        className="icon github"
                         target="_blank"
                     />
                     <Link
                         to="/article/Create-MyResume"
-                        className="home-menu-icon-phone home-icon-resume"
+                        className="icon resume"
                     />
                     <a
                         href="https://cn.linkedin.com/pub/tianyu-dai/a8/818/44a"
-                        className="home-menu-icon-phone home-icon-linkedin"
+                        className="icon linkedin"
                         target="_blank"
                     />
                     <a
                         href="http://psnprofiles.com/dtysky"
-                        className="home-menu-icon-phone home-icon-playstation"
+                        className="icon playstation"
                         target="_blank"
                     />
                 </address>
-                <div className="home-menu-hr1-phone"></div>
+                <div className="hr1"></div>
                 <nav className="bottom">
                     <Link
                         to="/tags"
-                        id="home-menu-tags-phone"
                         onMouseEnter={() => this.changeTheme('tags')}
                     >
                         Tags
                     </Link>
                     <Link
                         to="/"
-                        id="home-menu-home-phone"
                         onMouseEnter={() => this.changeTheme('home')}
                     >
                         Home
                     </Link>
                     <Link
                         to="/authors"
-                        id="home-menu-authors-phone"
                         onMouseEnter={() => this.changeTheme('authors')}
                     >
                         Authors
@@ -119,26 +118,25 @@ export class MenuPhoneFooter extends Component {
         // Todo: 修改样式注意, 拥有修改主题能力的链接之间区块空隙应当为0,来防止不必要的执行!
         return (
             <footer
-                className="duration-1s"
+                id="menu-phone-footer"
                 style={{backgroundColor: this.props.theme.get('current').get('color')}}
             >
                 <p>Links</p>
-                <address id="home-links-phone">
+                <address className="links">
                     {
                         config.links.map((link, index) =>
                             <a
                                 key={index}
                                 target="_blank"
                                 href={link.url}
-                                className="thank"
                             >
                                 {link.name}
                             </a>
                         )
                     }
                 </address>
-                <div id="home-menu-hr3-phone"></div>
-                <p id="home-menu-end-phone">这是一个孤独行者的轨迹。</p>
+                <div className="hr3"></div>
+                <p className="end">这是一个孤独行者的轨迹。</p>
             </footer>
         );
     }

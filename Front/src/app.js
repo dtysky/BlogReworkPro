@@ -12,9 +12,8 @@ import actionTypes from './actions';
 import {initMusic} from './actions/source';
 import {NavBar, MenuPC, MenuPhoneHeader, MenuPhoneFooter, LeftImage} from './components';
 
-import './theme/css/sky.css';
-import './theme/css/article.css';
-import './theme/css/pygments.css';
+import './theme/css/sky.less';
+import './theme/css/main.less';
 
 
 @connect(
@@ -88,13 +87,13 @@ export default class APP extends Component {
                 />
                 <div id='home-main'>
                     <div
-                        id="home-main-left"
+                        className="left"
                         onMouseEnter={::this.changeThemeToDefault}
                     >
                     </div>
-                    <div id="home-main-middle">
+                    <div className="middle">
                         <div
-                            id="home-main-top"
+                            className="top"
                             onMouseEnter={::this.changeThemeToDefault}
                         >
                         </div>
@@ -103,14 +102,14 @@ export default class APP extends Component {
                             dispatch={dispatch}
                         />
                         <main
-                            className='home-main-content'
+                            className='#content'
                             onMouseEnter={::this.changeThemeToDefault}
                         >
                             {cloneElement(content, {store, params, theme, dispatch})}
                         </main>
                     </div>
                     <div
-                        id="home-main-right"
+                        className="right"
                         onMouseEnter={::this.changeThemeToDefault}
                     >
                     </div>
@@ -121,7 +120,12 @@ export default class APP extends Component {
                     dispatch={dispatch}
                 />
                 <div id="return-top">
-                    <button className="home-icon-return" onClick={() => window.scrollTo(0, 0)}/>
+                    <a
+                        onClick={(event) => {
+                            event.preventDefault();
+                            window.scrollTo(0, 0);
+                        }}
+                    />
                 </div>
             </div>
         );

@@ -11,6 +11,8 @@ import config from '../../config';
 import actionTypes from '../actions';
 import * as themeReducer from '../reducers/theme';
 
+import '../theme/css/menu-pc.less';
+
 
 export default class MenuPC extends Component {
     static propTypes = {
@@ -47,29 +49,34 @@ export default class MenuPC extends Component {
         // Todo: 修改样式注意, 拥有修改主题能力的链接之间区块空隙应当为0,来防止不必要的执行!
         return (
             <div
-                className="home-menu duration-1s"
+                className="menu duration-1s"
                 style={{backgroundColor: this.props.theme.get('current').get('color')}}
             >
-                <Link to="/article/Create-MyResume" id="home-menu-name">dtysky</Link>
-                <address className="home-menu-icons">
+                <Link
+                    to="/article/Create-MyResume"
+                    className="name"
+                >
+                    dtysky
+                </Link>
+                <address className="icons">
                     <a
                         href={this.props.headInfo.get('rss')}
-                        className="home-menu-icon home-icon-rss"
+                        className="icon rss"
                         target="_blank"
                     />
                     <a
                         href="https://github.com/dtysky"
-                        className="home-menu-icon home-icon-github"
+                        className="icon github"
                         target="_blank"
                     />
                     <a
                         href="https://cn.linkedin.com/pub/tianyu-dai/a8/818/44a"
-                        className="home-menu-icon home-icon-linkedin"
+                        className="icon linkedin"
                         target="_blank"
                     />
                     <a
                         href="http://psnprofiles.com/dtysky"
-                        className="home-menu-icon home-icon-playstation"
+                        className="icon playstation"
                         target="_blank"
                     />
                 </address>
@@ -78,50 +85,50 @@ export default class MenuPC extends Component {
                     <div>
                         <Link
                             to="/"
-                            id="home-menu-home"
+                            className="home"
                             onMouseEnter={() => this.changeTheme('home')}
                         >
                             Home
                         </Link>
                     </div>
-                    <nav className="home-menu-tag-ath">
+                    <nav className="tag-ath">
                         <Link
                             to="/tags"
-                            id="home-menu-tags"
+                            className="tags"
                             onMouseEnter={() => this.changeTheme('tags')}
                         >
                             Tags
                         </Link>
                         <Link
                             to="/authors"
-                            id="home-menu-authors"
+                            className="authors"
                             onMouseEnter={() => this.changeTheme('authors')}
                         >
                             Authors
                         </Link>
                     </nav>
                 </nav>
-                <div className="home-menu-hr2"></div>
-                <p className="home-menu-links-p">Links</p>
-                <address className="home-menu-links">
+                <div className="hr2"></div>
+                <p className="links-p">Links</p>
+                <address className="links">
                     <a
-                        id="home-menu-proj"
+                        className="proj"
                         href="http://proj.dtysky.moe"
                         target="_blank"
                     >
                         Projects
                     </a>
                     <a
-                        id="home-menu-friend"
+                        className="friend"
                         onClick={() => this.setState({linksOpened: !this.state.linksOpened})}
                     >
                         Friends
                     </a>
                 </address>
-                <div className="home-menu-hr3"></div>
-                <p className="home-menu-end">这是一个孤独行者的轨迹。</p>
+                <div className="hr3"></div>
+                <p className="end">这是一个孤独行者的轨迹。</p>
                 <div
-                    id="home-links"
+                    id="menu-links"
                     style={{
                         top: this.state.linksOpened ? 0 : -400,
                         backgroundColor: this.props.theme.get('current').get('color')
@@ -134,7 +141,6 @@ export default class MenuPC extends Component {
                                     <a
                                         target="_blank"
                                         href={link.url}
-                                        className="thank"
                                     >
                                         {link.name}
                                     </a>

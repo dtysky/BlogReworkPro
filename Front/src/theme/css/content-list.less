@@ -1,0 +1,69 @@
+@import "base";
+
+#content-list {
+  ul {
+    .no-padding;
+  }
+
+  a {
+    .margin(@t: 0);
+    .text(@color: #888, @size: 0.9em, @weight: border, @deco: none);
+    line-height: 1.5em;
+
+    &:hover {
+      .text(@color: black, @deco: none);
+    }
+  }
+
+  h3 {
+    .margin(@t: 40px);
+    .text(@size: 1.3em, @color: black);
+  }
+
+  p {
+    .margin(@t: 0);
+    .text(@size: 0.9em, @color: gray, @align: left);
+    line-height: 1.5em;
+  }
+
+  .ghr {
+    .no-border;
+    .margin(@all: -10px);
+  }
+
+  .index-preview {
+    .full-width;
+    .margin(@t: 30px, @b: 20px);
+
+    p {
+      .margin(@l: 1%);
+      .size(@w: 98%);
+      .text(@color: black, @size: 14px, @weight: bolder);
+    }
+  }
+}
+
+#author-list {
+  .margin(@t: 100%);
+  .full-width;
+  .text(@align: center);
+  list-style: none;
+
+  li {
+    .margin(@b: 40px);
+  }
+
+  a {
+    .full-width;
+    .text(@size: 40px, @color: #444);
+  }
+}
+
+#tag-cloud{
+  .margin(@t: 10%);
+  line-height: 30px;
+
+  a {
+    .padding(@all: 4px);
+  }
+}

@@ -1,0 +1,147 @@
+@import "base";
+
+@font-face {
+  font-family: socialshare;
+  src: url('/theme/font/iconfont.eot'); /* IE9*/
+  src: url('/theme/font/iconfont.eot?#iefix') format("embedded-opentype"), /* IE6-IE8 */
+  url('/theme/font/iconfont.woff') format("woff"), /* chrome, firefox */
+  url('/theme/font/iconfont.ttf') format("truetype"), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('/theme/font/iconfont.svg#iconfont') format("svg"); /* iOS 4.1- */
+}
+
+#share {
+  position: absolute;
+  .margin(@t: -60px);
+  .position(@r: 0);
+  .size(@w: 60px);
+
+  .button {
+    height: 50px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    opacity: 0.8;
+    width: 32px;
+    font-size: 32px;
+    color: black;
+    transition: opacity .5s ease-in;
+    background: none;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .icon {
+    font-family: "socialshare" !important;
+    word-break: normal;
+    font-size: 30px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    margin-left: 10px;
+    margin-top: 10px;
+    text-align: center;
+    vertical-align: middle;
+    transition: background 0.6s ease-out 0s;
+
+    &:hover {
+      background: #666;
+      color: #fff;
+    }
+
+    .weibo {
+      .text(@color: #ff763b);
+      .background(@color: #ff763b);
+
+      &:before {
+        content: "\f07a";
+      }
+    }
+
+    .tencent {
+      .text(@color: #56b6e7);
+      .background(@color: #56b6e7);
+
+      &:before {
+        content: "\f07a";
+      }
+    }
+
+    .qq {
+      .text(@color: #56b6e7);
+      .background(@color: #56b6e7);
+
+      &:before {
+        content: "\f11a";
+      }
+    }
+    .qzone {
+      .text(@color: #fdbe3d);
+      .background(@color: #fdbe3d);
+
+      &:before {
+        content: "\f08a";
+      }
+    }
+
+    .douban {
+      .text(@color: #33b045);
+      .background(@color: #33b045);
+
+      &:before {
+        content: "\f10a";
+      }
+    }
+
+    .linkedin {
+      .text(@color: #0077b5);
+      .background(@color: #0077b5);
+
+      &:before {
+        content: "\f01a";
+      }
+    }
+
+    .facebook {
+      .text(@color: #44619D);
+      .background(@color: #44619D);
+
+      &:before {
+        content: "\f03a";
+      }
+    }
+
+    .google {
+      .text(@color: #db4437);
+      .background(@color: #db4437);
+
+      &:before {
+        content: "\f04a";
+      }
+    }
+
+    .twitter {
+      .text(@color: #55acee);
+      .background(@color: #55acee);
+
+      &:before {
+        content: "\f06a";
+      }
+    }
+  }
+
+  .icon-share {
+    .icon-font-family;
+
+    &:before {
+      content: "\e907";
+    }
+  }
+}

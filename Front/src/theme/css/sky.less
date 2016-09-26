@@ -8,16 +8,16 @@ div,span,h1,h2,h3,h4,h5,h6,a,p,button {
   font-family: @fonts ! important;
 }
 
+h1,h2,h3,h4,h5,h6,p,a {
+  word-break: break-all;
+}
+
 button, a {
   cursor: pointer;
 }
 
 body {
   font-size: @font-size;
-}
-
-#main {
-  position: relative;
 }
 
 .duration-1s{
@@ -27,27 +27,23 @@ body {
   transition: opacity .5s ease-in,background-color 1s ease-in;
 }
 
-.duration-image{
-  -webkit-transition: opacity .5s ease-in-out;
-  -moz-transition: opacity .5s ease-in-out;
-  -o-transition: opacity .5s ease-in-out;
-  transition: opacity .5s ease-in-out;
-}
-
 #return-top{
   display: block;
   position: fixed;
-  right: 180px;
-  bottom: 10px;  }
+  .position(@b: 10px);
 
-#return-top button{
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  width: 48px;
-  height: 48px;
-  font-size: 48px;
-  background: none;
+  a {
+    .border(@all: none);
+    .padding(@all: 0);
+    .size(48px, 48px);
+    .text(@size: 48px);
+    .background(@all: none);
+    .icon-font-family;
+
+    &:before {
+      content: "\e905";
+    }
+  }
 }
 
 @media (min-width: 960px) {
@@ -100,66 +96,4 @@ body {
   #player-hr{
     display: block;
   }
-}
-
-@font-face {
-  font-family: 'icomoon';
-  src:    url('../font/icomoon.eot?c8cymx');
-  src:    url('../font/icomoon.eot?c8cymx#iefix') format('embedded-opentype'),
-  url('../font/icomoon.ttf?c8cymx') format('truetype'),
-  url('../font/icomoon.woff?c8cymx') format('woff'),
-  url('../font/icomoon.svg?c8cymx#icomoon') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-
-[class^="home-icon-"], [class*=" home-icon-"] {
-  /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'icomoon' !important;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-
-  /* Better Font Rendering =========== */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.home-icon-playstation:before {
-  content: "\e901";
-  font-size: 23px;
-}
-.home-icon-github:before {
-  content: "\e902";
-  font-size: 28px;
-}
-.home-icon-disqus:before {
-  content: "\e22b";
-}
-.home-icon-home:before {
-  content: "\e88a";
-}
-.home-icon-price-tag:before {
-  content: "\e903";
-}
-.home-icon-resume:before {
-  content: "\e90a";
-  font-size: 28px;
-}
-.home-icon-return:before {
-  content: "\e905";
-}
-.home-icon-jump:before {
-  content: "\e906";
-}
-.home-icon-share:before {
-  content: "\e907";
-}
-.home-icon-rss:before {
-  content: "\e908";
-}
-.home-icon-linkedin:before {
-  content: "\e909";
 }

@@ -13,7 +13,7 @@ import config from '../../config';
 import * as themeReducer from '../reducers/theme';
 import * as shareInfoReducer from '../reducers/shareInfo';
 
-import '../theme/css/share.css';
+import '../theme/css/share.less';
 
 
 export default class Share extends Component {
@@ -31,7 +31,8 @@ export default class Share extends Component {
         openModal: false
     };
 
-    openModal() {
+    openModal(event) {
+        event.preventDefault();
         this.setState({showModal: true});
     }
 
@@ -70,15 +71,14 @@ export default class Share extends Component {
         };
         return (
             <div
-                className="share"
+                id="share"
             >
-                <button
-                    className="share-button home-icon-share"
+                <a
+                    className="button icon-share"
                     onClick={this.openModal}
                 />
                 <Modal
                     key='modal'
-                    className="share-window"
                     isOpen={this.state.openModal}
                     onRequestClose={::this.closeModal}
                     style={modalStyle}
@@ -92,9 +92,9 @@ export default class Share extends Component {
                     >
                         <QrCode
                             key='qr-code'
-                            value={this.props.info.url}
+                            value={this.props.info.get('url')}
                             size={160}
-                            fgColor={config.themeColor[this.props.theme]}
+                            fgColor={this.props.theme.get('current').get('color')}
                             level='M'
                         />
                     </div>
@@ -104,7 +104,7 @@ export default class Share extends Component {
                                 key={index}
                                 target='_blank'
                                 href={this.format(template[1])}
-                                className={`share-icon icon-${template[0]}`}
+                                className={`icon ${template[0]}`}
                             />
                         )
                     }

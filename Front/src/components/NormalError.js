@@ -6,11 +6,13 @@
 
 import React, {Component} from 'react';
 
+import '../theme/css/status.less';
+
 
 export default class Loading extends Component {
     render() {
         return (
-            <div className="content-error">
+            <div id="status-error">
                 <figure>
                     <img src="/theme/image/logo.svg" alt="error" />
                 </figure>

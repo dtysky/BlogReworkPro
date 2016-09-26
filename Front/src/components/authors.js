@@ -36,7 +36,7 @@ export default class Authors extends Base {
         }
 
         return (
-            <ul className="authors-list">
+            <ul id="authors">
                 {
                     currentList.map((author, index) =>
                         <li key={index}>

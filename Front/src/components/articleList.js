@@ -13,6 +13,8 @@ import Loading from './loading';
 import NormalError from './normalError';
 import Pagination from './pagination';
 
+import '../theme/css/content-list.less';
+
 
 export default class ArticleList extends Base {
     render() {
@@ -27,7 +29,7 @@ export default class ArticleList extends Base {
             return <Loading key='loading' />;
         }
         return (
-            <div>
+            <div id="content-list">
                 {this.renderTop()}
                 <ul>
                     {currentList.map((item, index) => this.renderPage(item, index))}
@@ -46,9 +48,7 @@ export default class ArticleList extends Base {
 
     renderPage(item, index: number) {
         return (
-            <article
-                key={index}
-            >
+            <article key={index}>
                 <header>
                     <Link
                         to={getLocalUrl('article', item.slug)}
@@ -63,7 +63,7 @@ export default class ArticleList extends Base {
                     dangerouslySetInnerHTML={{__html: item.summary}}
                 />
                 <footer className='description'>
-                    <hr className='home-main-content-ghr' />
+                    <hr className='ghr' />
                     <p>少女</p>
                     {
                         item.authors.map((author, i) => (
