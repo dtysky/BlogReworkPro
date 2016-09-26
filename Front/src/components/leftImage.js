@@ -25,22 +25,37 @@ export default class LeftImage extends Component {
     }
 
     componentDidUpdate() {
-        const imageNode = this.refs.image;
-        clearTimeout(this.timeID || 0);
-        imageNode.style.opacity = 0;
-        this.timeID = setTimeout(() => {
-            imageNode.style.backgroundImage = this.imageNext;
-            imageNode.style.opacity = 1;
-        }, 500);
+        const image1 = this.refs.image1;
+        const image2 = this.refs.image2;
+        image1.style.opacity = image1.style.zIndex === '6' ? 0 : 1;
+        image2.style.opacity = image2.style.zIndex === '6' ? 0 : 1;
     }
 
     render() {
+        const image1Style = {};
+        const image2Style = {};
+
+        if (this.refs.image1) {
+            const zIndex1 = this.refs.image1.style.zIndex || '6';
+            const zIndex2 = this.refs.image2.style.zIndex || '5';
+            image1Style.zIndex = zIndex2;
+            image2Style.zIndex = zIndex1;
+            image1Style.backgroundImage = zIndex1 === '5' ? this.imagePre : this.imageNext;
+            image2Style.backgroundImage = zIndex2 === '5' ? this.imagePre : this.imageNext;
+        }
+
         return (
             <aside id="home-left">
                 <div
-                    ref="image"
+                    ref="image1"
                     className="home-left-image duration-image"
-                    style={{backgroundImage: this.imagePre}}
+                    style={image1Style}
+                >
+                </div>
+                <div
+                    ref="image2"
+                    className="home-left-image duration-image"
+                    style={image2Style}
                 >
                 </div>
             </aside>

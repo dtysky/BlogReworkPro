@@ -409,17 +409,17 @@ footer a, p {
 }
 
 .duration-1s{
-    -webkit-transition: opacity .5s ease-in, background-color 1s ease-in, .5s ease-in-out;
+    -webkit-transition: opacity .1s ease-in, background-color 1s ease-in, .5s ease-in-out;
     -moz-transition: opacity .5s ease-in, background-color 1s ease-in, .5s ease-in-out;
     -o-transition: opacity .5s ease-in, background-color 1s ease-in, .5s ease-in-out;
     transition: opacity .5s ease-in, background-color 1s ease-in, .5s ease-in-out;
 }
 
 .duration-image{
-	-webkit-transition: opacity .5s ease-in-out;
-	-moz-transition: opacity .5s ease-in-out;
-	-o-transition: opacity .5s ease-in-out;
-	transition: opacity .5s ease-in-out;
+	-webkit-transition: opacity .8s ease-in-out;
+	-moz-transition: opacity .8s ease-in-out;
+	-o-transition: opacity .8s ease-in-out;
+	transition: opacity .8s ease-in-out;
 }
 
 article{
