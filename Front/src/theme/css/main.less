@@ -2,17 +2,16 @@
 
 #main {
   position: relative;
+  z-index: 8;
 
   .left {
     float: left;
-  }
-
-  .middle {
-    float: left;
+    .size(30%, 100%);
   }
 
   .right {
     float: left;
+    .size(20%, 100%);
   }
 }
 
@@ -21,10 +20,11 @@
     .size(100%, 100%);
 
     .left {
-      .size(30%, 100%);
+      display: block;
     }
 
     .middle {
+      float: left;
       .size(50%, 100%);
 
       .top {
@@ -33,7 +33,7 @@
     }
 
     .right {
-      .size(20%, 100%);
+      display: block;
     }
   }
 }
@@ -43,11 +43,13 @@
     .size(@w: 100%);
 
     .left {
-      .size(10%, 100%);
+      display: none;
     }
 
     .middle {
-      .size(80%, 100%);
+      position: relative;
+      .padding(@l: 10%);
+      .size(@w: 80%);
 
       .top {
         .size(100%, 20px)
@@ -55,7 +57,7 @@
     }
 
     .right {
-      .size(10%, 100%);
+      display: none;
     }
   }
 }

@@ -48,7 +48,7 @@ export function articleListReducer(
 
         case actionTypes.get[tag].failed: {
             return state.merge({
-                state: 'failed', currentName: action.name, currentList: [], maxPage: 0, currentPage: 0
+                state: 'error', currentName: action.name, currentList: [], maxPage: 0, currentPage: 0
             });
         }
 

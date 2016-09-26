@@ -23,14 +23,14 @@ export function getListSource(type: string, name: string = '') {
     return dispatch => {
         dispatch({type: actionTypes.get[type].waiting});
         return request.get(url)
-            .timeout(5000)
+            .timeout(config.timeout)
             .then(res => {
                 const list = res.body.content || [];
                 dispatch({type: actionTypes.get[type].successful, name, list});
             })
             .catch(err => {
                 if (process.env.NODE_ENV === 'development') {
-                    console.log(err);
+                    console.log(err); // eslint-disable-line
                 }
                 if (err.status === 404) {
                     redirectTo404();
@@ -46,14 +46,14 @@ export function getArticleSource(name) {
     return dispatch => {
         dispatch({type: actionTypes.get.article.waiting});
         return request.get(url)
-            .timeout(5000)
+            .timeout(config.timeout)
             .then(res => {
                 const article = res.body.content || {};
                 dispatch({type: actionTypes.get.article.successful, name, article});
             })
             .catch(err => {
                 if (process.env.NODE_ENV === 'development') {
-                    console.log(err);
+                    console.log(err); // eslint-disable-line
                 }
                 if (err.status === 404) {
                     redirectTo404();
@@ -68,14 +68,14 @@ export function initMusic() {
 
     return dispatch =>
         request.get(url)
-            .timeout(5000)
+            .timeout(config.timeout)
             .then(res => {
                 const music = res.body || [];
                 dispatch({type: actionTypes.init.music.successful, music});
             })
             .catch(err => {
                 if (process.env.NODE_ENV === 'development') {
-                    console.log(err);
+                    console.log(err); // eslint-disable-line
                 }
                 dispatch({type: actionTypes.init.music.failed});
             });

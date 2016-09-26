@@ -42,6 +42,7 @@ export class MenuPhoneHeader extends Component {
         return (
             <header
                 id="menu-phone-header"
+                className="duration-1s"
                 style={{backgroundColor: this.props.theme.get('current').get('color')}}
             >
                 <address className="top">
@@ -70,7 +71,7 @@ export class MenuPhoneHeader extends Component {
                         target="_blank"
                     />
                 </address>
-                <div className="hr1"></div>
+                <div className="hr"></div>
                 <nav className="bottom">
                     <Link
                         to="/tags"
@@ -96,7 +97,7 @@ export class MenuPhoneHeader extends Component {
     }
 }
 
-export class MenuPhoneFooter extends Component {
+export class MenuPhoneFooter extends Component { // eslint-disable-line
     static propTypes = {
         dispatch: PropTypes.func,
         theme: PropTypes.object,
@@ -119,6 +120,7 @@ export class MenuPhoneFooter extends Component {
         return (
             <footer
                 id="menu-phone-footer"
+                className="duration-1s"
                 style={{backgroundColor: this.props.theme.get('current').get('color')}}
             >
                 <p>Links</p>
@@ -135,7 +137,7 @@ export class MenuPhoneFooter extends Component {
                         )
                     }
                 </address>
-                <div className="hr3"></div>
+                <div className="hr"></div>
                 <p className="end">这是一个孤独行者的轨迹。</p>
             </footer>
         );

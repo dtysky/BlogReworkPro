@@ -24,7 +24,7 @@ const config = Object.assign({}, {
     gaTrackingId: '......',
     tagCloudStep: 4,
     articlesPerPage: 10,
-    animationDefaultDuration: 800,
+    timeout: 2000,
     MathJaxUrl: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML',
     links: [
         {name: 'Lm7', url: 'http://lm7.xxxxxxxx.jp'},

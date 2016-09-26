@@ -36,10 +36,10 @@ export default class Base extends Component {
     }
 
     componentWillMount() {
-        this.getSource()
-            .then(() => this.setHeadInfo())
-            .then(() => this.setTheme())
-            .then(() => this.setMusic());
+        this.getSource();
+        this.setHeadInfo();
+        this.setTheme();
+        this.setMusic();
     }
 
     componentWillReceiveProps(nextProps) {

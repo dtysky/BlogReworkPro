@@ -85,7 +85,7 @@ export default class APP extends Component {
                     headInfo={headInfo}
                     dispatch={dispatch}
                 />
-                <div id='home-main'>
+                <div id='main'>
                     <div
                         className="left"
                         onMouseEnter={::this.changeThemeToDefault}
@@ -102,7 +102,7 @@ export default class APP extends Component {
                             dispatch={dispatch}
                         />
                         <main
-                            className='#content'
+                            id='content'
                             onMouseEnter={::this.changeThemeToDefault}
                         >
                             {cloneElement(content, {store, params, theme, dispatch})}

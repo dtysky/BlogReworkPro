@@ -16,7 +16,6 @@ import Immutable from 'immutable';
 import reducers from './reducers';
 import routes from './routes';
 
-import './theme/css/sky.css';
 
 const middleware = [thunkMiddleware];
 

@@ -25,15 +25,17 @@ import '../theme/css/pygments.css';
 export default class Article extends Base {
     static type = 'article';
 
-    componentWillReceiveProps(nextProps) {
-        const {store} = this.props;
-        const {state, currentName} = store.toJS();
-        const nextStore = nextProps.store.toJS();
-        if (
-            state === 'successful' && currentName !== nextStore.currentName
-        ) {
-            this.setHeadInfo();
-        }
+    componentWillMount() {
+        const {dispatch} = this.props;
+
+        this.getSource()
+            .then(() => this.setHeadInfo())
+            .then(() => this.setTheme())
+            .catch(() => {
+                dispatch({type: actionTypes.init.theme, theme: 'home'});
+                dispatch({type: actionTypes.change.theme.default});
+            })
+            .catch(() => this.setMusic());
     }
 
     shouldComponentUpdate(nextProps) {

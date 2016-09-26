@@ -52,11 +52,11 @@
 
 #status-wait {
   .margin(@t: 20%, @b: 20%);
-  .text(@align: centet);
+  .text(@align: center);
 
   img {
     .size(@w: 25%);
-    .border(@l: dashed, @r: dashed, @rad: 50%);
+    .border(@l: dashed, @t: dashed, @rad: 50%);
     .margin(@b: 40px);
     animation: rotate-full 3s linear 0s infinite normal;
     -webkit-animation: rotate-full 3s linear 0s infinite normal;
@@ -212,10 +212,26 @@
     .margin(@t: 90px);
   }
 
+  summary{
+    .margin(@b: 20px);
+
+    p {
+      .text(@size: 1.1em);
+      line-height: 2.5em;
+    }
+  }
+
   a {
-    .margin(@t: 0);
-    .text(@color: 888, @size: 18px, @weight: baolder, @deco: none);
+    .text(@color: #aaa, @size: 1.6em, @weight: bolder, @deco: none);
     line-height: 40px;
+    -webkit-transition: .5s ease-out;
+    -moz-transition: .5s ease-out;
+    -o-transition: .5s ease-out;
+    transition: .5s ease-out;
+
+    &:hover {
+      .text(@color: black);
+    }
   }
 
   .img {

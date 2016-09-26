@@ -20,17 +20,27 @@ body {
   font-size: @font-size;
 }
 
+a {
+  .no-margin;
+  .text(@deco: none);
+}
+
+p {
+  .no-margin;
+}
+
 .duration-1s{
-  -webkit-transition: opacity .5s ease-in,background-color 1s ease-in;
-  -moz-transition: opacity .5s ease-in,background-color 1s ease-in;
-  -o-transition: opacity .5s ease-in,background-color 1s ease-in;
-  transition: opacity .5s ease-in,background-color 1s ease-in;
+  -webkit-transition: opacity .5s ease-out,background-color .8s ease-out;
+  -moz-transition: opacity .5s ease-out,background-color .8s ease-out;
+  -o-transition: opacity .5s ease-out,background-color .8s ease-out;
+  transition: opacity .5s ease-out,background-color .8s ease-out;
 }
 
 #return-top{
   display: block;
   position: fixed;
   .position(@b: 10px);
+  z-index: 10;
 
   a {
     .border(@all: none);

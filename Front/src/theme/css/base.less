@@ -1,7 +1,7 @@
-@menu-width: 160;
-@menu-height: 280;
+@menu-width: 160px;
+@menu-height: 270px;
 @fonts: Verdana,Helvetica,arial,sans-serif;
-@font-size: 16;
+@font-size: 16px;
 
 .size(@w: undefined, @h: undefined) {
   .test();
@@ -67,10 +67,6 @@
 
 .position-prefix(@l: undefined, @r: undefined, @t: undefined, @b: undefined, @all: undefined, @prefix) {
   .test();
-  .eval-args(length(@arguments));  // requires LESS 1.5.+
-  .eval-args(@narguments){
-    prefix: none;
-  }
   .test() when not (@l = undefined) {
       @{prefix}-left: @l;
   }
@@ -114,15 +110,15 @@
 }
 
 .no-padding {
-  .padding();
+  .padding(@all: 0);
 }
 
 .no-margin {
-  .margin();
+  .margin(@all: 0);
 }
 
 .no-border {
-  .border();
+  .border(@all: 0);
 }
 
 .full {

@@ -49,7 +49,8 @@ export default class MenuPC extends Component {
         // Todo: 修改样式注意, 拥有修改主题能力的链接之间区块空隙应当为0,来防止不必要的执行!
         return (
             <div
-                className="menu duration-1s"
+                id="menu"
+                className="duration-1s"
                 style={{backgroundColor: this.props.theme.get('current').get('color')}}
             >
                 <Link
@@ -80,7 +81,7 @@ export default class MenuPC extends Component {
                         target="_blank"
                     />
                 </address>
-                <div className="home-menu-hr1"></div>
+                <div className="hr1"></div>
                 <nav>
                     <div>
                         <Link

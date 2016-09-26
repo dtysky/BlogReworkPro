@@ -35,7 +35,7 @@ function parseExpression(raw: string, delimit: string, delimitEscaped: string, m
                 return katex.renderToString(snippet, {displayMode: mathMode});
             } catch (err) {
                 if (process.env.NODE_ENV === 'development') {
-                    console.log(err);
+                    console.log(err); // eslint-disable-line
                 }
                 const original = delimitEscaped + line + delimitEscaped;
                 return mathMode ? `<p style="text-align:center;">${original}<p>` : original;

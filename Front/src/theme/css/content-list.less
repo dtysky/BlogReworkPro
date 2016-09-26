@@ -1,34 +1,41 @@
 @import "base";
 
 #content-list {
+  .full-width;
+
   ul {
     .no-padding;
   }
 
-  a {
-    .margin(@t: 0);
-    .text(@color: #888, @size: 0.9em, @weight: border, @deco: none);
-    line-height: 1.5em;
-
-    &:hover {
-      .text(@color: black, @deco: none);
+  header {
+    h2 {
+      .margin(@t: 40px);
+      .text(@size: 1.3em, @color: black);
     }
   }
 
-  h3 {
-    .margin(@t: 40px);
-    .text(@size: 1.3em, @color: black);
-  }
-
-  p {
-    .margin(@t: 0);
+  summary {
     .text(@size: 0.9em, @color: gray, @align: left);
-    line-height: 1.5em;
+    line-height: 1.3em;
   }
 
-  .ghr {
-    .no-border;
-    .margin(@all: -10px);
+  footer {
+    .padding(@t: 5px);
+
+    p {
+      .padding(@b: 2px);
+      .text(@size: 0.9em, @color: gray, @align: left);
+      line-height: 1.4em;
+    }
+
+    a {
+      .padding(@all: 4px);
+      .text(@color: #888, @size: 0.9em, @weight: bolder, @deco: none);
+
+      &:hover {
+        .text(@color: black, @deco: none);
+      }
+    }
   }
 
   .index-preview {
@@ -39,6 +46,11 @@
       .margin(@l: 1%);
       .size(@w: 98%);
       .text(@color: black, @size: 14px, @weight: bolder);
+    }
+
+    .sphr {
+      .margin(@t: 20px, @b: 20px);
+      .size(100%, 2px);
     }
   }
 }

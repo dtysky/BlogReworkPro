@@ -75,7 +75,7 @@ export default class Share extends Component {
             >
                 <a
                     className="button icon-share"
-                    onClick={this.openModal}
+                    onClick={::this.openModal}
                 />
                 <Modal
                     key='modal'
@@ -92,7 +92,7 @@ export default class Share extends Component {
                     >
                         <QrCode
                             key='qr-code'
-                            value={this.props.info.get('url')}
+                            value={this.props.info.url}
                             size={160}
                             fgColor={this.props.theme.get('current').get('color')}
                             level='M'

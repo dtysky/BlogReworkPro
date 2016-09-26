@@ -55,38 +55,41 @@ export default class ArticleList extends Base {
                         rel='bookmark'
                         title={item.title.view}
                     >
-                        <h3>{item.title.view}</h3>
+                        <h2>{item.title.view}</h2>
                     </Link>
                 </header>
-                <summary
-                    className='description'
-                    dangerouslySetInnerHTML={{__html: item.summary}}
-                />
-                <footer className='description'>
-                    <hr className='ghr' />
-                    <p>少女</p>
-                    {
-                        item.authors.map((author, i) => (
-                            <li key={i}>
-                                <Link to={getLocalUrl('author', author.slug, 0)}>
+                <summary dangerouslySetInnerHTML={{__html: item.summary}} />
+                <footer>
+                    <p>
+                        少女
+                        {
+                            item.authors.map((author, i) => (
+                                <Link
+                                    key={i}
+                                    to={getLocalUrl('author', author.slug, 0)}
+                                >
                                     {author.view}
                                 </Link>
-                            </li>
-                        ))
-                    }
-                    <p>于</p>
-                    <p title={item.date}>{item.date}</p>
-                    <p>创作，</p>
-                    <p>路标：</p>
-                    {
-                        item.tags.map((tag, i) => (
-                            <li key={i}>
-                                <Link to={getLocalUrl('tag', tag.slug, 0)}>
+                            ))
+                        }
+                        于 {item.date} 在
+                        <Link
+                            to={getLocalUrl('category', item.category.slug, 0)}
+                        >
+                            {item.category.view}
+                        </Link>
+                        世界内创作，路标:
+                        {
+                            item.tags.map((tag, i) => (
+                                <Link
+                                    key={i}
+                                    to={getLocalUrl('tag', tag.slug, 0)}
+                                >
                                     {tag.view}
                                 </Link>
-                            </li>
-                        ))
-                    }
+                            ))
+                        }
+                    </p>
                 </footer>
             </article>
         );

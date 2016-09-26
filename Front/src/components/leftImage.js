@@ -8,6 +8,9 @@ import React, {Component, PropTypes} from 'react';
 
 import * as themeReducer from '../reducers/theme';
 
+import '../theme/css/left-image.less';
+
+
 export default class LeftImage extends Component {
     static propTypes = {
         theme: PropTypes.object

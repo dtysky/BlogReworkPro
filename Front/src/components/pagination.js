@@ -10,6 +10,8 @@ import {Link} from 'react-router';
 import config from '../../config';
 import {getLocalUrl} from '../utils';
 
+import '../theme/css/pagination.less';
+
 
 export default class Pagination extends Component {
     static propTypes = {

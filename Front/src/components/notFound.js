@@ -52,7 +52,8 @@ export default class NotFound extends Component {
 
     componentWillMount() {
         const {dispatch} = this.props;
-        dispatch({type: actionTypes.change.theme, theme: this.theme});
+        dispatch({type: actionTypes.init.theme, theme: this.theme});
+        dispatch({type: actionTypes.change.theme.default});
         dispatch({type: actionTypes.change.headInfo, ...this.headInfo});
     }
 
@@ -64,7 +65,7 @@ export default class NotFound extends Component {
                         ['1', '2', '3', '4'].map(e =>
                             <img
                                 key={e}
-                                className={`my404-img${e}`}
+                                className={`img${e}`}
                                 src={`/theme/image/404-${e}.svg`}
                                 alt={`404-${e}`}
                             />
@@ -72,7 +73,11 @@ export default class NotFound extends Component {
                     }
                 </figure>
                 <summary className='content'>
-                    {this.text.p.map(e => <div key={e}><p>{e}</p></div>)}
+                    {
+                        this.text.p.map(e =>
+                            <p key={e}>{e}</p>
+                        )
+                    }
                     <Link to='/'>{this.text.a}</Link>
                 </summary>
             </article>

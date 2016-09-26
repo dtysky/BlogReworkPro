@@ -7,6 +7,12 @@
   .size(100%, 120px);
   .background(@color: #6ca82b);
 
+  a {
+    display: inline-block;
+    .size(@w: 33%);
+    .text(@align: center);
+  }
+
   .top {
     display: inline-block;
     position: relative;
@@ -14,6 +20,11 @@
     .position(@l: 15%);
     .size(70%, 20px);
     .icon-font-family;
+
+    .icon {
+      .size(@w: 20%);
+      .text(@size: 26px);
+    }
 
     .playstation:before {
       content: "\e901";
@@ -39,18 +50,7 @@
   }
 
   .bottom {
-    display: inline-block;
     .full-width;
-
-    a {
-      .size(@w: 33%);
-      .text(@align: center);
-    }
-  }
-
-  .icon {
-    .size(@w: 20%);
-    .text(@size: 26px);
   }
 
   .hr {

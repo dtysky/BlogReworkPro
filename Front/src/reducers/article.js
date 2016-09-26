@@ -57,7 +57,7 @@ export default function articleReducer(
 
         case actionTypes.get.article.failed: {
             return state.merge({
-                state: 'failed', currentName: action.name, currentArticle: {}
+                state: 'error', currentName: action.name, currentArticle: {}
             });
         }
 

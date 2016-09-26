@@ -49,11 +49,11 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract('style', 'css')
+                loader: ExtractTextPlugin.extract('css')
             },
             {
                 test: /\.less$/,
-                loader: ExtractTextPlugin.extract('less')
+                loader: ExtractTextPlugin.extract('css!less')
             },
             {
                 test: /\.(png|jpg|gif)$/,

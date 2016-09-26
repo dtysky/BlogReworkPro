@@ -5,6 +5,7 @@
   .size(@menu-width, @menu-height);
   .position(@r: 0, @b: 0);
   .background(@color: #6ca82b);
+  z-index: 10;
 
   a, p {
     display: inline-block;
@@ -106,23 +107,23 @@
     .text(@size: 12px);
   }
 
-  .hr(@width) when (isnumber(@width)) {
+  .hr(@margin) when (isnumber(@margin)) {
     border: 1px solid;
-    .size(@w: @width);
+    .size(@w: @menu-width - @margin * 2);
     .text(@color: black);
-    .margin(@t: 10px, @l: (@menu-width - @width) / 2);
+    .margin(@t: 10px, @l: @margin);
   }
 
   .hr1 {
-    .hr(10);
+    .hr(10px);
   }
 
   .hr2 {
-    .hr(20);
+    .hr(20px);
   }
 
   .hr3 {
-    .hr(10);
+    .hr(10px);
   }
 }
 

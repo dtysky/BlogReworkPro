@@ -28,19 +28,19 @@ export default class NavBar extends Component {
         super(props);
         this.list = [
             {
-                id: 'title-create',
+                id: 'create',
                 theme: 'Create'
             },
             {
-                id: 'title-skill',
+                id: 'skill',
                 theme: 'Skill'
             },
             {
-                id: 'title-art',
+                id: 'art',
                 theme: 'Art'
             },
             {
-                id: 'title-life',
+                id: 'life',
                 theme: 'Life'
             }
         ];
@@ -79,7 +79,7 @@ export default class NavBar extends Component {
                         this.list.map(item =>
                             <li
                                 key={item.id}
-                                id={item.id}
+                                className={item.id}
                                 onMouseEnter={() => this.changeTheme(item.theme)}
                             >
                                 <Link to={getLocalUrl('category', item.theme)}>
@@ -91,7 +91,7 @@ export default class NavBar extends Component {
                 </nav>
                 <div className="bar-container">
                     <span
-                        className="bar duration-1s"
+                        className="bar"
                         ref="titleBar"
                         style={titleBarStyle}
                     />
