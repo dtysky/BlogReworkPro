@@ -50,7 +50,6 @@
 
   .icon {
     display: inline-block;
-    .icon-font-family;
     .margin(@l: 12px);
     .size(@w: 25px);
     .text(@size: 26px);
@@ -134,19 +133,16 @@
   .size(@w: @menu-width);
   transition: top .8s ease-in, background-color .8s ease-in;
 
-  ul {
+  address {
     list-style: none;
     .no-margin;
     .padding(@all: 5px);
     .text(@align: center);
   }
 
-  li {
-    .margin(@b: 10px);
-  }
-
   a {
-    .text(@color: #000, @deco: none, @size: 18px, @align: center);
+    line-height: 1.5em;
+    .text(@color: #000, @deco: none, @align: center, @size: .9em);
   }
 
 }

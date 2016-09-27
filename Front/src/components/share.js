@@ -106,7 +106,7 @@ export default class Share extends Component {
                                     key={index}
                                     target='_blank'
                                     href={this.format(template[1])}
-                                    className={`icon ${template[0]}`}
+                                    className={`icon-font icon ${template[0]}`}
                                 />
                             )
                         }

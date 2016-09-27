@@ -42,32 +42,32 @@ export class MenuPhoneHeader extends Component {
         return (
             <header
                 id="menu-phone-header"
-                className="duration-1s"
+                className="duration-main"
                 style={{backgroundColor: this.props.theme.get('current').get('color')}}
             >
                 <address className="top">
                     <a
                         href={this.props.headInfo.get('rss')}
-                        className="icon rss"
+                        className="icon-font icon rss"
                         target="_blank"
                     />
                     <a
                         href="https://github.com/dtysky"
-                        className="icon github"
+                        className="icon-font icon github"
                         target="_blank"
                     />
                     <Link
                         to="/article/Create-MyResume"
-                        className="icon resume"
+                        className="icon-font icon resume"
                     />
                     <a
                         href="https://cn.linkedin.com/pub/tianyu-dai/a8/818/44a"
-                        className="icon linkedin"
+                        className="icon-font icon linkedin"
                         target="_blank"
                     />
                     <a
                         href="http://psnprofiles.com/dtysky"
-                        className="icon playstation"
+                        className="icon-font icon playstation"
                         target="_blank"
                     />
                 </address>
@@ -120,7 +120,7 @@ export class MenuPhoneFooter extends Component { // eslint-disable-line
         return (
             <footer
                 id="menu-phone-footer"
-                className="duration-1s"
+                className="duration-main"
                 style={{backgroundColor: this.props.theme.get('current').get('color')}}
             >
                 <p>Links</p>

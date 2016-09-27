@@ -10,7 +10,7 @@ import {Link} from 'react-router';
 import config from '../../config';
 import actionTypes from '../actions';
 import {getArticleSource, initMusic} from '../actions/source';
-import {getLocalUrl} from '../utils';
+import {getLocalUrl, redirectTo404} from '../utils';
 
 import Base from './base';
 import Loading from './loading';
@@ -28,10 +28,15 @@ export default class Article extends Base {
     componentWillMount() {
         const {dispatch} = this.props;
         this.getSource()
-            .then(() => this.setHeadInfo())
-            .then(() => this.setTheme())
-            .then(() => this.setMusic())
-            .catch(() => {
+            .then(() => {
+                this.setHeadInfo();
+                this.setTheme();
+                this.setMusic();
+            })
+            .catch(err => {
+                if (err.status === 404) {
+                    return redirectTo404();
+                }
                 dispatch({type: actionTypes.init.theme, theme: 'home'});
                 dispatch({type: actionTypes.change.theme.default});
             });
@@ -53,9 +58,6 @@ export default class Article extends Base {
         const backgroundColor = this.props.theme.get('current').get('color');
 
         [].forEach.call(document.getElementsByTagName('blockquote') || [], element => {
-            element.style.backgroundColor = backgroundColor;
-        });
-        [].forEach.call(document.getElementsByClassName('home-article-sphr') || [], element => {
             element.style.backgroundColor = backgroundColor;
         });
     }
@@ -124,11 +126,11 @@ export default class Article extends Base {
 
         return (
             <article id="article">
-                <Share
-                    theme={theme}
-                    info={shareInfo}
-                />
                 <header className="top">
+                    <Share
+                        theme={theme}
+                        info={shareInfo}
+                    />
                     <h1>{title.view}</h1>
                     <p>
                         少女
@@ -161,7 +163,11 @@ export default class Article extends Base {
                             )
                         }
                     </p>
-                    <div className="sphr duration-1s"></div>
+                    <div
+                        className="hr duration-main"
+                        style={{backgroundColor: theme.get('current').get('color')}}
+                    >
+                    </div>
                 </header>
                 <article className="middle" dangerouslySetInnerHTML={{__html: content}} />
                 <div id="disqus_container">
@@ -170,13 +176,17 @@ export default class Article extends Base {
                             id="disqus_button"
                             onClick={::this.openComments}
                         >
-                            <span className="icon disqus" />
+                            <span className="icon-font icon disqus" />
                             点击查看评论
                         </a>
                     </div>
                 </div>
                 <footer className="bottom">
-                    <div className="sphr duration-1s"></div>
+                    <div
+                        className="hr duration-main"
+                        style={{backgroundColor: theme.get('current').get('color')}}
+                    >
+                    </div>
                     <p>如果不是自己的创作,少女是会标识出来的,所以要告诉别人是少女写的哦。</p>
                 </footer>
             </article>

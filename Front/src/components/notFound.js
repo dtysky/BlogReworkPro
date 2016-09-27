@@ -9,13 +9,15 @@ import {Link} from 'react-router';
 
 import config from '../../config';
 import actionTypes from '../actions';
+import {initMusic} from '../actions/source';
 
 import '../theme/css/status.less';
 
 
 export default class NotFound extends Component {
     static propTypes = {
-        dispatch: PropTypes.func
+        dispatch: PropTypes.func,
+        music: PropTypes.object
     };
 
     static type = '404';
@@ -51,10 +53,12 @@ export default class NotFound extends Component {
     }
 
     componentWillMount() {
-        const {dispatch} = this.props;
+        const {dispatch, music} = this.props;
         dispatch({type: actionTypes.init.theme, theme: this.theme});
         dispatch({type: actionTypes.change.theme.default});
         dispatch({type: actionTypes.change.headInfo, ...this.headInfo});
+        dispatch(initMusic(music.get('default')))
+            .then(() => dispatch({type: actionTypes.change.music.current, music: 'パーフェクトヴァニティ'}));
     }
 
     render() {

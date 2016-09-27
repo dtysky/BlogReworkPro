@@ -48,7 +48,7 @@ export default class ArticleList extends Base {
 
     renderPage(item, index: number) {
         return (
-            <article key={index}>
+            <section key={index}>
                 <header>
                     <Link
                         to={getLocalUrl('article', item.slug)}
@@ -91,7 +91,7 @@ export default class ArticleList extends Base {
                         }
                     </p>
                 </footer>
-            </article>
+            </section>
         );
     }
 }

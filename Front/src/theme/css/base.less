@@ -175,6 +175,26 @@
   .text(@align: center);
 }
 
+.autoprefix-some(@name, @t) {
+  -webkit-@{name}: @t;
+  -moz-@{name}: @t;
+  -o-@{name}: @t;
+  -ms-@{name}: @t;
+    @{name}: @t;
+}
+
+.autoprefix-transition(@t) {
+  .autoprefix-some(transition, @t);
+}
+
+.autoprefix-transform(@t) {
+  .autoprefix-some(transform, @t);
+}
+
+.autoprefix-animation(@t) {
+  .autoprefix-some(animation, @t);
+}
+
 @font-face {
   font-family: 'icomoon';
   src:    url('../font/icomoon.eot?c8cymx');

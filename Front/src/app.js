@@ -39,7 +39,7 @@ export default class APP extends Component {
     }
 
     render() {
-        const {content, params, theme,music, dispatch} = this.props;
+        const {content, params, theme, music, dispatch} = this.props;
         // Get component's type from static variable 'type'
         const {type} = content.type;
         const store = this.props[type];
@@ -114,6 +114,7 @@ export default class APP extends Component {
                 />
                 <div id="return-top">
                     <a
+                        className="icon-font"
                         onClick={(event) => {
                             event.preventDefault();
                             window.scrollTo(0, 0);

@@ -1,13 +1,12 @@
 @import "base";
 
 #article {
-  .margin(@t: 80px);
   .full-width;
   .icon-font-family;
 
   > .top {
-    .margin(@t: 40px, @b: 40px);
     .full-width;
+    .padding(@t: 100px);
     .text(@align: center);
 
     p {
@@ -25,7 +24,7 @@
     }
   }
 
-  .sphr {
+  .hr {
     .margin(@t: 20px, @b: 20px);
     .size(100%, 2px);
   }
@@ -66,6 +65,7 @@
     }
 
     a {
+      .icon-font-family;
       .text(@color: #444);
 
       &:after {
@@ -75,8 +75,8 @@
     }
 
     blockquote {
-      .background(@color: #00d6b2);
-      .padding(@all: 1px, 10px, 10px, 1px);
+      .background(@color: #6ca82b);
+      .padding(@all: 1px 10px 1px 10px);
       .margin(@l: 0, @r: 0);
       -webkit-transition: background-color 1s ease-in;
       -moz-transition: background-color 1s ease-in;
@@ -85,7 +85,10 @@
     }
 
     pre {
-
+      .text(@size: .9em);
+      line-height: 1.2em;
+      overflow: auto;
+      .padding(@all: 10px 2px 10px 2px);
     }
 
     img {
@@ -160,10 +163,6 @@
       .full-width;
       .text(@color: black, @weight: bolder, @align: center);
     }
-  }
-
-  .icon {
-    .icon-font-family;
   }
 
   .jump:before {

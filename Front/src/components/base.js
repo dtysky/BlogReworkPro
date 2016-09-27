@@ -10,6 +10,7 @@ import config from '../../config';
 import actionTypes from '../actions';
 import {getListSource, initMusic} from '../actions/source';
 import * as themeReducer from '../reducers/theme';
+import {redirectTo404} from '../utils';
 
 
 export default class Base extends Component {
@@ -39,10 +40,15 @@ export default class Base extends Component {
     componentWillMount() {
         const {dispatch, params} = this.props;
         this.getSource(params.name)
-            .then(() => this.setHeadInfo())
-            .then(() => this.setTheme())
-            .then(() => this.setMusic())
-            .catch(() => {
+            .then(() => {
+                this.setHeadInfo();
+                this.setTheme();
+                this.setMusic();
+            })
+            .catch(err => {
+                if (err.status === 404) {
+                    return redirectTo404();
+                }
                 dispatch({type: actionTypes.init.theme, theme: 'home'});
                 dispatch({type: actionTypes.change.theme.default});
             });

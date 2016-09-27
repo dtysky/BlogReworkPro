@@ -50,7 +50,7 @@ export default class MenuPC extends Component {
         return (
             <div
                 id="menu"
-                className="duration-1s"
+                className="duration-main"
                 style={{backgroundColor: this.props.theme.get('current').get('color')}}
             >
                 <Link
@@ -62,22 +62,22 @@ export default class MenuPC extends Component {
                 <address className="icons">
                     <a
                         href={this.props.headInfo.get('rss')}
-                        className="icon rss"
+                        className="icon-font icon rss"
                         target="_blank"
                     />
                     <a
                         href="https://github.com/dtysky"
-                        className="icon github"
+                        className="icon-font icon github"
                         target="_blank"
                     />
                     <a
                         href="https://cn.linkedin.com/pub/tianyu-dai/a8/818/44a"
-                        className="icon linkedin"
+                        className="icon-font icon linkedin"
                         target="_blank"
                     />
                     <a
                         href="http://psnprofiles.com/dtysky"
-                        className="icon playstation"
+                        className="icon-font icon playstation"
                         target="_blank"
                     />
                 </address>

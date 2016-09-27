@@ -8,7 +8,6 @@ import request from 'superagent';
 import actionTypes from '../actions';
 
 import config from '../../config';
-import {redirectTo404} from '../utils';
 
 const serverUrl = config.serverUrl;
 
@@ -23,7 +22,7 @@ export function getListSource(type: string, name: string, currentLists: Object) 
     return dispatch => {
         if (currentLists.has(name)) {
             const list = currentLists.get(name);
-            dispatch({type: actionTypes.get[type].successful, name, list})
+            dispatch({type: actionTypes.get[type].successful, name, list});
             return Promise.resolve();
         }
 
@@ -34,15 +33,14 @@ export function getListSource(type: string, name: string, currentLists: Object) 
                 const list = res.body.content || [];
                 console.log(list);
                 dispatch({type: actionTypes.get[type].successful, name, list});
+                return Promise.resolve(res);
             })
             .catch(err => {
                 if (process.env.NODE_ENV === 'development') {
                     console.log(err); // eslint-disable-line
                 }
-                if (err.status === 404) {
-                    redirectTo404();
-                }
                 dispatch({type: actionTypes.get[type].failed, name});
+                return Promise.reject(err);
             });
     };
 }
@@ -62,15 +60,14 @@ export function getArticleSource(name: string, currentArticles: Object) {
             .then(res => {
                 const article = res.body.content || {};
                 dispatch({type: actionTypes.get.article.successful, name, article});
+                return Promise.resolve(res);
             })
             .catch(err => {
                 if (process.env.NODE_ENV === 'development') {
                     console.log(err); // eslint-disable-line
                 }
-                if (err.status === 404) {
-                    redirectTo404();
-                }
                 dispatch({type: actionTypes.get.article.failed, name});
+                return Promise.reject(err);
             });
     };
 }
@@ -95,6 +92,5 @@ export function initMusic(DefaultList) {
                 }
                 dispatch({type: actionTypes.init.music.failed});
             });
-    }
-
+    };
 }
