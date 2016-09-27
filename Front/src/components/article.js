@@ -170,7 +170,7 @@ export default class Article extends Base {
                             id="disqus_button"
                             onClick={::this.openComments}
                         >
-                            <span className="disqus" />
+                            <span className="icon disqus" />
                             点击查看评论
                         </a>
                     </div>

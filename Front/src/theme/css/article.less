@@ -5,7 +5,7 @@
   .full-width;
   .icon-font-family;
 
-  .top {
+  > .top {
     .margin(@t: 40px, @b: 40px);
     .full-width;
     .text(@align: center);
@@ -23,13 +23,6 @@
         .text(@color: black);
       }
     }
-
-    .jump:before {
-      content: "\e906";
-    }
-    .share:before {
-      content: "\e907";
-    }
   }
 
   .sphr {
@@ -37,28 +30,28 @@
     .size(100%, 2px);
   }
 
-  .middle {
+  > .middle {
     .margin(@b: 20px);
     .text(@size: 1em);
     line-height: 1.5em;
 
     h1 {
-       .margin(@t: 0.8em, @b: 0.4em);
+       .margin(@t: 0.8em, @b: 0.8em);
        .text(@size: 1.5em);
      }
 
     h2 {
-      .margin(@t: 1em, @b: 1em);
+      .margin(@t: 0.8em, @b: 0.8em);
       .text(@size: 1.4em);
     }
 
     h3 {
-      .margin(@t: 1em, @b: 1em);
+      .margin(@t: 0.8em, @b: 0.8em);
       .text(@size: 1.3em);
     }
 
     h4, h5, h6 {
-      .margin(@t: 1em, @b: 1em);
+      .margin(@t: 0.8em, @b: 0.8em);
       .text(@size: 1.2em);
     }
 
@@ -68,8 +61,7 @@
     }
 
     p {
-      display: block;
-      .margin(@t: 1em, @b: 1em);
+      .margin(@t: 0.8em, @b: 0.8em);
       .text(@color: black, @align: left);
     }
 
@@ -161,13 +153,25 @@
     }
   }
 
-  .bottom {
+  > .bottom {
     .margin(@t: 40px);
 
     p {
       .full-width;
       .text(@color: black, @weight: bolder, @align: center);
     }
+  }
+
+  .icon {
+    .icon-font-family;
+  }
+
+  .jump:before {
+    content: "\e906";
+  }
+
+  .share:before {
+    content: "\e907";
   }
 
   #disqus_container {

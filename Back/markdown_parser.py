@@ -17,7 +17,6 @@ class MarkdownParser(object):
     def __init__(self):
         self._extensions = [
             'codehilite(css_class=highlight)',
-            'markdown.extensions.nl2br',
             'markdown.extensions.tables'
         ]
         self._parser = Markdown(

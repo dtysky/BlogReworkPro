@@ -8,7 +8,7 @@ Music:秦皇岛,十万嬉皮,杀死那个石家庄人
 这个IP核的资源在这里：
 [Rotate](https://github.com/dtysky/FPGA-Imaging-Library/tree/Publish/Geometry/Rotate)
 
-xxx
+xx
 
 ****
 

@@ -16,12 +16,13 @@
   .top {
     display: inline-block;
     position: relative;
-    .margin(@b: 20px);
+    .padding(@t: 20px, @b: 20px);
     .position(@l: 15%);
     .size(70%, 20px);
     .icon-font-family;
 
     .icon {
+      .icon-font-family;
       .size(@w: 20%);
       .text(@size: 26px);
     }
@@ -65,7 +66,7 @@
   display: none;
   position: relative;
   .position(@t: 20px);
-  .margin(@t: 20px, @b: 5px);
+  .margin(@t: 20px);
   .padding(@t: 10px);
   .size(@w: 100%);
   .text(@size: 18px, @align: center);

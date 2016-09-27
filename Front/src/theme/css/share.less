@@ -1,7 +1,7 @@
 @import "base";
 
 @font-face {
-  font-family: socialshare;
+  font-family: social-share;
   src: url('/theme/font/iconfont.eot'); /* IE9*/
   src: url('/theme/font/iconfont.eot?#iefix') format("embedded-opentype"), /* IE6-IE8 */
   url('/theme/font/iconfont.woff') format("woff"), /* chrome, firefox */
@@ -32,8 +32,17 @@
     }
   }
 
+  .icon-share {
+    .icon-font-family;
+
+    &:before {
+      content: "\e907";
+    }
+  }
+}
+
+#share-modal {
   .icon {
-    font-family: "socialshare" !important;
     word-break: normal;
     font-size: 30px;
     font-style: normal;
@@ -51,97 +60,91 @@
     vertical-align: middle;
     transition: background 0.6s ease-out 0s;
 
+    font-family: social-share !important;
+
     &:hover {
       background: #666;
       color: #fff;
     }
+  }
 
-    .weibo {
-      .text(@color: #ff763b);
-      .background(@color: #ff763b);
+  .weibo {
+    .text(@color: #ff763b);
+    .border(@color: #ff763b);
 
-      &:before {
-        content: "\f07a";
-      }
-    }
-
-    .tencent {
-      .text(@color: #56b6e7);
-      .background(@color: #56b6e7);
-
-      &:before {
-        content: "\f07a";
-      }
-    }
-
-    .qq {
-      .text(@color: #56b6e7);
-      .background(@color: #56b6e7);
-
-      &:before {
-        content: "\f11a";
-      }
-    }
-    .qzone {
-      .text(@color: #fdbe3d);
-      .background(@color: #fdbe3d);
-
-      &:before {
-        content: "\f08a";
-      }
-    }
-
-    .douban {
-      .text(@color: #33b045);
-      .background(@color: #33b045);
-
-      &:before {
-        content: "\f10a";
-      }
-    }
-
-    .linkedin {
-      .text(@color: #0077b5);
-      .background(@color: #0077b5);
-
-      &:before {
-        content: "\f01a";
-      }
-    }
-
-    .facebook {
-      .text(@color: #44619D);
-      .background(@color: #44619D);
-
-      &:before {
-        content: "\f03a";
-      }
-    }
-
-    .google {
-      .text(@color: #db4437);
-      .background(@color: #db4437);
-
-      &:before {
-        content: "\f04a";
-      }
-    }
-
-    .twitter {
-      .text(@color: #55acee);
-      .background(@color: #55acee);
-
-      &:before {
-        content: "\f06a";
-      }
+    &:before {
+      content: "\f07a";
     }
   }
 
-  .icon-share {
-    .icon-font-family;
+  .tencent {
+    .text(@color: #56b6e7);
+    .border(@color: #56b6e7);
 
     &:before {
-      content: "\e907";
+      content: "\f07a";
+    }
+  }
+
+  .qq {
+    .text(@color: #56b6e7);
+    .border(@color: #56b6e7);
+
+    &:before {
+      content: "\f11a";
+    }
+  }
+  .qzone {
+    .text(@color: #fdbe3d);
+    .border(@color: #fdbe3d);
+
+    &:before {
+      content: "\f08a";
+    }
+  }
+
+  .douban {
+    .text(@color: #33b045);
+    .border(@color: #33b045);
+
+    &:before {
+      content: "\f10a";
+    }
+  }
+
+  .linkedin {
+    .text(@color: #0077b5);
+    .border(@color: #0077b5);
+
+    &:before {
+      content: "\f01a";
+    }
+  }
+
+  .facebook {
+    .text(@color: #44619D);
+    .border(@color: #44619D);
+
+    &:before {
+      content: "\f03a";
+    }
+  }
+
+  .google {
+    .text(@color: #db4437);
+    .border(@color: #db4437);
+
+    &:before {
+      content: "\f04a";
+    }
+  }
+
+  .twitter {
+    .text(@color: #55acee);
+    .border(@color: #55acee);
+
+    &:before {
+      content: "\f06a";
     }
   }
 }
