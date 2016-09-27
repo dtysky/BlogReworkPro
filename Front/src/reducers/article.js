@@ -43,13 +43,13 @@ export default function articleReducer(
 
         case actionTypes.get.article.successful: {
             const {name, article} = action;
-            const articles = state.get('articles');
-            if (!(name in articles)) {
+            let articles = state.get('articles');
+            if (!(articles.has(name))) {
                 article.shareInfo = generateShareInfo(article);
                 article.content = renderWithKatex(article.content);
-                articles[name] = article;
+                articles = articles.set(name, article);
             }
-            const currentArticle = articles[name];
+            const currentArticle = articles.get(name);
             return state.merge({
                 state: 'successful', currentName: name, articles, currentArticle
             });

@@ -9,7 +9,7 @@ import {Link} from 'react-router';
 
 import config from '../../config';
 import actionTypes from '../actions';
-import {getArticleSource} from '../actions/source';
+import {getArticleSource, initMusic} from '../actions/source';
 import {getLocalUrl} from '../utils';
 
 import Base from './base';
@@ -27,10 +27,10 @@ export default class Article extends Base {
 
     componentWillMount() {
         const {dispatch} = this.props;
-
         this.getSource()
             .then(() => this.setHeadInfo())
             .then(() => this.setTheme())
+            .then(() => this.setMusic())
             .catch(() => {
                 dispatch({type: actionTypes.init.theme, theme: 'home'});
                 dispatch({type: actionTypes.change.theme.default});
@@ -61,8 +61,8 @@ export default class Article extends Base {
     }
 
     getSource() {
-        const {dispatch} = this.props;
-        return dispatch(getArticleSource(this.props.params.name));
+        const {dispatch, store, params} = this.props;
+        return dispatch(getArticleSource(params.name, store.get('articles')));
     }
 
     setHeadInfo() {
@@ -87,12 +87,13 @@ export default class Article extends Base {
     }
 
     setMusic() {
-        const {dispatch, store} = this.props;
-        const music = store.get('currentArticle').get('music');
-
-        if (music) {
-            dispatch({type: actionTypes.change.music.current, music});
+        const {dispatch, music, store} = this.props;
+        const currentMusic = store.get('currentArticle').get('music');
+        if (currentMusic) {
+            return dispatch(initMusic(music.get('default')))
+                .then(() => dispatch({type: actionTypes.change.music.current, music: currentMusic}));
         }
+        dispatch(initMusic(music.get('default')));
     }
 
     openComments() {

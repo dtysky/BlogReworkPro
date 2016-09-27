@@ -8,7 +8,7 @@ import Immutable from 'immutable';
 import actionTypes from '../actions';
 
 
-export const defaultState = Immutable.Map({
+export const defaultState = Immutable.fromJS({
     default: [],
     current: []
 });

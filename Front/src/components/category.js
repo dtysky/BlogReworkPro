@@ -5,6 +5,7 @@
  */
 
 import ArticleList from './articleList';
+import actionTypes from '../actions';
 
 
 export default class Category extends ArticleList {
@@ -14,8 +15,9 @@ export default class Category extends ArticleList {
         author: 'dtysky,命月天宇'
     };
 
-    constructor(props) {
-        super(props);
-        this.theme = this.props.params.name;
+    setTheme() {
+        const {dispatch, store} = this.props;
+        dispatch({type: actionTypes.init.theme, theme: store.get('currentName')});
+        dispatch({type: actionTypes.change.theme.default});
     }
 }

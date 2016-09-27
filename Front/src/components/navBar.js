@@ -44,6 +44,7 @@ export default class NavBar extends Component {
                 theme: 'Life'
             }
         ];
+        window.addEventListener('resize', () => this.forceUpdate());
     }
 
     shouldComponentUpdate(nextProps) {

@@ -8,7 +8,7 @@ import React, {Component, PropTypes} from 'react';
 
 import config from '../../config';
 import actionTypes from '../actions';
-import {getListSource} from '../actions/source';
+import {getListSource, initMusic} from '../actions/source';
 import * as themeReducer from '../reducers/theme';
 
 
@@ -17,6 +17,7 @@ export default class Base extends Component {
         dispatch: PropTypes.func,
         params: PropTypes.object,
         theme: PropTypes.object,
+        music: PropTypes.object,
         store: PropTypes.object
     };
 
@@ -36,20 +37,28 @@ export default class Base extends Component {
     }
 
     componentWillMount() {
-        this.getSource();
-        this.setHeadInfo();
-        this.setTheme();
-        this.setMusic();
+        const {dispatch, params} = this.props;
+        this.getSource(params.name)
+            .then(() => this.setHeadInfo())
+            .then(() => this.setTheme())
+            .then(() => this.setMusic())
+            .catch(() => {
+                dispatch({type: actionTypes.init.theme, theme: 'home'});
+                dispatch({type: actionTypes.change.theme.default});
+            });
     }
 
     componentWillReceiveProps(nextProps) {
-        const {dispatch, store} = this.props;
+        const {dispatch, params} = this.props;
         const type = this.type;
-        const {state, currentName, currentPage} = store.toJS();
-        const nextStore = nextProps.store.toJS();
+        if (params.name !== nextProps.params.name) {
+            this.getSource(nextProps.params.name)
+                .then(() => this.setHeadInfo())
+                .then(() => this.setTheme());
+        }
         if (
-            state === 'successful' &&
-            (currentName !== nextStore.currentName || currentPage !== nextStore.currentPage)
+            params.name === nextProps.params.name &&
+            params.index !== nextProps.params.index
         ) {
             dispatch({type: actionTypes.change.page[type], currentPage: nextProps.params.index || 0});
             this.setHeadInfo();
@@ -67,18 +76,18 @@ export default class Base extends Component {
         );
     }
 
-    getSource() {
-        const {dispatch} = this.props;
-        return dispatch(getListSource(this.type, this.props.params.name || ''));
+    getSource(name: string) {
+        const {dispatch, store} = this.props;
+        return dispatch(getListSource(this.type, name || '', store.get('lists')));
     }
 
     setHeadInfo() {
-        const {dispatch} = this.props;
+        const {dispatch, params} = this.props;
         const type = this.type;
-        const {store} = this.props;
-        const {currentName, currentPage} = store.toJS();
+        const currentName = params.name;
+        const currentPage = params.index || 0;
         const {siteTitle} = config;
-        const title = this.headInfo.title || `${currentName || type}-${currentPage || 0} - ${siteTitle}`;
+        const title = this.headInfo.title || `${currentName || type}-${currentPage} - ${siteTitle}`;
         const keywords = `${this.headInfo.keywords}, ${currentName || ''}`;
         const description = this.headInfo.description || `这是有关${currentName || type}的所有文章`;
         const author = this.headInfo.author || currentName;
@@ -93,8 +102,9 @@ export default class Base extends Component {
     }
 
     setMusic() {
-        const {dispatch} = this.props;
-        dispatch({type: actionTypes.change.music.default});
+        const {dispatch, music} = this.props;
+        return dispatch(initMusic(music.get('default')))
+            .then(() => dispatch({type: actionTypes.change.music.default}));
     }
 
     render() {

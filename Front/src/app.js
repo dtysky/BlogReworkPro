@@ -9,7 +9,6 @@ import {connect} from 'react-redux';
 import Helmet from 'react-helmet';
 
 import actionTypes from './actions';
-import {initMusic} from './actions/source';
 import {NavBar, MenuPC, MenuPhoneHeader, MenuPhoneFooter, LeftImage} from './components';
 
 import './theme/css/sky.less';
@@ -32,13 +31,6 @@ export default class APP extends Component {
 
     static defaultProps = {};
 
-    componentWillMount() {
-        const {dispatch} = this.props;
-        dispatch(initMusic());
-        // Todo: resize => title-bar
-        window.addEventListener('resize', () => this.forceUpdate());
-    }
-
     changeThemeToDefault() {
         const {dispatch, theme} = this.props;
         if (!theme.get('current').equals(theme.get('default'))) {
@@ -47,7 +39,7 @@ export default class APP extends Component {
     }
 
     render() {
-        const {content, params, theme, dispatch} = this.props;
+        const {content, params, theme,music, dispatch} = this.props;
         // Get component's type from static variable 'type'
         const {type} = content.type;
         const store = this.props[type];
@@ -106,7 +98,7 @@ export default class APP extends Component {
                             id='content'
                             onMouseEnter={::this.changeThemeToDefault}
                         >
-                            {cloneElement(content, {store, params, theme, dispatch})}
+                            {cloneElement(content, {store, params, theme, music, dispatch})}
                         </main>
                     </div>
                     <div

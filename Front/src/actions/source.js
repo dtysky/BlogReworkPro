@@ -12,7 +12,7 @@ import {redirectTo404} from '../utils';
 
 const serverUrl = config.serverUrl;
 
-export function getListSource(type: string, name: string = '') {
+export function getListSource(type: string, name: string, currentLists: Object) {
     let url = `${serverUrl}/${type}`;
     if (name) {
         url = `${url}/${name}`;
@@ -21,11 +21,18 @@ export function getListSource(type: string, name: string = '') {
     }
 
     return dispatch => {
+        if (currentLists.has(name)) {
+            const list = currentLists.get(name);
+            dispatch({type: actionTypes.get[type].successful, name, list})
+            return Promise.resolve();
+        }
+
         dispatch({type: actionTypes.get[type].waiting});
         return request.get(url)
             .timeout(config.timeout)
             .then(res => {
                 const list = res.body.content || [];
+                console.log(list);
                 dispatch({type: actionTypes.get[type].successful, name, list});
             })
             .catch(err => {
@@ -40,10 +47,15 @@ export function getListSource(type: string, name: string = '') {
     };
 }
 
-export function getArticleSource(name) {
+export function getArticleSource(name: string, currentArticles: Object) {
     const url = `${serverUrl}/article/${name}`;
 
     return dispatch => {
+        if (currentArticles.has(name)) {
+            dispatch({type: actionTypes.get.article.successful, name});
+            return Promise.resolve();
+        }
+
         dispatch({type: actionTypes.get.article.waiting});
         return request.get(url)
             .timeout(config.timeout)
@@ -63,11 +75,15 @@ export function getArticleSource(name) {
     };
 }
 
-export function initMusic() {
+export function initMusic(DefaultList) {
     const url = '/music.json';
 
-    return dispatch =>
-        request.get(url)
+    return dispatch => {
+        if (!DefaultList.isEmpty()) {
+            return Promise.resolve();
+        }
+
+        return request.get(url)
             .timeout(config.timeout)
             .then(res => {
                 const music = res.body || [];
@@ -79,4 +95,6 @@ export function initMusic() {
                 }
                 dispatch({type: actionTypes.init.music.failed});
             });
+    }
+
 }
