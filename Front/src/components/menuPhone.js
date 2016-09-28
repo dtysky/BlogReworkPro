@@ -43,7 +43,7 @@ export class MenuPhoneHeader extends Component {
             <header
                 id="menu-phone-header"
                 className="duration-main"
-                style={{backgroundColor: this.props.theme.get('current').get('color')}}
+                style={{backgroundColor: this.props.theme.getIn(['current', 'color'])}}
             >
                 <address className="top">
                     <a
@@ -121,7 +121,7 @@ export class MenuPhoneFooter extends Component { // eslint-disable-line
             <footer
                 id="menu-phone-footer"
                 className="duration-main"
-                style={{backgroundColor: this.props.theme.get('current').get('color')}}
+                style={{backgroundColor: this.props.theme.getIn(['current', 'color'])}}
             >
                 <p>Links</p>
                 <address className="links">

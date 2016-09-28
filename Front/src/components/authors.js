@@ -25,7 +25,7 @@ export default class Authors extends Base {
     };
 
     render() {
-        const store = this.props.store.toJS();
+        const store = this.props.store;
         const {state, currentList} = store;
 
         if (state === 'error') {
@@ -40,7 +40,7 @@ export default class Authors extends Base {
                 {
                     currentList.map((author, index) =>
                         <li key={index}>
-                            <Link to={getLocalUrl('author', author.slug)}>{author.view}</Link>
+                            <Link to={getLocalUrl('author', author.get('slug'))}>{author.get('view')}</Link>
                         </li>
                     )
                 }

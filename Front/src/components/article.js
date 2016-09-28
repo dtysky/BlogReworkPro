@@ -55,7 +55,7 @@ export default class Article extends Base {
     }
 
     componentDidUpdate() {
-        const backgroundColor = this.props.theme.get('current').get('color');
+        const backgroundColor = this.props.theme.getIn(['current', 'color']);
 
         [].forEach.call(document.getElementsByTagName('blockquote') || [], element => {
             element.style.backgroundColor = backgroundColor;
@@ -83,14 +83,14 @@ export default class Article extends Base {
 
     setTheme() {
         const {dispatch, store} = this.props;
-        const theme = store.get('currentArticle').get('category').get('view');
+        const theme = store.getIn(['currentArticle', 'category', 'view']);
         dispatch({type: actionTypes.init.theme, theme});
         dispatch({type: actionTypes.change.theme.default});
     }
 
     setMusic() {
         const {dispatch, music, store} = this.props;
-        const currentMusic = store.get('currentArticle').get('music');
+        const currentMusic = store.getIn(['currentArticle', 'music']);
         if (currentMusic) {
             return dispatch(initMusic(music.get('default')))
                 .then(() => dispatch({type: actionTypes.change.music.current, music: currentMusic}));
@@ -165,7 +165,7 @@ export default class Article extends Base {
                     </p>
                     <div
                         className="hr duration-main"
-                        style={{backgroundColor: theme.get('current').get('color')}}
+                        style={{backgroundColor: theme.getIn(['current', 'color'])}}
                     >
                     </div>
                 </header>
@@ -184,7 +184,7 @@ export default class Article extends Base {
                 <footer className="bottom">
                     <div
                         className="hr duration-main"
-                        style={{backgroundColor: theme.get('current').get('color')}}
+                        style={{backgroundColor: theme.getIn('current', 'color')}}
                     >
                     </div>
                     <p>如果不是自己的创作,少女是会标识出来的,所以要告诉别人是少女写的哦。</p>

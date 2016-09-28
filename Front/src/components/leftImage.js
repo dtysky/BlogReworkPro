@@ -22,8 +22,8 @@ export default class LeftImage extends Component {
 
     shouldComponentUpdate(nextProps) {
         const shouldUpdate = !this.props.theme.get('current').equals(nextProps.theme.get('current'));
-        this.imagePre = shouldUpdate && `url(${this.props.theme.get('current').get('leftImage')})`;
-        this.imageNext = shouldUpdate && `url(${nextProps.theme.get('current').get('leftImage')})`;
+        this.imagePre = shouldUpdate && `url(${this.props.theme.getIn(['current', 'leftImage'])})`;
+        this.imageNext = shouldUpdate && `url(${nextProps.theme.getIn(['current', 'leftImage'])})`;
         return shouldUpdate;
     }
 

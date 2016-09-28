@@ -58,17 +58,17 @@ export default class NavBar extends Component {
 
     render() {
         const titleBar = this.refs.titleBar;
-        const theme = this.props.theme.get('current').toJS();
+        const theme = this.props.theme.get('current');
         const titleBarStyle = {};
 
         if (titleBar) {
             const id = (this.list.filter(item =>
-                item.theme === theme.name
+                item.theme === theme.get('name')
             )[0] || []).id;
             const nav = this.refs[id];
             const left = nav ? nav.offsetLeft : titleBar.offsetLeft + 10;
             titleBarStyle.width = nav ? nav.offsetWidth + 20 : titleBar.offsetWidth;
-            titleBarStyle.backgroundColor = nav ? theme.color : 'rgba(0, 0, 0, 0)';
+            titleBarStyle.backgroundColor = nav ? theme.get('color') : 'rgba(0, 0, 0, 0)';
             titleBarStyle.transform = nav ? `translateX(${left - 10}px)` : titleBar.style.transform;
         }
 

@@ -10,7 +10,7 @@ import _ from 'lodash';
 
 export function getLocalUrl(type: string, name: string, index: number): string {
     if (!name) {
-        return index ? `/${type}` : `/${type}/${index}`;
+        return index ? `/${type}/${index}` : `/${type}`;
     }
     return index ? `/${type}/${name}/${index}` : `/${type}/${name}`;
 }

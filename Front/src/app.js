@@ -26,7 +26,8 @@ export default class APP extends Component {
         dispatch: PropTypes.func,
         articleList: PropTypes.object,
         theme: PropTypes.object,
-        headInfo: PropTypes.object
+        headInfo: PropTypes.object,
+        music: PropTypes.object
     };
 
     static defaultProps = {};

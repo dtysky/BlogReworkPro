@@ -62,7 +62,7 @@ export default class Share extends Component {
                 width: 180,
                 height: 360,
                 margin: 'auto',
-                backgroundColor: this.props.theme.get('current').get('color'),
+                backgroundColor: this.props.theme.getIn(['current', 'color']),
                 opacity: 0.9,
                 overflow: 'auto',
                 WebkitOverflowScrolling: 'touch',
@@ -96,7 +96,7 @@ export default class Share extends Component {
                                 key='qr-code'
                                 value={this.props.info.url}
                                 size={160}
-                                fgColor={this.props.theme.get('current').get('color')}
+                                fgColor={this.props.theme.getIn(['current', 'color'])}
                                 level='M'
                             />
                         </div>

@@ -53,7 +53,7 @@ export function articleListReducer(
         }
 
         case actionTypes.change.page[tag]:
-            return state.merge({currentPage: action.currentPage});
+            return state.merge({currentPage: parseInt(action.currentPage, 10)});
 
         default:
             return state;

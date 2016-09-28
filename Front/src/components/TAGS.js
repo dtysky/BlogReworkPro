@@ -26,8 +26,9 @@ export default class Tags extends Base {
     };
 
     render() {
-        const store = this.props.store.toJS();
-        const {state, currentList} = store;
+        const store = this.props.store;
+        const state = store.get('state');
+        const currentList = store.get('currentList');
 
         if (state === 'error') {
             return <NormalError key='normal-error' />;
@@ -45,10 +46,10 @@ export default class Tags extends Base {
                     currentList.map((tag, index) =>
                         <Link
                             key={index}
-                            to={getLocalUrl('tag', tag.slug)}
-                            style={{fontSize: 14 + parseInt(tag.count / base, 10) * 2}}
+                            to={getLocalUrl('tag', tag.get('slug'))}
+                            style={{fontSize: 14 + parseInt(tag.get('count') / base, 10) * 2}}
                         >
-                            {tag.view}
+                            {tag.get('view')}
                         </Link>
                     )
                 }

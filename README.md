@@ -14,6 +14,7 @@ Rework the [BlogRework](https://github.com/dtysky/BlogRework), build with docker
 #### Preparing
 
 1. Make docker images for happier publishing.  
+2. HTTPS.
 
 ### Backend
 

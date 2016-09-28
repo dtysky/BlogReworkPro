@@ -31,7 +31,6 @@ export function getListSource(type: string, name: string, currentLists: Object) 
             .timeout(config.timeout)
             .then(res => {
                 const list = res.body.content || [];
-                console.log(list);
                 dispatch({type: actionTypes.get[type].successful, name, list});
                 return Promise.resolve(res);
             })

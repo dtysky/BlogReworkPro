@@ -51,7 +51,7 @@ export default class MenuPC extends Component {
             <div
                 id="menu"
                 className="duration-main"
-                style={{backgroundColor: this.props.theme.get('current').get('color')}}
+                style={{backgroundColor: this.props.theme.getIn(['current', 'color'])}}
             >
                 <Link
                     to="/article/Create-MyResume"
@@ -132,7 +132,7 @@ export default class MenuPC extends Component {
                     id="menu-links"
                     style={{
                         top: this.state.linksOpened ? 0 : -400,
-                        backgroundColor: this.props.theme.get('current').get('color')
+                        backgroundColor: this.props.theme.getIn(['current', 'color'])
                     }}
                 >
                     <address>

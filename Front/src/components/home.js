@@ -15,7 +15,7 @@ export default class Home extends ArticleList {
     static theme = 'home';
     static headInfo = {
         title: config.siteTitle,
-        description: '欢迎来到我的博客，这里是我在旅程中设立的一些路标，希望大家能够从我的一些经验中有所收获，可以是喜悦，也可以是悲伤，亦或是愤怒、讽刺与同情。',
+        description: '少女是一个渴望成为歌姬的诗人，却连表达的能力都丧失了。她在一片价值的荒漠中彷徨，亦步亦趋。那狂放的舞步掀起的沙尘随着风，化为了沙暴。沙尘将她包裹，凝聚为一列通往银河的列车。这里便是在银河中的一些路标，想了解少女请点击dtysky或者正中图标。',
         keywords: 'dtysky,博客,blog,技术,文化',
         author: 'dtysky,命月天宇',
         rss: 'all'
@@ -30,8 +30,9 @@ export default class Home extends ArticleList {
                     className="sphr duration-main"
                     style={{backgroundColor}}
                 />
-                <p>欢迎来到我的博客，这里是我在旅程中设立的一些路标，希望大家能够从我的一些经验中有所收获，可以是喜悦，也可以是悲伤，亦或是愤怒、讽刺与同情。</p>
-                <p>上面的四个按钮分别表示四个分类，右下侧（PC端）或者上下方（移动端）的色块中也有一些按钮，Home为返回主页，dtysky（PC端）或正中图标（移动端）为我的个人简历，其他皆为字面或者图面上的意思（例如RSS订阅）。</p>
+                <p>少女是一个渴望成为歌姬的诗人，却连表达的能力都丧失了。她在一片价值的荒漠中彷徨，亦步亦趋。那狂放的舞步掀起的沙尘随着风，化为了沙暴。沙尘将她包裹，凝聚为一列通往银河的列车。</p>
+                <br />
+                <p>这里便是在银河中的一些路标，想了解少女请点击dtysky或者正中图标。</p>
                 <hr
                     className="sphr duration-main"
                     style={{backgroundColor}}

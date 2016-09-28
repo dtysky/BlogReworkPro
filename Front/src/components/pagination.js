@@ -7,7 +7,6 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 
-import config from '../../config';
 import {getLocalUrl} from '../utils';
 
 import '../theme/css/pagination.less';
@@ -30,10 +29,15 @@ export default class Pagination extends Component {
 
     render() {
         const {type, name, maxPage, currentPage} = this.props;
-        const left = parseInt(currentPage / config.articlesPerPage, 10) * config.articlesPerPage;
-        const right = left + config.articlesPerPage + 1 > maxPage
-            ? maxPage
-            : left + config.articlesPerPage;
+        let left;
+        let right;
+        if (maxPage - currentPage < 7) {
+            right = maxPage;
+            left = right - 7 < 0 ? 0 : right - 7;
+        } else {
+            left = currentPage - 1 < 0 ? 0 : currentPage - 1;
+            right = left + 7 > maxPage ? maxPage : left + 7;
+        }
 
         const indexes = new Array(right - left + 1).fill(0).map((i, index) => index + left);
 
@@ -48,7 +52,6 @@ export default class Pagination extends Component {
                             <li key="prev" className="prev active">
                                 <Link to={getLocalUrl(type, name, currentPage - 1)}>&larr;</Link>
                             </li>,
-
                         ...indexes.map((index, i) => (
                             index === currentPage
                                 ?

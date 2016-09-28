@@ -2,34 +2,37 @@
 
 #content-list {
   .full-width;
+  .padding(@t: 2em);
 
   ul {
     .no-padding;
   }
 
-  header {
-    h2 {
-      .margin(@t: 40px);
-      .text(@size: 1.3em, @color: black);
-    }
+  section {
+    .padding(@b: 2em);
+  }
+
+  h2 {
+    .margin(@t: 40px);
+    .text(@size: 1.3em, @color: black, @align: center);
   }
 
   summary {
-    .text(@size: 0.9em, @color: gray, @align: left);
+    .text(@size: 0.9em, @color: gray, @align: center);
     line-height: 1.3em;
   }
 
-  footer {
-    .padding(@t: 5px);
+  header {
+    .padding(@b: 1.5em);
 
     p {
       .padding(@b: 2px);
-      .text(@size: 0.9em, @color: gray, @align: left);
+      .text(@size: 0.9em, @color: gray, @align: center);
       line-height: 1.4em;
     }
 
     a {
-      .padding(@all: 4px);
+      .padding(@all: 2px);
       .text(@color: #888, @size: 0.9em, @weight: bolder, @deco: none);
 
       &:hover {
@@ -45,7 +48,7 @@
     p {
       .margin(@l: 1%);
       .size(@w: 98%);
-      .text(@color: black, @size: 14px, @weight: bolder);
+      .text(@color: black, @size: 14px, @weight: bolder, @align: center);
     }
 
     .sphr {
