@@ -1,4 +1,4 @@
-@import "base";
+@import (reference) "base.less";
 
 #menu {
   position: fixed;
@@ -22,29 +22,20 @@
   .icons {
     .margin(@t: 15px);
 
-    .playstation:before {
-      content: "\e901";
-      font-size: 23px;
+    .playstation {
+      .font-icon(before, playstation, @size: 23px);
     }
-    .github:before {
-      content: "\e902";
-      font-size: 28px;
+
+    .github {
+      .font-icon(before, github, @size: 28px);
     }
-    .home:before {
-      content: "\e88a";
+
+    .rss {
+      .font-icon(before, rss);
     }
-    .price-tag:before {
-      content: "\e903";
-    }
-    .rss:before {
-      content: "\e908";
-    }
-    .linkedin:before {
-      content: "\e909";
-    }
-    .resume:before {
-      content: "\e90a";
-      font-size: 28px;
+
+    .linkedin {
+      .font-icon(before, linkedin);
     }
   }
 

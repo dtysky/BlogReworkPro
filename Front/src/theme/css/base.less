@@ -2,6 +2,7 @@
 @menu-height: 270px;
 @fonts: Verdana,Helvetica,arial,sans-serif;
 @font-size: 16px;
+@duration-time: .7s;
 
 .size(@w: undefined, @h: undefined) {
   .test();
@@ -195,18 +196,6 @@
   .autoprefix-some(animation, @t);
 }
 
-@font-face {
-  font-family: 'icomoon';
-  src:    url('../font/icomoon.eot?c8cymx');
-  src:    url('../font/icomoon.eot?c8cymx#iefix') format('embedded-opentype'),
-  url('../font/icomoon.ttf?c8cymx') format('truetype'),
-  url('../font/icomoon.woff?c8cymx') format('woff'),
-  url('../font/icomoon.svg?c8cymx#icomoon') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-
-
 .icon-font-family {
   font-family: 'icomoon' !important;
   font-style: normal;
@@ -217,4 +206,71 @@
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.font-icon(@name) {
+  .test();
+  .test() when (@name = share) {
+    content: "\e907";
+  }
+  .test() when (@name = jump) {
+    content: "\e906";
+  }
+  .test() when (@name = disqus) {
+    content: "\e22b";
+  }
+  .test() when (@name = return) {
+    content: "\e905";
+  }
+  .test() when (@name = jump) {
+    content: "\e906";
+  }
+  .test() when (@name = link) {
+    content: "\e906";
+  }
+  .test() when (@name = playstation) {
+    content: "\e901";
+  }
+  .test() when (@name = github) {
+    content: "\e902";
+  }
+  .test() when (@name = home) {
+    content: "\e88a";
+  }
+  .test() when (@name = price-tag) {
+    content: "\e903";
+  }
+  .test() when (@name = rss) {
+    content: "\e908";
+  }
+  .test() when (@name = linkedin) {
+    content: "\e909";
+  }
+  .test() when (@name = resume) {
+    content: "\e90a";
+  }
+}
+
+
+.font-icon(@prefix, @name, @all-color: undefined, @size: undefined, @color: undefined, @bd-color: undefined, @padding: undefined) {
+  &:@{prefix} {
+    .font-icon(@name);
+    .test();
+    .test() when not (@all-color = undefined) {
+      .text(@color: @all-color);
+      .border(@color: @all-color);
+    }
+    .test() when not (@color = undefined) {
+      .text(@color: @color);
+    }
+    .test() when not (@bd-color = undefined) {
+      .border(@color: @bd-color);
+    }
+    .test() when not (@size = undefined) {
+      .text(@size: @size);
+    }
+    .test() when not (@padding = undefined) {
+      .padding(@all: @padding);
+    }
+  }
 }

@@ -1,4 +1,4 @@
-@import "base";
+@import (reference) "base.less";
 
 #article {
   .full-width;
@@ -67,21 +67,14 @@
     a {
       .icon-font-family;
       .text(@color: #444);
-
-      &:after {
-        .margin(@l: 2px);
-        content: "\e906";
-      }
+      .font-icon(after, jump, @padding: 0 0 0 2px);
     }
 
     blockquote {
       .background(@color: #6ca82b);
       .padding(@all: 1px 10px 1px 10px);
       .margin(@l: 0, @r: 0);
-      -webkit-transition: background-color 1s ease-in;
-      -moz-transition: background-color 1s ease-in;
-      -o-transition: background-color 1s ease-in;
-      transition: background-color 1s ease-in;
+      .autoprefix-transition(background-color @duration-time ease-out);
     }
 
     pre {
@@ -165,14 +158,6 @@
     }
   }
 
-  .jump:before {
-    content: "\e906";
-  }
-
-  .share:before {
-    content: "\e907";
-  }
-
   #disqus_container {
     .margin(@t: 30px);
   }
@@ -185,7 +170,7 @@
     .background(@all: none);
   }
 
-  .disqus:before {
-    content: "\e22b";
+  .disqus {
+    .font-icon(before, disqus);
   }
 }

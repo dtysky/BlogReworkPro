@@ -1,4 +1,4 @@
-@import "base";
+@import (reference) "base.less";
 
 #menu-phone-header {
   display: none;
@@ -25,26 +25,24 @@
       .text(@size: 26px);
     }
 
-    .playstation:before {
-      content: "\e901";
-      font-size: 23px;
+    .playstation {
+      .font-icon(before, playstation, @size: 23px);
     }
-    .github:before {
-      content: "\e902";
-      font-size: 28px;
+
+    .github {
+      .font-icon(before, github, @size: 28px);
     }
-    .home:before {
-      content: "\e88a";
+
+    .rss {
+      .font-icon(before, rss);
     }
-    .rss:before {
-      content: "\e908";
+
+    .linkedin {
+      .font-icon(before, linkedin);
     }
-    .linkedin:before {
-      content: "\e909";
-    }
-    .resume:before {
-      content: "\e90a";
-      font-size: 28px;
+
+    .resume {
+      .font-icon(before, resume, @size: 28px);
     }
   }
 

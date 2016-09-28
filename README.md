@@ -19,8 +19,8 @@ Rework the [BlogRework](https://github.com/dtysky/BlogRework), build with docker
 
 #### Finished
 
-1. Use tornado wsgi web server to instead of flask built-in.  
-2. Use the virtualenv to build a independent python run-time to instead of system built-in python.  
+1. Use tornado wsgi web server to instead of flask's built-in.  
+2. Use the virtualenv to build a independent python run-time to instead of system's built-in python.  
 3. Improve the error logger.
 
 #### Preparing
@@ -37,10 +37,13 @@ Rework the [BlogRework](https://github.com/dtysky/BlogRework), build with docker
 4. Callbacks to promise.  
 5. No jqery and any others js animation library, pure css3 animation is enough.  
 6. MathJax to Katex.  
-7. Dom
+7. Semantic dom.  
+8. Grunt to gulp.
 
 #### Preparing
 
 1. Server side rendering.  
 2. Memory cache.  
-3. Improve the theme.
+3. Improve the theme.  
+4. Pack and compress resources.  
+5. Image pre-loading.

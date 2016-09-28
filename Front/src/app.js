@@ -46,7 +46,7 @@ export default class APP extends Component {
         const headInfo = this.props.headInfo;
 
         return (
-            <div className='full'>
+            <div id="container-content">
                 <Helmet
                     key='helmet'
                     title={headInfo.title}

@@ -1,4 +1,4 @@
-@import "base";
+@import (reference) "base.less";
 
 @font-face {
   font-family: social-share;
@@ -7,6 +7,15 @@
   url('/theme/font/iconfont.woff') format("woff"), /* chrome, firefox */
   url('/theme/font/iconfont.ttf') format("truetype"), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
   url('/theme/font/iconfont.svg#iconfont') format("svg"); /* iOS 4.1- */
+}
+
+.share-icon(@content, @color) {
+  .text(@color: @color);
+  .border(@color: @color);
+
+  &:before {
+    content: @content;
+  }
 }
 
 #share {
@@ -69,82 +78,38 @@
   }
 
   .weibo {
-    .text(@color: #ff763b);
-    .border(@color: #ff763b);
-
-    &:before {
-      content: "\f07a";
-    }
+    .share-icon("\f12a", #ff763b);
   }
 
   .tencent {
-    .text(@color: #56b6e7);
-    .border(@color: #56b6e7);
-
-    &:before {
-      content: "\f07a";
-    }
+    .share-icon("\f07a", #56b6e7);
   }
 
   .qq {
-    .text(@color: #56b6e7);
-    .border(@color: #56b6e7);
-
-    &:before {
-      content: "\f11a";
-    }
+    .share-icon("\f11a", #56b6e7);
   }
-  .qzone {
-    .text(@color: #fdbe3d);
-    .border(@color: #fdbe3d);
 
-    &:before {
-      content: "\f08a";
-    }
+  .qzone {
+    .share-icon("\f08a", #fdbe3d);
   }
 
   .douban {
-    .text(@color: #33b045);
-    .border(@color: #33b045);
-
-    &:before {
-      content: "\f10a";
-    }
+    .share-icon("\f10a", #33b045);
   }
 
   .linkedin {
-    .text(@color: #0077b5);
-    .border(@color: #0077b5);
-
-    &:before {
-      content: "\f01a";
-    }
+    .share-icon("\f01a", #0077b5);
   }
 
   .facebook {
-    .text(@color: #44619D);
-    .border(@color: #44619D);
-
-    &:before {
-      content: "\f03a";
-    }
+    .share-icon("\f03a", #44619D);
   }
 
   .google {
-    .text(@color: #db4437);
-    .border(@color: #db4437);
-
-    &:before {
-      content: "\f04a";
-    }
+    .share-icon("\f04a", #db4437);
   }
 
   .twitter {
-    .text(@color: #55acee);
-    .border(@color: #55acee);
-
-    &:before {
-      content: "\f06a";
-    }
+    .share-icon("\f06a", #55acee);
   }
 }

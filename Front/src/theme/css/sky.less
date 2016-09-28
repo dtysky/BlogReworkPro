@@ -1,6 +1,7 @@
-@import "base";
+@import (reference) "base.less";
 
-html, body {
+
+html, body, #container, #container-content {
   .full;
 }
 
@@ -20,10 +21,6 @@ body {
   font-size: @font-size;
 }
 
-#container {
-  .full;
-}
-
 a {
   .no-margin;
   .text(@deco: none, @color: black);
@@ -38,7 +35,7 @@ p {
 }
 
 .duration-main {
-  .autoprefix-transition(all .7s ease-out);
+  .autoprefix-transition(all @duration-time ease-out);
 }
 
 #return-top{
@@ -53,11 +50,7 @@ p {
     .size(48px, 48px);
     .text(@size: 48px);
     .background(@all: none);
-    .icon-font-family;
-
-    &:before {
-      content: "\e905";
-    }
+    .font-icon(before, return);
   }
 }
 
@@ -111,4 +104,15 @@ p {
   #player-hr{
     display: block;
   }
+}
+
+@font-face {
+  font-family: 'icomoon';
+  src:    url('../font/icomoon.eot?c8cymx');
+  src:    url('../font/icomoon.eot?c8cymx#iefix') format('embedded-opentype'),
+  url('../font/icomoon.ttf?c8cymx') format('truetype'),
+  url('../font/icomoon.woff?c8cymx') format('woff'),
+  url('../font/icomoon.svg?c8cymx#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
 }
