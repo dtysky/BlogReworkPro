@@ -84,12 +84,14 @@ export function initMusic(DefaultList) {
             .then(res => {
                 const music = res.body || [];
                 dispatch({type: actionTypes.init.music.successful, music});
+                return Promise.resolve(res);
             })
             .catch(err => {
                 if (process.env.NODE_ENV === 'development') {
                     console.log(err); // eslint-disable-line
                 }
                 dispatch({type: actionTypes.init.music.failed});
+                return Promise.reject(err);
             });
     };
 }
