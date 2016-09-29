@@ -13,12 +13,14 @@ export const defaultState = Immutable.fromJS({
     default: {
         name: '',
         leftImage: '',
-        color: ''
+        color: '',
+        tagColor: ''
     },
     current: {
         name: '',
         leftImage: '',
-        color: ''
+        color: '',
+        tagColor: ''
     }
 });
 
@@ -31,14 +33,16 @@ export default function themeReducer(
             const name = action.theme;
             const leftImage = config.themeLeftImage[name];
             const color = config.themeColor[name];
-            return state.merge({default: {name, leftImage, color}});
+            const tagColor = config.themeTagColor[name];
+            return state.merge({default: {name, leftImage, color, tagColor}});
         }
 
         case actionTypes.change.theme.current: {
             const name = action.theme;
             const leftImage = config.themeLeftImage[name];
             const color = config.themeColor[name];
-            return state.merge({current: {name, leftImage, color}});
+            const tagColor = config.themeTagColor[name];
+            return state.merge({current: {name, leftImage, color, tagColor}});
         }
 
         case actionTypes.change.theme.default: {

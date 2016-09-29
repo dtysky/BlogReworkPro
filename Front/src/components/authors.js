@@ -25,8 +25,9 @@ export default class Authors extends Base {
     };
 
     render() {
-        const store = this.props.store;
-        const {state, currentList} = store;
+        const {store} = this.props;
+        const state = store.get('state');
+        const currentList = store.get('currentList');
 
         if (state === 'error') {
             return <NormalError key='normal-error' />;

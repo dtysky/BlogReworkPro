@@ -123,6 +123,7 @@ export default class Article extends Base {
         const {theme, store} = this.props;
         const currentArticle = store.get('currentArticle').toJS();
         const {title, authors, tags, category, date, content, shareInfo} = currentArticle;
+        const background = theme.getIn(['current', 'tagColor']);
 
         return (
             <article id="article">
@@ -132,35 +133,51 @@ export default class Article extends Base {
                         info={shareInfo}
                     />
                     <h1>{title.view}</h1>
-                    <p>
-                        少女
+                    <div className="top">
+                        <p className="authors">
+                            <span className="duration-main" style={{background}}>少女</span>
+                            {
+                                authors.map((author, i) => (
+                                    <Link
+                                        key={i}
+                                        className="duration-main"
+                                        to={getLocalUrl('author', author.slug, 0)}
+                                    >
+                                        {author.view}
+                                    </Link>
+                                ))
+                            }
+                        </p>
+                        <p className="category">
+                            <span className="duration-main" style={{background}}>世界</span>
+                            <Link
+                                className="duration-main"
+                                to={getLocalUrl('category', category.slug, 0)}
+                            >
+                                {category.view}
+                            </Link>
+                        </p>
+                        <p className="time">
+                            <span className="duration-main" style={{background}}>时刻</span>
+                            <a className="duration-main">
+                                {date.split(' ')[0]}
+                            </a>
+                        </p>
+                    </div>
+                    <p className="tags">
+                        <span className="duration-main" style={{background}}>路标</span>
                         {
-                            authors.map((author, index) =>
-                                <Link
-                                    key={index}
-                                    to={getLocalUrl('author', author.slug, 0)}
-                                >
-                                    {author.view}
-                                </Link>
-                            )
-                        }
-                        于 <time>{date}</time> 在
-                        <Link to={getLocalUrl('category', category.slug, 0)}>
-                            {category.view}
-                        </Link>
-                        世界内创作
-                    </p>
-                    <p>
-                        路标：
-                        {
-                            tags.map((tag, index) =>
-                                <Link
-                                    key={index}
-                                    to={getLocalUrl('tag', tag.slug, 0)}
-                                >
-                                    {tag.view}
-                                </Link>
-                            )
+                            tags.map((tag, i) => (
+                                <p>
+                                    <Link
+                                        key={i}
+                                        className="duration-main"
+                                        to={getLocalUrl('tag', tag.slug, 0)}
+                                    >
+                                        {tag.view}
+                                    </Link>
+                                </p>
+                            ))
                         }
                     </p>
                     <div
@@ -176,7 +193,7 @@ export default class Article extends Base {
                             id="disqus_button"
                             onClick={::this.openComments}
                         >
-                            <span className="icon-font icon disqus" />
+                            <span className="icon-font icon disqus duration-main" />
                             点击查看评论
                         </a>
                     </div>
@@ -184,10 +201,10 @@ export default class Article extends Base {
                 <footer className="bottom">
                     <div
                         className="hr duration-main"
-                        style={{backgroundColor: theme.getIn('current', 'color')}}
+                        style={{backgroundColor: theme.getIn(['current', 'color'])}}
                     >
                     </div>
-                    <p>如果不是自己的创作,少女是会标识出来的,所以要告诉别人是少女写的哦。</p>
+                    <p>如果不是自己的创作，少女是会标识出来的，所以要告诉别人是少女写的哦。</p>
                 </footer>
             </article>
         );

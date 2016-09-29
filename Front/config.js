@@ -46,6 +46,18 @@ const config = Object.assign({}, {
         author: '#72944e',
         404: '#666666'
     },
+    themeTagColor: {
+        Create: '#586181',
+        Skill: '#808d6a',
+        Art: '#a69e5c',
+        Life: '#b57e79',
+        home: '#6ca82b',
+        tags: '#12678e',
+        authors: '#72944e',
+        tag: '#12678e',
+        author: '#72944e',
+        404: '#666666'
+    },
     themeLeftImage: {
         Create: '/theme/image/create.jpg',
         Skill: '/theme/image/skill.jpg',

@@ -26,7 +26,7 @@ export default class Tags extends Base {
     };
 
     render() {
-        const store = this.props.store;
+        const {store} = this.props;
         const state = store.get('state');
         const currentList = store.get('currentList');
 
@@ -37,7 +37,7 @@ export default class Tags extends Base {
             return <Loading key='loading' />;
         }
 
-        const max = currentList.sort((a, b) => (b.count - a.count))[0].count;
+        const max = currentList.sort((a, b) => (b.get('count') - a.get('count'))).getIn([0, 'count']);
         const base = (max + 1) / config.tagCloudStep;
 
         return (

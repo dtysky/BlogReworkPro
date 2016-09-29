@@ -9,35 +9,68 @@
   }
 
   section {
-    .padding(@b: 2em);
+    .padding(@b: 3em);
   }
 
   h2 {
     .margin(@t: 40px);
-    .text(@size: 1.3em, @color: black, @align: center);
+    .text(@size: 1.3em, @color: #555, @align: center, @deco: none);
+    &:hover {
+      .text(@color: black)
+    }
   }
 
   summary {
-    .text(@size: 0.9em, @color: gray, @align: center);
+    .text(@size: 0.9em, @color: #555, @align: left);
     line-height: 1.3em;
   }
 
   header {
-    .padding(@b: 1.5em);
+    .margin(@b: 3em);
+    .text(@align: center, @size: .7em);
 
     p {
-      .padding(@b: 2px);
-      .text(@size: 0.9em, @color: gray, @align: center);
-      line-height: 1.4em;
+      .text(@color: gray, @align: center);
     }
 
     a {
-      .padding(@all: 2px);
-      .text(@color: #888, @size: 0.9em, @weight: bolder, @deco: none);
+      .text(@color: #888);
 
       &:hover {
-        .text(@color: black, @deco: none);
+        .text(@color: black);
       }
+    }
+  }
+
+  .authors, .category, .time, .tags {
+    span {
+      .padding(@all: 2px 10px 2px 8px);
+      .border(@rad: 3px 0 0 3px);
+      .text(@color: white);
+      .background(@color: rgb(108, 168, 43));
+    }
+
+    a {
+      .padding(@l: 6px, @r: 6px, @t: 1px, @b: 1px);
+      .background(@color: #fafafa);
+      .border(@t: 1px solid #dadada, @b: 1px solid #d2d2d2, @r: 1px solid #c5c5c5, @l: 1px solid #dadada);
+      .box(@shadow: 0 1px 2px rgba(0, 0, 0, 0.05));
+
+      &:hover {
+        .background(@color: #f2f2f2);
+      }
+    }
+  }
+
+  .authors, .category, .time {
+    display: inline-block;
+    .margin(@r: 5px, @t: 1.5em);
+  }
+
+  .tags {
+    p {
+      display: inline-block;
+      .margin(@t: 1em);
     }
   }
 
@@ -48,7 +81,7 @@
     p {
       .margin(@l: 1%);
       .size(@w: 98%);
-      .text(@color: black, @size: 14px, @weight: bolder, @align: center);
+      .text(@color: #555, @size: 14px, @weight: bolder, @align: center);
     }
 
     .sphr {

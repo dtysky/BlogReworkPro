@@ -17,10 +17,6 @@ button, a {
   cursor: pointer;
 }
 
-body {
-  font-size: @font-size;
-}
-
 a {
   .no-margin;
   .text(@deco: none, @color: black);
@@ -72,6 +68,10 @@ p {
 }
 
 @media (min-width: 960px) {
+  body {
+    font-size: @font-size;
+  }
+
   #player1{
     opacity: 0.6;
     position: fixed;
@@ -92,6 +92,10 @@ p {
 }
 
 @media (max-width: 960px) {
+  body {
+    font-size: @font-size-phone;
+  }
+
   #player1{
     opacity: 1;
     position: relative;

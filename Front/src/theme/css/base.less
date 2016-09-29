@@ -2,6 +2,7 @@
 @menu-height: 270px;
 @fonts: Verdana,Helvetica,arial,sans-serif;
 @font-size: 16px;
+@font-size-phone: 15px;
 @duration-time: .7s;
 
 .size(@w: undefined, @h: undefined) {
@@ -95,7 +96,8 @@
 
 .border(
   @l: undefined, @r: undefined, @t: undefined, @b: undefined,
-  @all: undefined, @rad: undefined, @color: undefined, @spac: undefined
+  @all: undefined, @rad: undefined, @color: undefined, @spac: undefined,
+  @width: undefined
 ) {
   .test();
   .position-prefix(@l, @r, @t, @b, @all, border);
@@ -107,6 +109,9 @@
   }
   .test() when not (@spac = undefined) {
     border-spacing: @spac;
+  }
+  .test() when not (@width = undefined) {
+    border-width: @width;
   }
 }
 
@@ -198,14 +203,6 @@
 
 .icon-font-family {
   font-family: 'icomoon' !important;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-  /* Better Font Rendering =========== */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 .font-icon(@name) {
@@ -272,5 +269,14 @@
     .test() when not (@padding = undefined) {
       .padding(@all: @padding);
     }
+  }
+}
+
+.box(@shadow: undefined) {
+  .test();
+  .test() when not (@shadow = undefined) {
+    -webkit-box-shadow: @shadow;
+    -moz-box-shadow: @shadow;
+    box-shadow: @shadow;
   }
 }

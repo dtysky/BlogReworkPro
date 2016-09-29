@@ -56,6 +56,8 @@ export default class ArticleList extends Base {
     renderTop() {}
 
     renderPage(item, index: number) {
+        const background = this.props.theme.getIn(['current', 'tagColor']);
+
         return (
             <section key={index}>
                 <Link
@@ -63,39 +65,55 @@ export default class ArticleList extends Base {
                     rel='bookmark'
                     title={item.getIn(['title', 'view'])}
                 >
-                    <h2>{item.getIn(['title', 'view'])}</h2>
+                    <h2 className="duration-main">
+                        {item.getIn(['title', 'view'])}
+                    </h2>
                 </Link>
                 <header>
-                    <p>
-                        少女
-                        {
-                            item.get('authors').map((author, i) => (
-                                <Link
-                                    key={i}
-                                    to={getLocalUrl('author', author.get('slug'), 0)}
-                                >
-                                    {author.get('view')}
-                                </Link>
-                            ))
-                        }
-                         世界
-                        <Link
-                            to={getLocalUrl('category', item.getIn(['category', 'slug']), 0)}
-                        >
-                            {item.getIn(['category', 'view'])}
-                        </Link>
-                        时刻 {item.get('date').split(' ')[0]}
-                    </p>
-                    <p>
-                        路标
+                    <div className="top">
+                        <p className="authors">
+                            <span className="duration-main" style={{background}}>少女</span>
+                            {
+                                item.get('authors').map((author, i) => (
+                                    <Link
+                                        key={i}
+                                        className="duration-main"
+                                        to={getLocalUrl('author', author.get('slug'), 0)}
+                                    >
+                                        {author.get('view')}
+                                    </Link>
+                                ))
+                            }
+                        </p>
+                        <p className="category">
+                            <span className="duration-main" style={{background}}>世界</span>
+                            <Link
+                                className="duration-main"
+                                to={getLocalUrl('category', item.getIn(['category', 'slug']), 0)}
+                            >
+                                {item.getIn(['category', 'view'])}
+                            </Link>
+                        </p>
+                        <p className="time">
+                            <span className="duration-main" style={{background}}>时刻</span>
+                            <a className="duration-main">
+                                {item.get('date').split(' ')[0]}
+                            </a>
+                        </p>
+                    </div>
+                    <p className="tags">
+                        <span className="duration-main" style={{background}}>路标</span>
                         {
                             item.get('tags').map((tag, i) => (
-                                <Link
-                                    key={i}
-                                    to={getLocalUrl('tag', tag.get('slug'), 0)}
-                                >
-                                    {tag.get('view')}
-                                </Link>
+                                <p>
+                                    <Link
+                                        key={i}
+                                        className="duration-main"
+                                        to={getLocalUrl('tag', tag.get('slug'), 0)}
+                                    >
+                                        {tag.get('view')}
+                                    </Link>
+                                </p>
                             ))
                         }
                     </p>

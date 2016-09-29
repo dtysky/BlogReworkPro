@@ -7,19 +7,53 @@
   > .top {
     .full-width;
     .padding(@t: 100px);
-    .text(@align: center);
+    .text(@align: center, @size: .7em);
+
+    h1 {
+      .text(@size: 2em);
+    }
 
     p {
-      .margin(@t: 0, @b: 0);
-      .full-width;
-      .text(@size: 1em, @color: gray, @align: center);
+      .text(@color: gray, @align: center);
     }
 
     a {
-      .text(@color: #666, @weight: bolder);
+      .text(@color: #888);
 
       &:hover {
         .text(@color: black);
+      }
+    }
+
+    .authors, .category, .time, .tags {
+      span {
+        .padding(@all: 2px 10px 2px 8px);
+        .border(@rad: 3px 0 0 3px);
+        .text(@color: white);
+        .background(@color: rgb(108, 168, 43));
+      }
+
+      a {
+        .padding(@l: 6px, @r: 6px, @t: 1px, @b: 1px);
+        .background(@color: #fafafa);
+        .border(@t: 1px solid #dadada, @b: 1px solid #d2d2d2, @r: 1px solid #c5c5c5, @l: 1px solid #dadada);
+        .box(@shadow: 0 1px 2px rgba(0, 0, 0, 0.05));
+
+        &:hover {
+          .background(@color: #f2f2f2);
+        }
+      }
+    }
+
+    .authors, .category, .time {
+      display: inline-block;
+      .margin(@r: 5px, @t: 1.5em);
+    }
+
+    .tags {
+      p {
+        display: inline-block;
+        .margin(@t: 1em);
       }
     }
   }
@@ -56,7 +90,7 @@
 
     p, a, code, .highlight, li, blockquote {
       .text(@size: 1em);
-      line-height: 1.5em;
+      line-height: 1.3em;
     }
 
     p {
@@ -66,8 +100,13 @@
 
     a {
       .icon-font-family;
-      .text(@color: #444);
+      .text(@color: #888, @weight: bolder);
       .font-icon(after, jump, @padding: 0 0 0 2px);
+
+      &:hover {
+        .text(@color: black);
+        .autoprefix-transition(all @duration-time linear);
+      }
     }
 
     blockquote {
@@ -78,10 +117,10 @@
     }
 
     pre {
-      .text(@size: .9em);
+      .text(@size: .8em);
       line-height: 1.2em;
       overflow: auto;
-      .padding(@all: 10px 2px 10px 2px);
+      .padding(@all: 15px 4px 15px 4px);
     }
 
     img {
@@ -120,7 +159,12 @@
 
     code{
       .text(@weight: bolder);
-      .background(@color: #ddd);
+      .padding(@all: 2px);
+      .background(@color: #eee);
+
+      &:before, &:after {
+        content: "`";
+      }
     }
 
     #resume-header{
@@ -151,10 +195,11 @@
 
   > .bottom {
     .margin(@t: 40px);
+    .padding(@b: 20px);
 
     p {
       .full-width;
-      .text(@color: black, @weight: bolder, @align: center);
+      .text(@color: black, @weight: bolder, @align: center, @size: .9em);
     }
   }
 
@@ -171,6 +216,11 @@
   }
 
   .disqus {
+    .text(@color: #888, @weight: bolder);
     .font-icon(before, disqus);
+
+    &:hover {
+      .background(@color: #f2f2f2);
+    }
   }
 }
