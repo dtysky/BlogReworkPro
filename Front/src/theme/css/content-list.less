@@ -1,7 +1,6 @@
 @import (reference) "base.less";
 
 #content-list {
-  .full-width;
   .padding(@t: 2em);
 
   ul {
@@ -9,19 +8,18 @@
   }
 
   section {
-    //.padding(@b: 3em);
+    .margin(@t: 2em);
   }
 
   h2 {
-    .margin(@t: 40px);
-    .text(@size: 1.3em, @color: #555, @align: center, @deco: none);
+    .text(@size: 1.3em, @color: #555, @align: center);
     &:hover {
       .text(@color: black)
     }
   }
 
   summary {
-    .text(@size: 0.9em, @color: #555, @align: left);
+    .text(@size: 0.9em, @color: #555);
     line-height: 1.3em;
   }
 
@@ -30,7 +28,7 @@
     .text(@align: center, @size: .7em);
 
     p {
-      .text(@color: gray, @align: center);
+      .text(@color: gray);
     }
 
     a {
@@ -38,26 +36,6 @@
 
       &:hover {
         .text(@color: black);
-      }
-    }
-  }
-
-  .authors, .category, .time, .tags {
-    span {
-      .padding(@all: 2px 10px 2px 8px);
-      .border(@rad: 3px 0 0 3px);
-      .text(@color: white);
-      .background(@color: rgb(108, 168, 43));
-    }
-
-    a {
-      .padding(@l: 6px, @r: 6px, @t: 1px, @b: 1px);
-      .background(@color: #fafafa);
-      .border(@t: 1px solid #dadada, @b: 1px solid #d2d2d2, @r: 1px solid #c5c5c5, @l: 1px solid #dadada);
-      .box(@shadow: 0 1px 2px rgba(0, 0, 0, 0.05));
-
-      &:hover {
-        .background(@color: #f2f2f2);
       }
     }
   }
@@ -75,48 +53,49 @@
   }
 
   .hr {
-    .margin(@all: 4em auto 4em auto);
-    .size(20%, 1px);
+    .margin(@all: 5em auto 5em auto);
   }
 
   .index-preview {
-    .full-width;
-    .margin(@t: 30px, @b: 20px);
+    .margin(@t: 1em, @b: 2em);
 
     p {
-      .margin(@l: 1%);
-      .size(@w: 98%);
-      .text(@color: #555, @size: 14px, @weight: bolder, @align: center);
+      .margin(@all: auto);
+      .size(@w: 96%);
+      .text(@color: #555, @size: .9em, @weight: bolder, @align: center);
     }
 
-    .sphr {
-      .margin(@t: 20px, @b: 20px);
+    .hr-home {
+      .margin(@t: 1.5em, @b: 1.5em);
       .size(100%, 2px);
     }
   }
 }
 
-#author-list {
-  .margin(@t: 100%);
-  .full-width;
-  .text(@align: center);
+#authors {
+  .no-padding;
+  .margin(@t: 3em, @b: 3em);
+  .text(@align: center, @size: 2em);
   list-style: none;
+  line-height: 4em;
 
-  li {
-    .margin(@b: 40px);
+  span {
+    .border(@rad: 0.1em 0 0 .1em);
   }
 
   a {
-    .full-width;
-    .text(@size: 40px, @color: #444);
+    .padding(@l: .5em, @r: .5em, @t: 1px, @b: 1px);
   }
 }
 
 #tag-cloud{
+  .no-padding;
   .margin(@t: 10%);
-  line-height: 30px;
+  line-height: 1.5em;
+  list-style: none;
 
-  a {
-    .padding(@all: 4px);
+  .tag {
+    display: inline-block;
+    margin: .5em;
   }
 }

@@ -130,6 +130,7 @@ export default class MenuPC extends Component {
                 <p className="end">这是一个孤独行者的轨迹。</p>
                 <div
                     id="menu-links"
+                    className="duration-main"
                     style={{
                         top: this.state.linksOpened ? 0 : -400,
                         backgroundColor: this.props.theme.getIn(['current', 'color'])

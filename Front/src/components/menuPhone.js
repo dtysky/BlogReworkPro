@@ -123,7 +123,7 @@ export class MenuPhoneFooter extends Component { // eslint-disable-line
                 className="duration-main"
                 style={{backgroundColor: this.props.theme.getIn(['current', 'color'])}}
             >
-                <p>Links</p>
+                <p className="links-p">Links</p>
                 <address className="links">
                     {
                         config.links.map((link, index) =>

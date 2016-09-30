@@ -1,12 +1,8 @@
 @import (reference) "base.less";
 
 #article {
-  .full-width;
-  .icon-font-family;
-
   > .top {
-    .full-width;
-    .padding(@t: 100px);
+    .padding(@t: 4em);
     .text(@align: center, @size: .7em);
 
     h1 {
@@ -14,34 +10,14 @@
     }
 
     p {
-      .text(@color: gray, @align: center);
+      .text(@color: gray);
     }
 
     a {
-      .text(@color: #888);
+      .text(@color: #888, @weight: bolder);
 
       &:hover {
         .text(@color: black);
-      }
-    }
-
-    .authors, .category, .time, .tags {
-      span {
-        .padding(@all: 2px 10px 2px 8px);
-        .border(@rad: 3px 0 0 3px);
-        .text(@color: white);
-        .background(@color: rgb(108, 168, 43));
-      }
-
-      a {
-        .padding(@l: 6px, @r: 6px, @t: 1px, @b: 1px);
-        .background(@color: #fafafa);
-        .border(@t: 1px solid #dadada, @b: 1px solid #d2d2d2, @r: 1px solid #c5c5c5, @l: 1px solid #dadada);
-        .box(@shadow: 0 1px 2px rgba(0, 0, 0, 0.05));
-
-        &:hover {
-          .background(@color: #f2f2f2);
-        }
       }
     }
 
@@ -56,46 +32,48 @@
         .margin(@t: 1em);
       }
     }
-  }
 
-  .hr {
-    .margin(@t: 20px, @b: 20px);
-    .size(100%, 2px);
+    .hr {
+      .margin(@t: 3em, @b: 3em);
+      .size(100%, 2px);
+    }
   }
 
   > .middle {
-    .margin(@b: 20px);
-    .text(@size: 1em);
     line-height: 1.5em;
 
+    h1, h2, h3, h4, h5, h6 {
+      line-height: 2em;
+    }
+
     h1 {
-       .margin(@t: 0.8em, @b: 0.8em);
        .text(@size: 1.5em);
      }
 
     h2 {
-      .margin(@t: 0.8em, @b: 0.8em);
       .text(@size: 1.4em);
     }
 
     h3 {
-      .margin(@t: 0.8em, @b: 0.8em);
       .text(@size: 1.3em);
     }
 
     h4, h5, h6 {
-      .margin(@t: 0.8em, @b: 0.8em);
       .text(@size: 1.2em);
     }
 
-    p, a, code, .highlight, li, blockquote {
+    p, a, code, li {
       .text(@size: 1em);
       line-height: 1.3em;
     }
 
     p {
-      .margin(@t: 0.8em, @b: 0.8em);
+      .margin(@t: 1em, @b: 1em);
       .text(@color: black, @align: left);
+    }
+
+    a, blockquote {
+      .autoprefix-transition(all @duration-time linear);
     }
 
     a {
@@ -105,22 +83,22 @@
 
       &:hover {
         .text(@color: black);
-        .autoprefix-transition(all @duration-time linear);
       }
     }
 
     blockquote {
+      .margin(@all: 0);
+      .padding(@all: 4px .6em 4px .6em);
+      .text(@size: 1em);
       .background(@color: #6ca82b);
-      .padding(@all: 1px 10px 1px 10px);
-      .margin(@l: 0, @r: 0);
-      .autoprefix-transition(background-color @duration-time ease-out);
+      line-height: 1.2em;
     }
 
     pre {
-      .text(@size: .8em);
-      line-height: 1.2em;
+      .padding(@all: 1em 4px 1em 4px);
+      .text(@size: .9em);
+      line-height: 1.3em;
       overflow: auto;
-      .padding(@all: 15px 4px 15px 4px);
     }
 
     img {
@@ -128,33 +106,30 @@
     }
 
     center {
-      .margin(@t: 15px, @b: 15px);
-      .text(@size: 14px);
+      .margin(@t: 1em, @b: 1em);
+      .text(@size: .9em);
     }
 
     table{
-      .margin(@all: 10px);
+      .margin(@all: 1em);
       .padding(@all: 0);
-      .border(@all: 1px, @color: black, @spac: 0);
     }
 
-    tr{
+    tr, th, td {
       .text-center;
     }
 
     th{
-      .padding(@all: 10px);
+      .padding(@all: 1em);
       .background(@color: #aaa);
-      .text-center;
     }
 
     td{
       .padding(@all: 10px);
-      .text-center;
     }
 
     table, th, td {
-      .border(@all: 1px solid rgba(20, 20, 20, 0.8));
+      .border(@all: 1px solid rgba(20, 20, 20, 0.8), @spac: 0);
     }
 
     code{
@@ -165,6 +140,10 @@
       &:before, &:after {
         content: "`";
       }
+    }
+
+    hr {
+      .margin(@t: 2em, @b: 2em);
     }
 
     #resume-header{
@@ -194,33 +173,31 @@
   }
 
   > .bottom {
-    .margin(@t: 40px);
-    .padding(@b: 20px);
+    .padding(@b: 1em);
 
     p {
-      .full-width;
-      .text(@color: black, @weight: bolder, @align: center, @size: .9em);
+      .text(@weight: bolder, @align: center, @size: .9em);
+    }
+
+    .hr {
+      .margin(@t: 2em, @b: 1em);
+      .size(100%, 2px);
     }
   }
 
   #disqus_container {
-    .margin(@t: 30px);
+    .margin(@t: 2em);
   }
 
   #disqus_button{
-    .border(@all: none);
-    cursor: pointer;
-    .text(@size: 16px);
-    background: none;
-    .background(@all: none);
+    .text(@color: #888, @weight: bolder);
+
+    &:hover {
+      .text(@color: black);
+    }
   }
 
   .disqus {
-    .text(@color: #888, @weight: bolder);
     .font-icon(before, disqus);
-
-    &:hover {
-      .background(@color: #f2f2f2);
-    }
   }
 }

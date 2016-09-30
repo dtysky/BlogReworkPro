@@ -85,7 +85,12 @@ export default class NotFound extends Component {
                             <p key={e}>{e}</p>
                         )
                     }
-                    <Link to='/'>{this.text.a}</Link>
+                    <Link
+                        to='/'
+                        className="duration-main"
+                    >
+                        {this.text.a}
+                    </Link>
                 </summary>
             </article>
         );

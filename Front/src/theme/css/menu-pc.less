@@ -8,14 +8,16 @@
   z-index: 10;
 
   a, p {
-    display: inline-block;
-    .text(@color: black, @deco: none, @align: center);
+    .text(@color: black, @align: center);
+  }
+
+  .name, .home, .tag-ath, .links, .links-p, .end {
+    display: block;
   }
 
   .name {
-    display: block;
     .margin(@t: 10px);
-    .size(@h: 35px);
+    line-height: 35px;
     .text(@size: 24px);
   }
 
@@ -40,21 +42,17 @@
   }
 
   .icon {
-    display: inline-block;
     .margin(@l: 12px);
     .size(@w: 25px);
     .text(@size: 26px);
   }
 
   .home {
-    display: block;
     .margin(@t: 5px);
-    .size(@w: 100%);
     .text(@size: 20px);
   }
 
   .tag-ath {
-    display: block;
     .margin(@t: 5px, @l: 30px);
     .text(@size: 16px);
   }
@@ -68,14 +66,11 @@
   }
 
   .links-p {
-    display: block;
     .margin(@t: 10px, @b: 5px);
-    .size(@w: 100%);
     .text(@size: 20px, @align: center);
   }
 
   .links {
-    display: block;
     .margin(@b: 5px);
     .text(@size: 16px);
   }
@@ -91,7 +86,6 @@
   }
 
   .end {
-    display: block;
     .margin(@t: 10px, @l: 10px);
     .size(@h: 30px);
     .text(@size: 12px);
@@ -120,20 +114,18 @@
 #menu-links {
   position: fixed;
   .position(@r: 0, @t: -400px);
-  .padding(@t: 20px, @b: 20px);
+  .padding(@t: 1em, @b: 1em);
   .size(@w: @menu-width);
-  transition: top .8s ease-in, background-color .8s ease-in;
+  .text(@align: center);
 
   address {
     list-style: none;
     .no-margin;
-    .padding(@all: 5px);
-    .text(@align: center);
   }
 
   a {
     line-height: 1.5em;
-    .text(@color: #000, @deco: none, @align: center, @size: .9em);
+    .text(@size: .9em);
   }
 
 }

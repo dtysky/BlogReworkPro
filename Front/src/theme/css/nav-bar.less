@@ -2,57 +2,44 @@
 
 #nav-bar {
   position: relative;
-  .margin(@t: 20px);
-  .size(100%, 50px);
+  .margin(@t: 1.5em);
+  .size(@h: 3em);
+
+  li {
+    display: inline-block;
+    .size(@w: 25%);
+    .padding(@t: 20px);
+  }
 
   a {
     display: inline-block;
-    .text(@color: black, @deco: none, @size: 20px);
-    opacity: 1.0;
+    .text(@size: 1.5em);
+    .full-width;
   }
 
-  .list {
-    .no-margin;
-    .no-padding;
-    .full-width;
-    list-style: none;
+  .create a{
+    .text(@align: left);
+  }
 
-    li {
-      display: inline-block;
-      .size(@w: 25%);
-      .padding(@t: 20px);
-    }
+  .skill a{
+    .padding(@l: 35%);
+  }
 
-    a {
-      display: inline-block;
-      .full-width;
-    }
+  .art a{
+    .padding(@l: 65%);
+  }
 
-    .create a{
-      .text(@align: left);
-    }
-
-    .skill a{
-      .padding(@l: 35%);
-    }
-
-    .art a{
-      .padding(@l: 65%);
-    }
-
-    .life a{
-      .text(@align: right);
-    }
+  .life a{
+    .text(@align: right);
   }
 
   .bar-container {
     .margin(@t: 0);
-    .size(100%, 3px);
+    .size(@h: 3px);
+  }
 
-    .bar {
-      display: inline-block;
-      .size(75px, 3px);
-      .position(@l: 100px);
-    }
+  .bar {
+    display: inline-block;
+    .size(75px, 3px);
   }
 }

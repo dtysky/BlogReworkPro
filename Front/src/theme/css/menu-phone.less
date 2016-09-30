@@ -4,7 +4,7 @@
   display: none;
   position: relative;
   .margin(@t: 0);
-  .size(100%, 120px);
+  .size(@h: @menu-header-height-phone);
   .background(@color: #6ca82b);
 
   a {
@@ -14,9 +14,8 @@
   }
 
   .top {
-    display: inline-block;
     position: relative;
-    .padding(@t: 20px, @b: 20px);
+    .padding(@t: 1.5em, @b: 1.5em);
     .position(@l: 15%);
     .size(70%, 20px);
 
@@ -47,55 +46,52 @@
   }
 
   .bottom {
-    .full-width;
+    .text(@size: 1.3em);
   }
 
   .hr {
-    width: 80%;
-    border: 1px solid;
-    margin: 10px auto;
-    color: black;
+    .size(@w: 80%);
+    .border(@all: 1px solid);
+    .margin(@all: 10px auto);
   }
 }
 
 #menu-phone-footer {
-  display: none;
   position: relative;
-  .position(@t: 20px);
-  .margin(@t: 20px);
-  .padding(@t: 10px);
-  .size(@w: 100%);
-  .text(@size: 18px, @align: center);
+  .margin(@t: 1.5em);
+  .padding(@t: 1em);
+  .text(@size: 1em, @align: center);
   .background(@color: #6ca82b);
 
+  .links-p {
+    .text(@size: 1.3em);
+    .padding(@b: .5em);
+  }
+
   .links {
-    display: block;
     .margin(@all: auto);
     .size(60%);
 
+    a, p {
+      display: inline-block;
+    }
+
     a {
       .size(@w: 32%);
-      .text(@size: 14px);
+      .text(@size: .9em);
     }
   }
 
-  a, p {
-    display: inline-block;
-    .text(@color: black, @deco: none, @align: center);
-  }
-
   .hr {
-    width: 60%;
-    margin: 10px auto;
-    border: 1px solid;
-    color: black;
+    .size(@w: 60%);
+    .margin(@all: 10px auto);
+    .border(@all: 1px solid);
   }
 
   .end {
-    display: block;
-    .margin(@t: 10px, @l: 10px);
-    .size(@h: 30px);
-    .text(@size: 14px);
+    .margin(@t: 1em, @l: 1em);
+    .size(@h: 2em);
+    .text(@size: 1em);
   }
 }
 

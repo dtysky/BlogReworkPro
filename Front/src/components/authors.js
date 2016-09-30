@@ -35,13 +35,27 @@ export default class Authors extends Base {
         if (state === 'wait') {
             return <Loading key='loading' />;
         }
+        const background = this.props.theme.getIn(['current', 'tagColor']);
 
         return (
             <ul id="authors">
                 {
                     currentList.map((author, index) =>
-                        <li key={index}>
-                            <Link to={getLocalUrl('author', author.get('slug'))}>{author.get('view')}</Link>
+                        <li
+                            key={index}
+                            className="tag-sp author"
+                        >
+                            <span
+                                className="duration-main"
+                                style={{background}}
+                            >
+                                {index === 0 ? '歌姬' : '诗人'}
+                            </span>
+                            <Link
+                                className="duration-main"
+                                to={getLocalUrl('author', author.get('slug'))}>
+                                {author.get('view')}
+                            </Link>
                         </li>
                     )
                 }

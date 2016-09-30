@@ -47,8 +47,10 @@ export default class ArticleList extends Base {
                 <Pagination
                     type={type}
                     name={currentName}
-                    currentPage={currentPage}
-                    maxPage={maxPage}
+//                    currentPage={currentPage}
+//                    maxPage={maxPage}
+                    currentPage={5}
+                    maxPage={20}
                 />
             </div>
         );
@@ -72,7 +74,7 @@ export default class ArticleList extends Base {
                 </Link>
                 <header>
                     <div className="top">
-                        <p className="authors">
+                        <p className="tag-sp authors">
                             <span className="duration-main" style={{background}}>少女</span>
                             {
                                 item.get('authors').map((author, i) => (
@@ -86,7 +88,7 @@ export default class ArticleList extends Base {
                                 ))
                             }
                         </p>
-                        <p className="category">
+                        <p className="tag-sp category">
                             <span className="duration-main" style={{background}}>世界</span>
                             <Link
                                 className="duration-main"
@@ -95,20 +97,19 @@ export default class ArticleList extends Base {
                                 {item.getIn(['category', 'view'])}
                             </Link>
                         </p>
-                        <p className="time">
+                        <p className="tag-sp time">
                             <span className="duration-main" style={{background}}>时刻</span>
                             <a className="duration-main">
                                 {item.get('date').split(' ')[0]}
                             </a>
                         </p>
                     </div>
-                    <p className="tags">
+                    <div className="tag-sp tags">
                         <span className="duration-main" style={{background}}>路标</span>
                         {
                             item.get('tags').map((tag, i) => (
-                                <p>
+                                <p key={i}>
                                     <Link
-                                        key={i}
                                         className="duration-main"
                                         to={getLocalUrl('tag', tag.get('slug'), 0)}
                                     >
@@ -117,7 +118,7 @@ export default class ArticleList extends Base {
                                 </p>
                             ))
                         }
-                    </p>
+                    </div>
                 </header>
                 <summary dangerouslySetInnerHTML={{__html: item.get('summary')}} />
                 <footer>

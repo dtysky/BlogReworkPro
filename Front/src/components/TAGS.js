@@ -36,21 +36,34 @@ export default class Tags extends Base {
         if (state === 'wait') {
             return <Loading key='loading' />;
         }
-
+        const background = this.props.theme.getIn(['current', 'tagColor']);
         const max = currentList.sort((a, b) => (b.get('count') - a.get('count'))).getIn([0, 'count']);
         const base = (max + 1) / config.tagCloudStep;
 
         return (
-            <ul id="tag-cloud">
+            <ul
+                id="tag-cloud"
+            >
                 {
                     currentList.map((tag, index) =>
-                        <Link
+                        <li
+                            className="tag-sp tag"
                             key={index}
-                            to={getLocalUrl('tag', tag.get('slug'))}
-                            style={{fontSize: 14 + parseInt(tag.get('count') / base, 10) * 2}}
                         >
-                            {tag.get('view')}
-                        </Link>
+                            <span
+                                className="duration-main"
+                                style={{background, fontSize: 12 + parseInt(tag.get('count') / base, 10) * 2}}
+                            >
+                                {tag.get('count')}
+                            </span>
+                            <Link
+                                to={getLocalUrl('tag', tag.get('slug'))}
+                                className="duration-main"
+                                style={{fontSize: 12 + parseInt(tag.get('count') / base, 10) * 2}}
+                            >
+                                {tag.get('view')}
+                            </Link>
+                        </li>
                     )
                 }
             </ul>

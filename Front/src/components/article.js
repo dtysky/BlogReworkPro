@@ -134,7 +134,7 @@ export default class Article extends Base {
                     />
                     <h1>{title.view}</h1>
                     <div className="top">
-                        <p className="authors">
+                        <p className="tag-sp authors">
                             <span className="duration-main" style={{background}}>少女</span>
                             {
                                 authors.map((author, i) => (
@@ -148,7 +148,7 @@ export default class Article extends Base {
                                 ))
                             }
                         </p>
-                        <p className="category">
+                        <p className="tag-sp category">
                             <span className="duration-main" style={{background}}>世界</span>
                             <Link
                                 className="duration-main"
@@ -157,14 +157,14 @@ export default class Article extends Base {
                                 {category.view}
                             </Link>
                         </p>
-                        <p className="time">
+                        <p className="tag-sp time">
                             <span className="duration-main" style={{background}}>时刻</span>
                             <a className="duration-main">
                                 {date.split(' ')[0]}
                             </a>
                         </p>
                     </div>
-                    <p className="tags">
+                    <p className="tag-sp tags">
                         <span className="duration-main" style={{background}}>路标</span>
                         {
                             tags.map((tag, i) => (
@@ -191,9 +191,10 @@ export default class Article extends Base {
                     <div id="disqus_thread">
                         <a
                             id="disqus_button"
+                            className="duration-main"
                             onClick={::this.openComments}
                         >
-                            <span className="icon-font icon disqus duration-main" />
+                            <span className="icon-font icon disqus" />
                             点击查看评论
                         </a>
                     </div>
