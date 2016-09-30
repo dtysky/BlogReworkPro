@@ -25,7 +25,24 @@ const config = Object.assign({}, {
     tagCloudStep: 4,
     articlesPerPage: 10,
     timeout: 2000,
-    MathJaxUrl: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML',
+    /* eslint-disable */
+    easterEgg: `　　　　　　　 　/　　 /　　　　　　　ヽ　　　　　　ヽ　　　　　ヽ: . : l
+    　　　　　 　　 / /　/　　　 /　　　　　､　　　　　　ヽ　　　　　l: . . |
+    　　　　　 　 /イ 　 l　　　/ |　　　　　　､　　　　　　l　　|　l 　 l: . .|
+    　　　　　　　　| :.　.:| 　 /　 l　　　　　 　､　　　　　 :l　　l: :|＼ﾊ: ﾊ
+    　　　　　　 　 ﾚ|: 　|　/　￣ |　　　 　　　!:.　　　　　l: : : ト| ー } |
+    　　　　　　　 　 |: . l　| '￣ﾋぅ| 　 l　　　　:.:..　　　l:　 .:| /ﾚ　ｊ: / {
+    　　　　　　　　　VヽN　\` ー　ｊﾊノ ＼|:　 :.:.|:.　l:.:.ﾊ:.:./ﾚ ﾉ ノ /. :ﾄ
+    　　　　　　　 　 　 　 |　 　 　l　　　　 ヽ/ソﾄﾊﾚ　 ﾝ　　 ´ ノ〃 |
+    　　　　　　　　　　　　l　　　 l　　　　　　　　　　　　　　　fl : ..　 |
+    　　　　　　　　　　　　 l　　　ヽ　 _　　　　　　　　　　　　l　|ﾊ/|ﾉ＿
+    　　　　　　　　　　　　　､　　　　　　　　　　　　　　　　 　　　　|　7 |
+    　　　　　　　　　　　　　 ヽ　　　 　　　　　_　　　　　 /　　　　 ／　 l
+    　　　　　　　　　　,.. -─‐‐-､ヽ二二二ノ　　　　／　　　 ／
+    　　　　　　 ＿_L´-､　ノ　　　　　｀丶､　　　　,　'´ 　 　 ／
+    　　　　 /´　　{_ 　.::}　　　　　. : . : . : .|_,.. - ´　　　　／\n\n\n\n
+    没有想到少女居然是个大叔吧哈哈哈哈？`,
+    /* eslint-enable */
     links: [
         {name: 'Lm7', url: 'http://lm7.xxxxxxxx.jp'},
         {name: 'APlayer', url: 'https://github.com/DIYgod/APlayer'},

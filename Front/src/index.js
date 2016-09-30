@@ -13,6 +13,7 @@ import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import Immutable from 'immutable';
 
+import config from '../config';
 import reducers from './reducers';
 import routes from './routes';
 
@@ -50,3 +51,8 @@ ReactDom.render(
     </Provider>,
     document.getElementById('container')
 );
+
+if (process.env.NODE_ENV === 'production') {
+    console.log(config.easterEgg); // eslint-disable-line
+}
+

@@ -158,7 +158,7 @@
   }
 }
 
-.text(@size: undefined, @color: undefined, @align: undefined, @deco: undefined, @weight: undefined) {
+.text(@size: undefined, @color: undefined, @align: undefined, @deco: undefined, @weight: undefined, @style: undefined) {
   .test();
   .test() when not (@size = undefined) {
     font-size: @size;
@@ -174,6 +174,9 @@
   }
   .test() when not (@weight = undefined) {
     font-weight: @weight;
+  }
+  .test() when not (@style = undefined) {
+    font-style: @style;
   }
 }
 

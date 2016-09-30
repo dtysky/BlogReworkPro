@@ -22,10 +22,6 @@ export default class ArticleList extends Base {
         const type = this.type;
         const store = this.props.store;
         const state = store.get('state');
-        const currentList = store.get('currentList');
-        const currentPage = store.get('currentPage');
-        const currentName = store.get('currentName');
-        const maxPage = store.get('maxPage');
 
         if (state === 'error') {
             return <NormalError key='normal-error' />;
@@ -33,15 +29,20 @@ export default class ArticleList extends Base {
         if (state === 'wait') {
             return <Loading key='loading' />;
         }
+
+        const currentList = store.get('currentList');
+        const currentPage = store.get('currentPage');
+        const currentName = store.get('currentName');
+        const maxPage = store.get('maxPage');
+        const list = currentList.slice(
+            currentPage * config.articlesPerPage, (currentPage + 1) * config.articlesPerPage
+        );
+
         return (
             <div id="content-list">
                 {this.renderTop()}
                 <ul>
-                    {currentList.slice(
-                        currentPage * config.articlesPerPage, (currentPage + 1) * config.articlesPerPage
-                    ).map(
-                        (item, index) => this.renderPage(item, index)
-                    )}
+                    {list.map((item, index) => this.renderPage(item, index, list.size))}
                 </ul>
                 <Pagination
                     type={type}
@@ -55,7 +56,7 @@ export default class ArticleList extends Base {
 
     renderTop() {}
 
-    renderPage(item, index: number) {
+    renderPage(item, index: number, size: number) {
         const background = this.props.theme.getIn(['current', 'tagColor']);
 
         return (
@@ -120,6 +121,14 @@ export default class ArticleList extends Base {
                 </header>
                 <summary dangerouslySetInnerHTML={{__html: item.get('summary')}} />
                 <footer>
+                    {
+                        index === size - 1 ? null :
+                            <div
+                                className="hr duration-main"
+                                style={{background}}
+                            >
+                            </div>
+                    }
                 </footer>
             </section>
         );
