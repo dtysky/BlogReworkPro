@@ -21,7 +21,8 @@ export const defaultState = Immutable.fromJS({
 
 export function articleListReducer(
     state = defaultState,
-    action: {type: string, tag: string, name: string, list: Array, currentPage: number}
+    action: {type: string, tag: string, name: string, list: Array, currentPage: number},
+    sort: boolean = false
 ) {
     const {tag} = action;
     switch (action.type) {
@@ -29,7 +30,11 @@ export function articleListReducer(
             return defaultState.merge({lists: state.get('lists')});
 
         case actionTypes.get[tag].successful: {
-            const {name, list} = action;
+            const {name} = action;
+            let {list} = action;
+            if (sort) {
+                list = list.sort((a, b) => a.date > b.date ? -1 : 1);
+            }
             let lists = state.get('lists');
             const maxPage = parseInt(list.length / config.articlesPerPage, 10);
             if (!name) {
@@ -37,7 +42,7 @@ export function articleListReducer(
                     state: 'successful', currentList: list, maxPage, currentPage: 0
                 });
             }
-            if (!(name in lists)) {
+            if (!lists.has(name)) {
                 lists = lists.set(name, list);
             }
             const currentList = lists.get(name);

@@ -12,5 +12,5 @@ export default function authorReducer(
     state = defaultState,
     action: {type: string, name: string, list: Array, currentPage: number}
 ) {
-    return articleListReducer.articleListReducer(state, {...action, tag: 'author'});
+    return articleListReducer.articleListReducer(state, {...action, tag: 'author'}, true);
 }

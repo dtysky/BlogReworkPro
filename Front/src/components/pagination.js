@@ -49,72 +49,60 @@ export default class Pagination extends Component {
                 {[
                     currentPage === 0
                         ?
-                        <li
+                        <p
                             key="prev"
                             className="page prev disabled duration-main"
                             style={{color}}
                         >
                             «
-                        </li>
+                        </p>
                         :
-                        <li
+                        <Link
                             key="prev"
                             className="page prev active duration-main"
+                            style={{color}}
+                            to={getLocalUrl(type, name, currentPage - 1)}
                         >
-                            <Link
-                                to={getLocalUrl(type, name, currentPage - 1)}
-                                className="duration-main"
-                                style={{color}}
-                            >
-                                «
-                            </Link>
-                        </li>,
+                            «
+                        </Link>,
                     ...indexes.map((index, i) => (
                         index === currentPage
                             ?
-                            <li
+                            <p
                                 key={i}
                                 className="page normal current duration-main"
                                 style={{background: color}}
                             >
                                 {index}
-                            </li>
+                            </p>
                             :
-                            <li
+                            <Link
                                 key={i}
                                 className="page normal active duration-main"
+                                style={{color}}
+                                to={getLocalUrl(type, name, index)}
                             >
-                                <Link
-                                    to={getLocalUrl(type, name, index)}
-                                    className="duration-main"
-                                    style={{color}}
-                                >
-                                    {index}
-                                </Link>
-                            </li>
+                                {index}
+                            </Link>
                     )),
                     currentPage === maxPage
                         ?
-                        <li
+                        <p
                             key="next"
                             className="page next disabled duration-main"
                             style={{color}}
                         >
                             »
-                        </li>
+                        </p>
                         :
-                        <li
+                        <Link
                             key="next"
                             className="page next active duration-main"
+                            style={{color}}
+                            to={getLocalUrl(type, name, currentPage + 1)}
                         >
-                            <Link
-                                to={getLocalUrl(type, name, currentPage + 1)}
-                                className="duration-main"
-                                style={{color}}
-                            >
-                                »
-                            </Link>
-                        </li>
+                            »
+                        </Link>
                 ]}
             </ul>
         );

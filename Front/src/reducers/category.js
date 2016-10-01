@@ -12,5 +12,5 @@ export default function categoryReducer(
     state = defaultState,
     action: {type: string, name: string, list: Array, currentPage: number}
 ) {
-    return articleListReducer.articleListReducer(state, {...action, tag: 'category'});
+    return articleListReducer.articleListReducer(state, {...action, tag: 'category'}, true);
 }

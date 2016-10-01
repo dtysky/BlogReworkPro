@@ -44,7 +44,7 @@ export default function articleReducer(
         case actionTypes.get.article.successful: {
             const {name, article} = action;
             let articles = state.get('articles');
-            if (!(articles.has(name))) {
+            if (!articles.has(name)) {
                 article.shareInfo = generateShareInfo(article);
                 article.content = renderWithKatex(article.content);
                 articles = articles.set(name, article);

@@ -70,7 +70,7 @@ export default class NotFound extends Component {
                 <div className="img-container full-width">
                     {
                         ['1', '2', '3', '4'].map(e =>
-                            <figure className={`img${e} img`}/>
+                            <figure className={`img${e} img`} />
                         )
                     }
                 </div>
