@@ -34,6 +34,10 @@ p {
   .autoprefix-transition(all @duration-time ease-out);
 }
 
+.full-width {
+  .size(@w: 100%);
+}
+
 .text-center {
   .text(@align: center);
 }
@@ -65,11 +69,8 @@ p {
   z-index: 10;
 
   a {
-    .border(@all: none);
-    .padding(@all: 0);
-    .size(48px, 48px);
-    .text(@size: 48px);
-    .background(@all: none);
+    .size(36px, 36px);
+    .text(@size: 36px);
     .font-icon(before, return);
   }
 }
@@ -136,11 +137,7 @@ p {
 
 @font-face {
   font-family: 'icomoon';
-  src:    url('../font/icomoon.eot?c8cymx');
-  src:    url('../font/icomoon.eot?c8cymx#iefix') format('embedded-opentype'),
-  url('../font/icomoon.ttf?c8cymx') format('truetype'),
-  url('../font/icomoon.woff?c8cymx') format('woff'),
-  url('../font/icomoon.svg?c8cymx#icomoon') format('svg');
+  src: url(../font/icomoon.woff?c8cymx) format('woff');
   font-weight: normal;
   font-style: normal;
 }

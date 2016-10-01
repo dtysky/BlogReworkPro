@@ -35,7 +35,7 @@ export function getListSource(type: string, name: string, currentLists: Object) 
                 return Promise.resolve(res);
             })
             .catch(err => {
-                if (process.env.NODE_ENV === 'development') {
+                if (config.devMode) {
                     console.log(err); // eslint-disable-line
                 }
                 dispatch({type: actionTypes.get[type].failed, name});
@@ -62,7 +62,7 @@ export function getArticleSource(name: string, currentArticles: Object) {
                 return Promise.resolve(res);
             })
             .catch(err => {
-                if (process.env.NODE_ENV === 'development') {
+                if (config.devMode) {
                     console.log(err); // eslint-disable-line
                 }
                 dispatch({type: actionTypes.get.article.failed, name});
@@ -87,7 +87,7 @@ export function initMusic(DefaultList) {
                 return Promise.resolve(res);
             })
             .catch(err => {
-                if (process.env.NODE_ENV === 'development') {
+                if (config.devMode) {
                     console.log(err); // eslint-disable-line
                 }
                 dispatch({type: actionTypes.init.music.failed});

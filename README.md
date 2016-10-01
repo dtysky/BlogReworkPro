@@ -32,14 +32,16 @@ Rework the [BlogRework](https://github.com/dtysky/BlogRework), build with docker
 
 #### Finished
 
-1. The best practice for react (react + redux + react-router) is here now !  
+0. Change the browser baseline to IE 10.
+1. The best practice for react (react + redux + react-router + Immutable) is here now !  
 2. Less is much more niubility than the original Css, it take me fly !  
 3. Use the complete ES6, eslint, flow to ensure the code quality.  
 4. Callbacks to promise.  
 5. No jqery and any others js animation library, pure css3 animation is enough.  
 6. MathJax to Katex.  
 7. Semantic dom.  
-8. Grunt to gulp.
+8. Grunt to gulp.  
+9. Remake some resources.
 
 #### Preparing
 

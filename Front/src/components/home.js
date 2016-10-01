@@ -11,6 +11,7 @@ import ArticleList from './articleList';
 
 
 export default class Home extends ArticleList {
+    /* eslint-disable */
     static type = 'archives';
     static theme = 'home';
     static headInfo = {
@@ -20,7 +21,6 @@ export default class Home extends ArticleList {
         author: 'dtysky,命月天宇',
         rss: 'all'
     };
-    /* eslint-disable */
     renderTop() {
         const backgroundColor = this.props.theme.get('current').get('color') || '';
 

@@ -20,7 +20,7 @@ import routes from './routes';
 
 const middleware = [thunkMiddleware];
 
-if (process.env.NODE_ENV === 'development') {
+if (config.devMode) {
     middleware.push(createLogger({
         stateTransformer: state => {
             const newState = {};
@@ -52,7 +52,7 @@ ReactDom.render(
     document.getElementById('container')
 );
 
-if (process.env.NODE_ENV === 'production') {
+if (config.devMode) {
     console.log(config.easterEgg); // eslint-disable-line
 }
 

@@ -24,12 +24,16 @@ const serverUrl = config.serverUrl;
 const redirectTable = JSON.parse(fs.readFileSync(path.resolve(__dirname, './table.json')));
 
 function logInfo() {
-    loggerConsole.info(arguments);
+    if (config.devMode) {
+        loggerConsole.info(arguments);
+    }
     loggerFile.info(arguments);
 }
 
 function logError() {
-    loggerConsole.error(arguments);
+    if (config.devMode) {
+        loggerConsole.info(arguments);
+    }
     loggerFile.error(arguments);
 }
 

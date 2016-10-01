@@ -7,6 +7,7 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 
+import config from '../../config';
 import {getLocalUrl} from '../utils';
 
 import '../theme/css/pagination.less';
@@ -17,7 +18,8 @@ export default class Pagination extends Component {
         type: PropTypes.string,
         name: PropTypes.string,
         currentPage: PropTypes.number,
-        maxPage: PropTypes.number
+        maxPage: PropTypes.number,
+        color: PropTypes.string
     };
 
     static defaultProps = {
@@ -28,49 +30,93 @@ export default class Pagination extends Component {
     };
 
     render() {
-        const {type, name, maxPage, currentPage} = this.props;
+        const {type, name, color, maxPage, currentPage} = this.props;
+        const pages = config.pagePerPagination - 1;
         let left;
         let right;
-        if (maxPage - currentPage < 7) {
+        if (maxPage - currentPage < pages) {
             right = maxPage;
-            left = right - 7 < 0 ? 0 : right - 7;
+            left = right - pages < 0 ? 0 : right - pages;
         } else {
             left = currentPage - 1 < 0 ? 0 : currentPage - 1;
-            right = left + 7 > maxPage ? maxPage : left + 7;
+            right = left + pages > maxPage ? maxPage : left + pages;
         }
 
         const indexes = new Array(right - left + 1).fill(0).map((i, index) => index + left);
 
         return (
-            <div id="pagination">
-                <ul>
-                    {[
-                        currentPage === 0
+            <ul id="pagination">
+                {[
+                    currentPage === 0
+                        ?
+                        <li
+                            key="prev"
+                            className="page prev disabled duration-main"
+                            style={{color}}
+                        >
+                            «
+                        </li>
+                        :
+                        <li
+                            key="prev"
+                            className="page prev active duration-main"
+                        >
+                            <Link
+                                to={getLocalUrl(type, name, currentPage - 1)}
+                                className="duration-main"
+                                style={{color}}
+                            >
+                                «
+                            </Link>
+                        </li>,
+                    ...indexes.map((index, i) => (
+                        index === currentPage
                             ?
-                            <li key="prev" className="prev disabled">&larr;</li>
-                            :
-                            <li key="prev" className="prev active">
-                                <Link to={getLocalUrl(type, name, currentPage - 1)}>&larr;</Link>
-                            </li>,
-                        ...indexes.map((index, i) => (
-                            index === currentPage
-                                ?
-                                <li key={i} className="disabled">{index}</li>
-                                :
-                                <li key={i} className="active">
-                                    <Link to={getLocalUrl(type, name, index)}>{index}</Link>
-                                </li>
-                        )),
-                        currentPage === maxPage
-                            ?
-                            <li key="next" className="next disabled">&rarr;</li>
-                            :
-                            <li key="next" className="next active">
-                                <Link to={getLocalUrl(type, name, currentPage + 1)}>&rarr;</Link>
+                            <li
+                                key={i}
+                                className="page normal current duration-main"
+                                style={{background: color}}
+                            >
+                                {index}
                             </li>
-                    ]}
-                </ul>
-            </div>
+                            :
+                            <li
+                                key={i}
+                                className="page normal active duration-main"
+                            >
+                                <Link
+                                    to={getLocalUrl(type, name, index)}
+                                    className="duration-main"
+                                    style={{color}}
+                                >
+                                    {index}
+                                </Link>
+                            </li>
+                    )),
+                    currentPage === maxPage
+                        ?
+                        <li
+                            key="next"
+                            className="page next disabled duration-main"
+                            style={{color}}
+                        >
+                            »
+                        </li>
+                        :
+                        <li
+                            key="next"
+                            className="page next active duration-main"
+                        >
+                            <Link
+                                to={getLocalUrl(type, name, currentPage + 1)}
+                                className="duration-main"
+                                style={{color}}
+                            >
+                                »
+                            </Link>
+                        </li>
+                ]}
+            </ul>
         );
     }
 }

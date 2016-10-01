@@ -9,14 +9,18 @@ const configDev = {
     siteTitle: 'dtysky|一个行者的轨迹',
     siteUrl: 'http://localhost:8000',
     serverUrl: 'http://localhost:4444',
-    port: 8000
+    serverUrlRelToFrontServer: 'http://localhost:4444',
+    port: 8000,
+    devMode: true
 };
 
 const configPd = {
     siteTitle: 'dtysky|一个行者的轨迹',
     siteUrl: 'http://localhost:8000',
-    serverUrl: 'http://localhost:4444',
-    port: 8000
+    serverUrl: 'http://blog-server.dtysky.moe',
+    serverUrlRelToFrontServer: 'http://localhost:4444',
+    port: 8000,
+    devMode: false
 };
 
 const config = Object.assign({}, {
@@ -24,6 +28,7 @@ const config = Object.assign({}, {
     gaTrackingId: '......',
     tagCloudStep: 4,
     articlesPerPage: 10,
+    pagePerPagination: 5,
     timeout: 2000,
     /* eslint-disable */
     easterEgg: `　　　　　　　 　/　　 /　　　　　　　ヽ　　　　　　ヽ　　　　　ヽ: . : l

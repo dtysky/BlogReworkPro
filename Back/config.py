@@ -20,7 +20,8 @@ config_dev = {
     "feeds_dir_path": "test/feeds",
     "feeds_slug": "test/feeds",
     "content_path": "test/pages",
-    "log_path": "test/logs"
+    "log_path": "test/logs",
+    "dev_mode": True
 }
 
 config_pd = {
@@ -32,7 +33,8 @@ config_pd = {
     "feeds_dir_path": "feeds",
     "feeds_slug": "feeds",
     "content_path": "pages",
-    "log_path": "logs"
+    "log_path": "logs",
+    "dev_mode": False
 }
 
 config = {

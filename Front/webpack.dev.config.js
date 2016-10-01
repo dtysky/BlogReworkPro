@@ -56,17 +56,21 @@ module.exports = {
                 loader: ExtractTextPlugin.extract('style', 'css!less')
             },
             {
-                test: /\.(png|jpg|gif)$/,
-                loader: 'url?limit=0'
+                test: /\.(png|jpg|gif|svg)$/,
+                loader: 'url?limit=8000&emitFile=false&name=/theme/image/[name].[ext]'
             },
             {
-                test: /\.woff|\.woff2|\.svg|.eot|\.ttf/,
-                loader: 'url?prefix=font/&limit=0'
+                test: /\/katex\/.*\.(woff|eot|woff2|ttf|svg)/,
+                loader: 'file?emitFile=false&name=/theme/font/katex/[name].[ext]'
+            },
+            {
+                test: /\.woff|\.woff2|.eot|\.ttf/,
+                loader: 'url?prefix=font/&limit=8000&emitFile=false&name=/theme/font/[name].[ext]',
+                exclude: /katex/
             }
         ],
         noParse: [
-            'jquery',
-            /autoit.js/
+            'jquery'
         ]
     },
 

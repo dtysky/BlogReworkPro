@@ -53,7 +53,8 @@ export default class Authors extends Base {
                             </span>
                             <Link
                                 className="duration-main"
-                                to={getLocalUrl('author', author.get('slug'))}>
+                                to={getLocalUrl('author', author.get('slug'))}
+                            >
                                 {author.get('view')}
                             </Link>
                         </li>

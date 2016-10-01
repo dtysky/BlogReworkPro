@@ -1,30 +1,33 @@
 @import (reference) "base.less";
 
 #pagination {
-  .margin(@t: 4em);
+  .margin(@t: 4em, @l: 0);
+  list-style: none;
   .text-center;
 
-  ul {
-    list-style: none;
-  }
-
-  li {
+  .page {
     display: inline-block;
-    padding: .5em;
+    @s: .7em;
+    .margin(@all: .5em);
+    .padding(@all: .3em);
+    .border(@all: 1px solid #ddd, @rad: 50%);
+    .size(@s * 2, @s * 2);
+    .text(@size: @s);
+    line-height: @s * 2;
   }
 
-  a {
-    .text(@size: 1em);
+  .current {
+    color: white;
   }
 
-  .active{
-    ul li a {
-      .text(@size: 1.5em);
+  .active {
+    cursor: pointer;
+    &:hover {
+      background: #ddd;
     }
   }
 
-  .disable a:hover{
-    .text(@color: #888);
+  .disabled {
+    cursor: not-allowed;
   }
-
 }

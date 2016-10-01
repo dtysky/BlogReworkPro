@@ -12,10 +12,13 @@ import '../theme/css/status.less';
 export default class Loading extends Component {
     render() {
         return (
-            <div id="status-wait">
-                <figure>
-                    <img src="/theme/image/logo.svg" alt="wait" />
-                </figure>
+            <div
+                id="status-wait"
+                className="status"
+            >
+                <div className="full-width">
+                    <figure className="img" />
+                </div>
                 <br />
                 <p>
                     少女祈祷中......

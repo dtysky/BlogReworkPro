@@ -67,18 +67,13 @@ export default class NotFound extends Component {
     render() {
         return (
             <article id='status-404'>
-                <figure className="img">
+                <div className="img-container full-width">
                     {
                         ['1', '2', '3', '4'].map(e =>
-                            <img
-                                key={e}
-                                className={`img${e}`}
-                                src={`/theme/image/404-${e}.svg`}
-                                alt={`404-${e}`}
-                            />
+                            <figure className={`img${e} img`}/>
                         )
                     }
-                </figure>
+                </div>
                 <summary className='content'>
                     {
                         this.text.p.map(e =>

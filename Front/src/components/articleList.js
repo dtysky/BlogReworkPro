@@ -46,11 +46,10 @@ export default class ArticleList extends Base {
                 </ul>
                 <Pagination
                     type={type}
+                    color={this.props.theme.getIn(['current', 'tagColor'])}
                     name={currentName}
-//                    currentPage={currentPage}
-//                    maxPage={maxPage}
-                    currentPage={5}
-                    maxPage={20}
+                    currentPage={currentPage}
+                    maxPage={maxPage}
                 />
             </div>
         );

@@ -149,7 +149,8 @@ class Logger(object):
             datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             message
         )
-        print "%s%s" % (color, line)
+        if (config["dev_mode"]):
+            print "%s%s" % (color, line)
         self._file.write(line)
 
     def info(self, message):
