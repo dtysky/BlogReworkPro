@@ -91,11 +91,13 @@ export default class Article extends Base {
     setMusic() {
         const {dispatch, music, store} = this.props;
         const currentMusic = store.getIn(['currentArticle', 'music']);
-        if (currentMusic) {
-            return dispatch(initMusic(music.get('default')))
-                .then(() => dispatch({type: actionTypes.change.music.current, music: currentMusic}));
-        }
-        dispatch(initMusic(music.get('default')));
+        dispatch(initMusic(music.get('default')))
+            .then(() => {
+                if (currentMusic) {
+                    return dispatch({type: actionTypes.change.music.current, music: currentMusic})
+                }
+                return dispatch({type: actionTypes.change.music.default});
+            });
     }
 
     openComments() {
@@ -164,13 +166,12 @@ export default class Article extends Base {
                             </a>
                         </p>
                     </div>
-                    <p className="tag-sp tags">
+                    <div className="tag-sp tags">
                         <span className="duration-main" style={{background}}>路标</span>
                         {
                             tags.map((tag, i) => (
-                                <p>
+                                <p key={i}>
                                     <Link
-                                        key={i}
                                         className="duration-main"
                                         to={getLocalUrl('tag', tag.slug, 0)}
                                     >
@@ -179,7 +180,7 @@ export default class Article extends Base {
                                 </p>
                             ))
                         }
-                    </p>
+                    </div>
                     <div
                         className="hr duration-main"
                         style={{backgroundColor: theme.getIn(['current', 'color'])}}

@@ -12,12 +12,13 @@
     .padding(@all: .3em);
     .border(@all: 1px solid #ddd, @rad: 50%);
     .size(@s * 2, @s * 2);
-    .text(@size: @s);
+    .text(@size: @s, @color: @default-color);
     line-height: @s * 2;
   }
 
   .current {
     color: white;
+    background: @default-color;
   }
 
   .active {

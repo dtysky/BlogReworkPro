@@ -9,7 +9,9 @@ import {connect} from 'react-redux';
 import Helmet from 'react-helmet';
 
 import actionTypes from './actions';
-import {NavBar, MenuPC, MenuPhoneHeader, MenuPhoneFooter, LeftImage} from './components';
+import {
+    NavBar, MenuPC, MenuPhoneHeader, MenuPhoneFooter, LeftImage, MusicPlayer
+} from './components';
 
 import './theme/css/sky.less';
 import './theme/css/main.less';
@@ -78,6 +80,10 @@ export default class APP extends Component {
                     theme={theme}
                     headInfo={headInfo}
                     dispatch={dispatch}
+                />
+                <MusicPlayer
+                    theme={theme}
+                    music={music}
                 />
                 <div id='main'>
                     <div

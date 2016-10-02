@@ -143,32 +143,36 @@ class Logger(object):
                 "a"
             )
 
-    def _log(self, message, color):
+    def _log(self, message, color, new_line):
         self._new_with_check()
-        line = "%s: %s\n" % (
-            datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        line = "%s%s: %s" % (
+            '\n' if new_line else '',
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S") if new_line else '',
             message
         )
         if (config["dev_mode"]):
             print "%s%s" % (color, line)
         self._file.write(line)
 
-    def info(self, message):
+    def info(self, message, new_line=True):
         self._log(
-            "Info:\n%s" % message,
-            "\033[1;32m"
+            "%s%s" % (message, 'Info: \n' if new_line else ''),
+            "\033[1;32m",
+            new_line
         )
 
-    def warning(self, message):
+    def warning(self, message, new_line=True):
         self._log(
-            "Warning:\n%s" % message,
-            "\033[1;35m"
+            "%s%s" % (message, 'Warning: \n' if new_line else ''),
+            "\033[1;35m",
+            new_line
         )
 
-    def error(self, message):
+    def error(self, message, new_line=True):
         self._log(
-            "Error:\n%s" % message,
-            "\033[1;31m"
+            "%s%s" % (message, 'Error: \n' if new_line else ''),
+            "\033[1;31m",
+            new_line
         )
 
 # Singleton

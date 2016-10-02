@@ -140,7 +140,7 @@ class FeedsGenerator(object):
                         time
                     )
                 )
-                logger.info("Feeds: Writing %s..." % view)
+                logger.info("%s " % view, False)
 
     def _format_content(self, content):
         result = content
@@ -156,6 +156,7 @@ class FeedsGenerator(object):
         articles.sort(
             key=lambda article: article["date"],reverse=True
         )
+        logger.info("Feeds: Writing: ")
         for article in articles:
             content, file_names = self._format_article(article)
             self._update_files(file_names, time)
@@ -164,13 +165,14 @@ class FeedsGenerator(object):
                     self._add_one(content)
                 )
         indexes = {}
+        logger.info("Feeds: Done: ")
         for file_name, file_obj in self._files.items():
             file_obj.write(
                 template["end"]
             )
             file_obj.close()
             indexes[file_name] = "%s.rss.xml" % file_name
-            logger.info("Feeds: Done %s..." % file_name)
+            logger.info("%s " % file_name, False)
         with open(
             "%s/%s" % (
                         config["feeds_dir_path"],

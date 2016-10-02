@@ -40,7 +40,8 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    line-height: initial
+    line-height: initial;
+    z-index: 20;
 }
 
 .aplayer-ptime {

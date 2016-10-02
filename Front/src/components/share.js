@@ -71,9 +71,7 @@ export default class Share extends Component {
             }
         };
         return (
-            <div
-                id="share"
-            >
+            <div id="share">
                 <a
                     className="icon-share icon-font duration-main"
                     onClick={::this.openModal}

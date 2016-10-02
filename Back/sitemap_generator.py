@@ -74,7 +74,7 @@ class SitemapGenerator(object):
         return result
 
     def _add_collection(self, url, collection):
-        logger.info("Sitemap: Writing %s..." % url)
+        logger.info("%s " % url, False)
         result = ""
         for item in list(collection.find({})):
             result += self._add_one(
@@ -89,7 +89,7 @@ class SitemapGenerator(object):
         return result
 
     def _add_archives(self, collection):
-        logger.info("Sitemap: Writing %s..." % "article")
+        logger.info("%s " % "article", False)
         result = ""
         archives = list(collection.find({}))
         page_count = len(archives) / 10 + 1
@@ -123,6 +123,7 @@ class SitemapGenerator(object):
         with open(config["sitemap_path"], "w") as f:
             f.write(template["begin"])
             f.write(self._add_static())
+            logger.info("Sitemap: Writing: ")
             for url in ["tag", "author", "category"]:
                 f.write(
                     self._add_collection(url, self._collections[url])

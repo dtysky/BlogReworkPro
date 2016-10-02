@@ -34,7 +34,9 @@ export class MenuPhoneHeader extends Component {
 
     changeTheme(theme: string) {
         const {dispatch} = this.props;
-        dispatch({type: actionTypes.change.theme.current, theme});
+        if (theme !== this.props.theme.getIn(['current', 'name'])) {
+            dispatch({type: actionTypes.change.theme.current, theme});
+        }
     }
 
     render() {

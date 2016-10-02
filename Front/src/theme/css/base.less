@@ -6,6 +6,7 @@
 @font-size: 16px;
 @font-size-phone: 15px;
 @duration-time: .7s;
+@default-color: #6ca82b;
 
 .size(@w: undefined, @h: undefined) {
   .test();
@@ -24,6 +25,16 @@
   }
   .test() when not (@h = undefined) {
     max-height: @h;
+  }
+}
+
+.min-size(@w: undefined, @h: undefined) {
+  .test();
+  .test() when not (@w = undefined) {
+    min-width: @w;
+  }
+  .test() when not (@h = undefined) {
+    min-height: @h;
   }
 }
 

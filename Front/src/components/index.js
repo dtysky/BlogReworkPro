@@ -16,6 +16,7 @@ import NavBar from './navBar';
 import MenuPC from './menuPC';
 import {MenuPhoneHeader, MenuPhoneFooter} from './menuPhone';
 import LeftImage from './leftImage';
+import MusicPlayer from './musicPlayer';
 import NotFound from './notFound';
 
 
@@ -33,5 +34,6 @@ export default {
     MenuPhoneHeader,
     MenuPhoneFooter,
     LeftImage,
+    MusicPlayer,
     NotFound
 };

@@ -52,7 +52,7 @@ ReactDom.render(
     document.getElementById('container')
 );
 
-if (config.devMode) {
+if (!config.devMode) {
     console.log(config.easterEgg); // eslint-disable-line
 }
 
