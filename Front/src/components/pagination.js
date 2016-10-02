@@ -30,6 +30,7 @@ export default class Pagination extends Component {
     };
 
     render() {
+        // Todo: 分页还是有Bug
         const {type, name, color, maxPage, currentPage} = this.props;
         const pages = config.pagePerPagination - 1;
         let left;

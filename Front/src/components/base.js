@@ -41,6 +41,7 @@ export default class Base extends Component {
         const {dispatch, params} = this.props;
         this.getSource(params.name)
             .then(() => {
+                dispatch({type: actionTypes.change.page[this.type], currentPage: params.index || 0});
                 this.setHeadInfo();
                 this.setTheme();
                 this.setMusic();
