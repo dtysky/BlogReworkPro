@@ -12,7 +12,6 @@ import os
 
 
 config_dev = {
-    "is_linux": False,
     "server_ip": "127.0.0.1",
     "server_port": 4444,
     "database_name": "test",
@@ -25,7 +24,6 @@ config_dev = {
 }
 
 config_pd = {
-    "is_linux": True,
     "server_ip": "127.0.0.1",
     "server_port": 4444,
     "database_name": "test",

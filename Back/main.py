@@ -10,7 +10,7 @@ __name__ = "__main__"
 
 
 from pymongo import MongoClient
-from watchdog.observers import Observer
+from watchdog.observers.polling import PollingObserver
 from file_monitor import FileMonitor
 from web_server import WebServer
 from config import config
@@ -26,7 +26,7 @@ if __name__ == "__main__":
     client.close()
     init_database(database)
     server = WebServer(database).web_server
-    observer = Observer()
+    observer = PollingObserver()
     file_monitor = FileMonitor(
         database,
         config["content_path"]
@@ -34,10 +34,10 @@ if __name__ == "__main__":
     observer.schedule(
         file_monitor,
         path=config["content_path"],
-        recursive=True
+        recursive=False
     )
     observer.start()
-    if (config["env"] == "development"):
+    if (config["dev_mode"]):
         server.run(
             config["server_ip"],
             config["server_port"],
@@ -45,10 +45,10 @@ if __name__ == "__main__":
         )
     else:
         server = HTTPServer(
-            WSGIContainer(server.web_server)
+            WSGIContainer(server)
         )
         server.listen(
-            config["server_ip"],
-            config["server_port"]
+            config["server_port"],
+            config["server_ip"]
         )
         IOLoop.instance().start()

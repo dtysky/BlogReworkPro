@@ -14,7 +14,7 @@ from json import dumps as to_json
 from utils import convert_to_underline
 from utils import logger
 from config import config
-from flask import Response
+from flask import Response, request
 
 
 class WebHandler(View):
@@ -63,8 +63,8 @@ class WebHandler(View):
         )
 
     def _handle(self, parameters=None):
-        logger.info("Web, Request: %s\nParameters: %s" % (
-            self.url, parameters
+        logger.info("Web, Request: %s\nFrom: %s\nUrl: %s" % (
+            self.url, request.headers["Referer"], request.url
         ))
         params = self._parse_parameters(parameters)
         data = self._find_data(

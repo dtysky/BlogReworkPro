@@ -31,12 +31,13 @@ class WebServer(object):
 
     def _register(self, database):
         logger.info("Handlers register start !")
+        logger.info("Handler register: ")
         for handler_name, handler_obj in self._web_handlers.items():
             self._web_server.add_url_rule(
                 "/%s/<string:parameters>" % handler_name,
                 view_func=handler_obj.as_view(handler_name, database)
             )
-            logger.info("Handler register: '%s'" % handler_name)
+            logger.info("'%s' " % handler_name, False)
         logger.info("Handlers register done !")
 
     @property

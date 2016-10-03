@@ -140,7 +140,7 @@ class FeedsGenerator(object):
                         time
                     )
                 )
-                logger.info("%s " % view, False)
+                logger.info("'%s' " % view, False)
 
     def _format_content(self, content):
         result = content
@@ -172,7 +172,7 @@ class FeedsGenerator(object):
             )
             file_obj.close()
             indexes[file_name] = "%s.rss.xml" % file_name
-            logger.info("%s " % file_name, False)
+            logger.info("'%s' " % file_name, False)
         with open(
             "%s/%s" % (
                         config["feeds_dir_path"],

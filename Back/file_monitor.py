@@ -112,9 +112,6 @@ class FileMonitor(FileSystemEventHandler):
         path = event.src_path
         if not is_markdown_file(path):
             return
-        if not config["is_linux"]:
-            logger.info("Modify(happen with create and delete on osx/windows(?), ignore...): %s" % path)
-            return
         logger.info("Modify: %s" % path)
         self._work(path, "update")
 

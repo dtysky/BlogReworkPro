@@ -28,6 +28,9 @@ export default function themeReducer(
 
         case actionTypes.change.music.current: {
             const newMusic = state.get('default').filter(m => action.music.includes(m.get('title')));
+            if (newMusic.isEmpty()) {
+                return state;
+            }
             return state.merge({current: newMusic});
         }
 
