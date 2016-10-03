@@ -63,9 +63,13 @@ class WebHandler(View):
         )
 
     def _handle(self, parameters=None):
+        if not ("origin" in request.headers):
+            return self._403(parameters)
         logger.info("Web, Request: %s\nFrom: %s\nUrl: %s" % (
             self.url, request.headers["Referer"], request.url
         ))
+        if not (request.headers["origin"] in config["allow-origin"]):
+            return self._403(parameters)
         params = self._parse_parameters(parameters)
         data = self._find_data(
             self._parse_parameters(params)
@@ -93,6 +97,12 @@ class WebHandler(View):
 
     def dispatch_request(self, parameters=None):
         return self._handle(parameters)
+
+    def _403(self, parameters):
+        logger.warning("Web, 403: %s\nParameters: %s" % (
+            self.url, parameters
+        ))
+        return self._response(to_json({"message": "Not allowed!"}), 403)
 
     def _404(self, parameters):
         logger.warning("Web, 404: %s\nParameters: %s" % (

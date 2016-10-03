@@ -32,7 +32,7 @@ function logInfo() {
 
 function logError() {
     if (config.devMode) {
-        loggerConsole.info(arguments);
+        loggerConsole.error(arguments);
     }
     loggerFile.error(arguments);
 }
@@ -65,16 +65,19 @@ app.use(compression({
     threshold: 0
 }));
 
-app.use('/music.json', express.static(path.resolve(__dirname, './music.json')));
+const siteHost = config.siteUrl.replace('https://', '').replace('http://', '');
+app.use((req, res, next) => {
+    if (req.headers.host !== siteHost) {
+        logError('403', req.headers.host, req.path);
+        return res.status(403).send({message: 'Not allowed!'});
+    }
+    res.setHeader('Access-Control-Allow-Origin', config.siteUrl);
+    return next();
+});
 
-app.use(express.static(
-    publicPath
-//    {
-//        setHeaders: (res, p, stat) => { // eslint-disable-line
-//            res.set({'Content-Encoding': 'gzip'});
-//        }
-//    }
-));
+app.use('/music.json', express.static(path.join(__dirname, './music.json')));
+
+app.use(express.static(publicPath));
 
 // Handlers for sitemap and feeds, forwarding to Back
 

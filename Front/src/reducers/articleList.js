@@ -36,7 +36,7 @@ export function articleListReducer(
                 list = list.sort((a, b) => a.date > b.date ? -1 : 1);
             }
             let lists = state.get('lists');
-            const maxPage = parseInt(list.length / config.articlesPerPage, 10);
+            const maxPage = parseInt((list.length - 1) / config.articlesPerPage, 10);
             if (!name) {
                 return state.merge({
                     state: 'successful', currentList: list, maxPage, currentPage: 0
