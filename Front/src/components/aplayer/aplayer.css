@@ -110,7 +110,7 @@
     top: 4px;
     height: 56px;
     width: 56px;
-    background-image: url(default.jpg);
+    background-image: url(./default.jpg);
     background-size: 100%;
     -webkit-transition: all .3s ease;
     transition: all .3s ease;

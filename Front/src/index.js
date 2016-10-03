@@ -12,6 +12,7 @@ import {Provider} from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import Immutable from 'immutable';
+import _ from 'lodash';
 
 import config from '../config';
 import reducers from './reducers';
@@ -36,11 +37,19 @@ if (config.devMode) {
     }));
 }
 
+const initState = {};
+
+/* eslint-disable */
+_.keys(window._initState_).map(key => (
+    initState[key] = Immutable.fromJS(window._initState_[key])
+));
+/* eslint-enable */
+
 const store = createStore(
     reducers,
+    initState,
     applyMiddleware(...middleware)
 );
-
 
 ReactDom.render(
     <Provider store={store}>
@@ -55,4 +64,3 @@ ReactDom.render(
 if (!config.devMode) {
     console.log(config.easterEgg); // eslint-disable-line
 }
-

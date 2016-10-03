@@ -25,7 +25,6 @@ export default class MusicPlayer extends Component {
     };
 
     componentDidMount() {
-        console.log(this.refs.player);
         const {music} = this.props;
         this.player = new APlayer({
             element: this.refs.player,
@@ -35,6 +34,7 @@ export default class MusicPlayer extends Component {
             theme: '#ffffff',
             music: music.get('current').toJS()
         });
+        this.player.init(true);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -59,7 +59,7 @@ export default class MusicPlayer extends Component {
                 <div
                     id="player1"
                     ref="player"
-                    className="aplayer duration-main"
+                    className="aplayer"
                     style={{backgroundColor}}
                 >
                 </div>

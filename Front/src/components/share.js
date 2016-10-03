@@ -66,8 +66,7 @@ export default class Share extends Component {
                 opacity: 0.9,
                 overflow: 'auto',
                 WebkitOverflowScrolling: 'touch',
-                borderRadius: '20px',
-                transition: 'all 150ms ease-in'
+                borderRadius: '20px'
             }
         };
         return (

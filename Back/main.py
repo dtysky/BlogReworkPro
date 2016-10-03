@@ -34,8 +34,9 @@ if __name__ == "__main__":
     observer.schedule(
         file_monitor,
         path=config["content_path"],
-        recursive=False
+        recursive=True
     )
+    print config["content_path"]
     observer.start()
     if (config["dev_mode"]):
         server.run(

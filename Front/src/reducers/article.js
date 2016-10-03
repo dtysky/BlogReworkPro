@@ -17,8 +17,10 @@ export const defaultState = Immutable.fromJS({
     articles: {}
 });
 
-function generateShareInfo(article: {title: string, slug: string, summary: string}) {
-    const {title, slug, summary} = article;
+function generateShareInfo(article: {
+    title: string, slug: string, summary: string, images: Array
+}) {
+    const {title, slug, summary, images} = article;
     const url = `${config.siteUrl}/article/${encodeURIComponent(slug)}`;
 
     return {
@@ -26,7 +28,7 @@ function generateShareInfo(article: {title: string, slug: string, summary: strin
         title: `${title.view} - ${config.siteTitle}`,
         description: summary,
         summary,
-        image: (document.images[document.images.length] || {}).src || '',
+        images: images && (images[0] || ''),
         site: config.siteTitle,
         site_url: config.siteUrl,
         source: url

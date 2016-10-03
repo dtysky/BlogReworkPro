@@ -412,5 +412,3 @@ PSNR对于某些参数为最大值，对于一些不是，最终误差来自于�
 
 仿真图像来源：
 [041-マツムシソウ](http://www.pixiv.net/member_illust.php?mode=medium&illust_id=49603329)
-
-<script type="text/javascript" src="http://src.dtysky.moe/MathJax/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>

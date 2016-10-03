@@ -20,6 +20,12 @@ export default class LeftImage extends Component {
         theme: themeReducer.defaultState
     };
 
+    componentWillMount() {
+        const image = this.props.theme.getIn(['current', 'leftImage']);
+        this.image1Style = {backgroundImage: `url(${image})`};
+        this.image2Style = this.image1Style;
+    }
+
     shouldComponentUpdate(nextProps) {
         const shouldUpdate = !this.props.theme.get('current').equals(nextProps.theme.get('current'));
         this.imagePre = shouldUpdate && `url(${this.props.theme.getIn(['current', 'leftImage'])})`;
@@ -35,8 +41,8 @@ export default class LeftImage extends Component {
     }
 
     render() {
-        const image1Style = {};
-        const image2Style = {};
+        let image1Style = {};
+        let image2Style = {};
 
         if (this.refs.image1) {
             const zIndex1 = this.refs.image1.style.zIndex || '6';
@@ -45,6 +51,9 @@ export default class LeftImage extends Component {
             image2Style.zIndex = zIndex1;
             image1Style.backgroundImage = zIndex1 === '5' ? this.imagePre : this.imageNext;
             image2Style.backgroundImage = zIndex2 === '5' ? this.imagePre : this.imageNext;
+        } else {
+            image1Style = this.image1Style;
+            image2Style = this.image2Style;
         }
 
         return (

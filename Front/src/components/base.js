@@ -52,6 +52,7 @@ export default class Base extends Component {
                 }
                 dispatch({type: actionTypes.init.theme, theme: 'home'});
                 dispatch({type: actionTypes.change.theme.default});
+                dispatch({type: actionTypes.init.all.failed});
             });
     }
 
@@ -111,7 +112,11 @@ export default class Base extends Component {
     setMusic() {
         const {dispatch, music} = this.props;
         return dispatch(initMusic(music.get('default')))
-            .then(() => dispatch({type: actionTypes.change.music.default}));
+            .then(() => {
+                dispatch({type: actionTypes.change.music.default});
+                dispatch({type: actionTypes.init.all.successful});
+            })
+            .catch(() => dispatch({type: actionTypes.init.all.failed}));
     }
 
     render() {

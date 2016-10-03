@@ -7,6 +7,7 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 
+import config from '../../config';
 import actionTypes from '../actions';
 import {getLocalUrl} from '../utils';
 import * as themeReducer from '../reducers/theme';
@@ -44,7 +45,9 @@ export default class NavBar extends Component {
                 theme: 'Life'
             }
         ];
-        window.addEventListener('resize', () => this.forceUpdate());
+        if (config.browserMode) {
+            window.addEventListener('resize', () => this.forceUpdate());
+        }
     }
 
     shouldComponentUpdate(nextProps) {

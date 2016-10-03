@@ -14,6 +14,12 @@ require('babel-register')({
         'syntax-async-functions',
         'transform-regenerator',
         'transform-async-to-generator',
-        'transform-class-properties'
+        'transform-class-properties',
+        [
+            'babel-plugin-transform-require-ignore',
+            {
+                extensions: ['.less', '.css']
+            }
+        ]
     ]
 });

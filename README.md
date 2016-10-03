@@ -10,6 +10,7 @@ Rework the [BlogRework](https://github.com/dtysky/BlogRework), build with docker
 #### Finished
 
 1. Add some new shell scripts and configure files to make development and publishing easier.
+2. Access control.
 
 #### Preparing
 
@@ -24,7 +25,6 @@ Rework the [BlogRework](https://github.com/dtysky/BlogRework), build with docker
 2. Use the virtualenv to build a independent python run-time to instead of system's built-in python.  
 3. Improve the error logger.  
 4. watchdog.observers.Observer to watchdog.observers.polling.PollingObserver.  
-5. Access control.
 
 #### Preparing
 
@@ -43,12 +43,12 @@ Rework the [BlogRework](https://github.com/dtysky/BlogRework), build with docker
 6. MathJax to Katex.  
 7. Semantic dom.  
 8. Grunt to gulp.  
-9. Remake some resources.
+9. Remake some resources.  
+10. Improve the theme.  
 
 #### Preparing
 
 1. Server side rendering.  
 2. Memory cache.  
-3. Improve the theme.  
-4. Pack and compress resources.  
-5. Image pre-loading.
+3. Pack and compress resources.  
+4. Image pre-loading.

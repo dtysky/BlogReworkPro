@@ -28,10 +28,11 @@ export default class Article extends Base {
     componentWillMount() {
         const {dispatch} = this.props;
         this.getSource()
-            .then(() => {
-                this.setHeadInfo();
-                this.setTheme();
-                this.setMusic();
+            .then(res => {
+                const article = res.body.content;
+                this.setHeadInfo(article);
+                this.setTheme(article);
+                this.setMusic(article);
             })
             .catch(err => {
                 if (err.status === 404) {
@@ -39,6 +40,7 @@ export default class Article extends Base {
                 }
                 dispatch({type: actionTypes.init.theme, theme: 'home'});
                 dispatch({type: actionTypes.change.theme.default});
+                dispatch({type: actionTypes.init.all.failed});
             });
     }
 
@@ -56,7 +58,6 @@ export default class Article extends Base {
 
     componentDidUpdate() {
         const backgroundColor = this.props.theme.getIn(['current', 'color']);
-
         [].forEach.call(document.getElementsByTagName('blockquote') || [], element => {
             element.style.backgroundColor = backgroundColor;
         });
@@ -67,9 +68,8 @@ export default class Article extends Base {
         return dispatch(getArticleSource(params.name, store.get('articles')));
     }
 
-    setHeadInfo() {
-        const {dispatch, store} = this.props;
-        const currentArticle = store.get('currentArticle').toJS();
+    setHeadInfo(currentArticle) {
+        const {dispatch} = this.props;
         const {authors, tags, summary, category} = currentArticle;
         let {title} = currentArticle;
         const {siteTitle} = config;
@@ -81,23 +81,27 @@ export default class Article extends Base {
         dispatch({type: actionTypes.change.headInfo, title, keywords, description, author, rss});
     }
 
-    setTheme() {
-        const {dispatch, store} = this.props;
-        const theme = store.getIn(['currentArticle', 'category', 'view']);
+    setTheme(currentArticle) {
+        const {dispatch} = this.props;
+        const theme = currentArticle.category.view;
         dispatch({type: actionTypes.init.theme, theme});
         dispatch({type: actionTypes.change.theme.default});
     }
 
-    setMusic() {
-        const {dispatch, music, store} = this.props;
-        const currentMusic = store.getIn(['currentArticle', 'music']);
+    setMusic(currentArticle) {
+        const {dispatch, music} = this.props;
+        const currentMusic = currentArticle.music;
+        console.log(currentMusic);
         dispatch(initMusic(music.get('default')))
             .then(() => {
                 if (currentMusic) {
-                    return dispatch({type: actionTypes.change.music.current, music: currentMusic})
+                    dispatch({type: actionTypes.change.music.current, music: currentMusic})
+                } else {
+                    dispatch({type: actionTypes.change.music.default});
                 }
-                return dispatch({type: actionTypes.change.music.default});
-            });
+                dispatch({type: actionTypes.init.all.successful});
+            })
+            .catch(() => dispatch({type: actionTypes.init.all.failed}));
     }
 
     openComments() {
@@ -188,18 +192,7 @@ export default class Article extends Base {
                     </div>
                 </header>
                 <article className="middle" dangerouslySetInnerHTML={{__html: content}} />
-                <div id="disqus_container">
-                    <div id="disqus_thread">
-                        <a
-                            id="disqus_button"
-                            className="duration-main"
-                            onClick={::this.openComments}
-                        >
-                            <span className="icon-font icon disqus" />
-                            点击查看评论
-                        </a>
-                    </div>
-                </div>
+                {this.renderDisqus()}
                 <footer className="bottom">
                     <div
                         className="hr duration-main"
@@ -209,6 +202,23 @@ export default class Article extends Base {
                     <p>如果不是自己的创作，少女是会标识出来的，所以要告诉别人是少女写的哦。</p>
                 </footer>
             </article>
+        );
+    }
+
+    renderDisqus() {
+        return (
+            <div id="disqus_container">
+                <div id="disqus_thread">
+                    <a
+                        id="disqus_button"
+                        className="duration-main"
+                        onClick={::this.openComments}
+                    >
+                        <span className="icon-font icon disqus" />
+                        点击查看评论
+                    </a>
+                </div>
+            </div>
         );
     }
 }

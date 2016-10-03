@@ -3,7 +3,7 @@
 <channel>
 <title>dtysky|一个行者的轨迹</title>
 <link>http://dtysky.moe</link><description>自由地看待世界，真诚地走向死亡</description><atom:link href="http://dtysky.moe/test/feeds/test/feeds/all.rss.xml" rel="self"></atom:link>
-<lastBuildDate>Monday, 03 Oct 2016 12:09:16 -00:00</lastBuildDate>
+<lastBuildDate>Monday, 03 Oct 2016 23:28:01 -00:00</lastBuildDate>
 
 <item>
 <title>【短篇小说】弗莱士-雏末-S1-α</title>
@@ -1790,282 +1790,6 @@ bic(x, y) = and(x, ~y)&lt;/p&gt;
 <category>数据类型</category>
 <category>指针</category>
 <category>逻辑运算</category>
-</item>
-
-<item>
-<title>【CSAPP】笔记-Cp2-1-信息存储</title>
-<link>http://dtysky.moe/article/Skill-2016_06_08_b</link>
-<description>&lt;p&gt;CSAPP（深入理解计算机系统）第二章“信息的表示和处理”第一部分“信息存储”的笔记和课后习题。&lt;br /&gt;
-&lt;a href=&amp;quot;https://github.com/dtysky/CSAPP&amp;quot;&gt;Github的同步工程在这&lt;/a&gt;  &lt;/p&gt;
-&lt;hr /&gt;
-&lt;p&gt;计算机本质上是开关电路，底层就是MOSFET等的打开、关断和饱和为基础所构成的一系列变化，“开”和“关”可以抽象为0和1两种状态，计算机中的一切都是有0和1构成的，信息的存储也不例外。  &lt;/p&gt;
-&lt;p&gt;信息在计算机中以0和1的系列表示，再高一点就是bytes序列，不过没有本质区别。单纯的0、1序列没有任何意义，意义是我们所赋予的，我们人为地定义一些数据类型，再通过这种定义01序列转义，便可以使它们表现出具体的含义。&lt;/p&gt;
-&lt;p&gt;比如，&lt;code&gt;1111&lt;/code&gt;这个二进制数，如果是无符号整形，它代表&lt;code&gt;15&lt;/code&gt;，如果是有符号整形，则是&lt;code&gt;-1&lt;/code&gt;，如果是定点位为3的定点数，则是&lt;code&gt;7.5&lt;/code&gt;。&lt;br /&gt;
-同时，这种由4个bit构成的一个数，其值域为0~15，是一个十六进制数，十六进制数在计算机中十分重要。&lt;/p&gt;
-&lt;p&gt;一般来讲，有符号数用补码表示，小数由浮点数表示，不过在一些特殊的领域，比如FPGA，定点数使用地更为广泛，定点化问题也是值得关注的。  &lt;/p&gt;
-&lt;h2&gt;原始数据类型&lt;/h2&gt;
-&lt;p&gt;和代数定义基本相同，可以分为：  &lt;/p&gt;
-&lt;p&gt;整数： 有符号整数和无符号整数，在C中，可以按照位宽分为很多类型，有8bits的&lt;code&gt;char&lt;/code&gt;，有32bits的&lt;code&gt;int&lt;/code&gt;，也有64bits的&lt;code&gt;int&lt;/code&gt;等，但它们都遵循一个规则。  &lt;/p&gt;
-&lt;p&gt;小数： 在计算机软件中，小数都是有符号的，也可以根据位数进行划分，在C中，有32bits的&lt;code&gt;float&lt;/code&gt;，有64bits的&lt;code&gt;double&lt;/code&gt;等。  &lt;/p&gt;
-&lt;p&gt;注：在C中，指针本身定义为一个全字长的变量。其它详见下面几节。&lt;/p&gt;
-&lt;h2&gt;溢出和误差&lt;/h2&gt;
-&lt;p&gt;溢出是指——运算结果的大小超越了该类型的数所能表示的最大值。比如对于一个无符号char型变量，如果给他赋予一个超过255的值，则发生了溢出，结果会被截断（当然有的编译器会发现这个错误）。  &lt;/p&gt;
-&lt;p&gt;误差则是指浮点数和定点数系统的有限，对于整数，总是存在一个二进制数可以作为十进制数的对应，但对于小数或者分数则并非如此，例如&lt;code&gt;0.2&lt;/code&gt;这个数，你就无法找到一个二进制的数来表达他，只可能在有限的精度下非常接近它。  &lt;/p&gt;
-&lt;p&gt;总而言之，整数在计算机中是有限但精确的，而小数是无限却近似的。  &lt;/p&gt;
-&lt;h2&gt;指针&lt;/h2&gt;
-&lt;p&gt;指针提供了引用数据结构的元素的机制，它指向某个存储块的第一个字节的虚拟地址。&lt;br /&gt;
-指针包含一个值和一个类型，值就是指向对象的地址，而类型则是对象的类型。  &lt;/p&gt;
-&lt;p&gt;在C中，用&lt;code&gt;T *p&lt;/code&gt;定义一个名为p的指针，T可以使任意基本的数据类型，用&lt;code&gt;p&lt;/code&gt;可以获取p的首字节地址，&lt;code&gt;*p&lt;/code&gt;可以直接获取该变量。而使用&lt;code&gt;&amp;amp;&lt;/code&gt;可以获取任何一个变量的首字节地址，它返回一个指针变量，如果定义的是一个int型指针变量，那么p指向的对象实际占据的地址空间就是p、p+1、p+2和p+3。&lt;br /&gt;
-根据不同的系统，这四个字节的排序各有不同。低字节在前的称为&lt;strong&gt;小端LE&lt;/strong&gt;，反之则为&lt;strong&gt;大端BE&lt;/strong&gt;，这可能是一个坑，要注意。  &lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;比如&amp;amp;p=0x100，则同时p指向的对象为int型，表示0x01234567，则：
-1. 大端表示，0x100 ~ 0x103地址分别为 0x01 ~ 0x67。
-2. 小端表示，0x100 ~ 0x103地址分别为 0x67 ~ 0x01。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;一般来说，x86 系列 CPU 都是 little-endian 的字节序，PowerPC 通常是 big-endian，网络字节顺序也是 big-endian还有的CPU 能通过跳线来设置 CPU 工作于 Little endian 还是 Big endian 模式。  &lt;/p&gt;
-&lt;p&gt;指针的引用可以用数组表示法来表示，比如对于&lt;code&gt;int *p&lt;/code&gt;，&lt;code&gt;p[1]&lt;/code&gt;取得是&lt;code&gt;&amp;amp;p&lt;/code&gt;后1*4个字节开始的int型变量，和数组的使用十分相似。
-指针的只允许被赋值指针型变量，也就是一个&lt;code&gt;&amp;amp;&lt;/code&gt;返回的一个变量的地址或者由&lt;code&gt;*&lt;/code&gt;定义的数据。  &lt;/p&gt;
-&lt;div class=&amp;quot;highlight&amp;quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&amp;quot;kt&amp;quot;&gt;char&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;*&lt;/span&gt;&lt;span class=&amp;quot;n&amp;quot;&gt;p&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;;&lt;/span&gt;
-&lt;span class=&amp;quot;kt&amp;quot;&gt;char&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;i&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt; &lt;span class=&amp;quot;mi&amp;quot;&gt;10&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;;&lt;/span&gt;
-&lt;span class=&amp;quot;n&amp;quot;&gt;p&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&amp;quot;n&amp;quot;&gt;i&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;;&lt;/span&gt;
-&lt;span class=&amp;quot;n&amp;quot;&gt;printf&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;%d&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;,&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;p&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;[&lt;/span&gt;&lt;span class=&amp;quot;mi&amp;quot;&gt;0&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;]);&lt;/span&gt;
-&lt;span class=&amp;quot;n&amp;quot;&gt;printf&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;%d&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;,&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;*&lt;/span&gt;&lt;span class=&amp;quot;n&amp;quot;&gt;p&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;);&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;结果都是10。&lt;/p&gt;
-&lt;h2&gt;强制类型转换&lt;/h2&gt;
-&lt;p&gt;cast，强制类型转换，可以将一个类型的数据以另一种类型的形式表现出来。在系统编程中极为重要。&lt;/p&gt;
-&lt;div class=&amp;quot;highlight&amp;quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&amp;quot;kt&amp;quot;&gt;void&lt;/span&gt; &lt;span class=&amp;quot;nf&amp;quot;&gt;show_as_float&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;kt&amp;quot;&gt;int&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;p&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;){&lt;/span&gt;
-    &lt;span class=&amp;quot;n&amp;quot;&gt;printf&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;%f&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;,&lt;/span&gt; &lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;kt&amp;quot;&gt;float&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;)&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;p&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;);&lt;/span&gt;
-&lt;span class=&amp;quot;p&amp;quot;&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h2&gt;位宽&lt;/h2&gt;
-&lt;p&gt;处理器位宽决定了虚拟存储器的寻址范围，n位的寻址范围是 2&lt;sup&gt;n&lt;/sup&gt;。&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;sizeof(T)&lt;/code&gt;函数可以给出当前系统中，类型T占据的字节数。由于不同系统对各种基本类型赋予的位宽可能不同，为了避免麻烦，在c++中应尽量使用&lt;code&gt;stdint&lt;/code&gt;包中的&lt;code&gt;uint_8t&lt;/code&gt;等类型。&lt;/p&gt;
-&lt;h2&gt;字符串&lt;/h2&gt;
-&lt;p&gt;字符串也是对二进制流的一种编码，它被编码为一个以null(值为0)字符结尾的字符(char)数组。每个字符都需要指定编码，常见的为ASCII码，当然，多用unicode，善待程序员（对Python我就是在说你）。&lt;/p&gt;
-&lt;h2&gt;逻辑运算与位运算&lt;/h2&gt;
-&lt;p&gt;逻辑运算是布尔代数中的一部分，基本包括与预算、或运算、非运算、异或运算，可以用于进行一些基本的逻辑运算。这也是数字电路的基础，其实很简单。&lt;br /&gt;
-逻辑运算也有各种运算定律、化简方法（卡诺图）等，可以自行研究。  &lt;/p&gt;
-&lt;p&gt;一般的，在软件中，逻辑运算通常有两种，单目运算&lt;code&gt;&amp;amp;&lt;/code&gt;等和双目运算&lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt;等，前者是位运算，返回原始类型的值，后者是逻辑运算，返回逻辑值。所以单目运算符常常可以被用于位屏蔽和掩码等，比如&lt;code&gt;0xff &amp;amp; 0x0f&lt;/code&gt;就屏蔽了前者的前四位。&lt;/p&gt;
-&lt;p&gt;除以上，还有一种位相关的操作，被称为&lt;code&gt;移位操作&lt;/code&gt;，移位操作一般分为逻辑移位（无符号扩展）和算数移位（有符号扩展），也有被称为循环移位的存在但不在此讨论。移位即将一个二进制数的所有位向左或向右平移若干位，他可以用于替换一些特殊的乘除法，速度快很多。比如除以二可以用左移两位表示。  &lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;需要注意的是，在C中，如果移动的位数超过了字长w，可能会造成类似循环移位的异常状况，所以要尽量避免。  &lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;一般情况下，加减乘除逻辑运算位运算移位操作都可以直接对应为CPU的一条指令。  &lt;/p&gt;
-&lt;hr /&gt;
-&lt;h2&gt;习题&lt;/h2&gt;
-&lt;p&gt;所有有代码的练习都以以题号为名字的单个文件内。  &lt;/p&gt;
-&lt;p&gt;代码位于&lt;a href=&amp;quot;https://github.com/dtysky/CSAPP/tree/master/CSAPP/Chapter2&amp;quot;&gt;CSAPP-Chapter2&lt;/a&gt;内。&lt;/p&gt;
-&lt;h3&gt;1，2，3，4，&lt;/h3&gt;
-&lt;p&gt;略过。&lt;/p&gt;
-&lt;h3&gt;5&lt;/h3&gt;
-&lt;p&gt;A：&lt;br /&gt;
-BE -&amp;gt; 0x87&lt;br /&gt;
-LE -&amp;gt; 0x21  &lt;/p&gt;
-&lt;p&gt;B:&lt;br /&gt;
-BE -&amp;gt; 0x8765&lt;br /&gt;
-LE -&amp;gt; 0x2143  &lt;/p&gt;
-&lt;p&gt;C:&lt;br /&gt;
-BE -&amp;gt; 0x876543&lt;br /&gt;
-LE -&amp;gt; 0x214365  &lt;/p&gt;
-&lt;h3&gt;6&lt;/h3&gt;
-&lt;p&gt;这实际上是浮点数和整形的模型问题，略过。&lt;/p&gt;
-&lt;h3&gt;7&lt;/h3&gt;
-&lt;p&gt;为各个字符对应的ascii码，略过。&lt;/p&gt;
-&lt;h3&gt;8&lt;/h3&gt;
-&lt;p&gt;基本逻辑运算，略过。  &lt;/p&gt;
-&lt;h3&gt;9&lt;/h3&gt;
-&lt;p&gt;颜色的补就是把每一位取反，B是基本逻辑运算，略过。  &lt;/p&gt;
-&lt;h3&gt;10&lt;/h3&gt;
-&lt;p&gt;异或运算满足自反率：  &lt;/p&gt;
-&lt;p&gt;$$A \oplus A \oplus B = B$$&lt;br /&gt;
-$$A \oplus B \oplus B = A$$  &lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;步骤&lt;/th&gt;
-&lt;th&gt;*x&lt;/th&gt;
-&lt;th&gt;*y&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;初始&lt;/td&gt;
-&lt;td&gt;a&lt;/td&gt;
-&lt;td&gt;b&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;a&lt;/td&gt;
-&lt;td&gt;a ^ b&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;b&lt;/td&gt;
-&lt;td&gt;a ^ b&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;b&lt;/td&gt;
-&lt;td&gt;a&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h3&gt;11&lt;/h3&gt;
-&lt;p&gt;原来函数只能对偶数个数元素的数组工作，是因为对于奇数个数元素的数组，会出现&lt;code&gt;first = last&lt;/code&gt;的状况，这种状况下实际上是数组中间的元素自己和自己做运算，即&lt;code&gt;inplace(&amp;amp;a[first], &amp;amp;a[first])&lt;/code&gt;，此运算将返回0。&lt;br /&gt;
-返回0是因为以上三步运算中，步骤1使得&lt;code&gt;a = a, b = 0&lt;/code&gt;，步骤2使得&lt;code&gt;a = a, b = a&lt;/code&gt;，步骤3使得&lt;code&gt;a = a, b = 0&lt;/code&gt;，由于&lt;code&gt;inplace&lt;/code&gt;函数的两个参数指向同一个元素，所以对b赋值的结果会覆盖对a的赋值，所以结果为0。&lt;br /&gt;
-如何改动请见代码，将奇数作为特殊情况即可，也就是，将&lt;code&gt;first &amp;lt;= last&lt;/code&gt;改为&lt;code&gt;first &amp;lt; last&lt;/code&gt;。&lt;/p&gt;
-&lt;h3&gt;12&lt;/h3&gt;
-&lt;div class=&amp;quot;highlight&amp;quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&amp;quot;c1&amp;quot;&gt;// A&lt;/span&gt;
-&lt;span class=&amp;quot;n&amp;quot;&gt;x&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&amp;quot;mh&amp;quot;&gt;0x000000ff&lt;/span&gt;
-&lt;span class=&amp;quot;c1&amp;quot;&gt;// B&lt;/span&gt;
-&lt;span class=&amp;quot;n&amp;quot;&gt;x&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;^&lt;/span&gt; &lt;span class=&amp;quot;mh&amp;quot;&gt;0xffffff00&lt;/span&gt;
-&lt;span class=&amp;quot;c1&amp;quot;&gt;// C&lt;/span&gt;
-&lt;span class=&amp;quot;n&amp;quot;&gt;x&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;|&lt;/span&gt; &lt;span class=&amp;quot;mh&amp;quot;&gt;0x000000ff&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h3&gt;13&lt;/h3&gt;
-&lt;p&gt;本质上：  &lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;bis(x, y) = or(x, y)&lt;br /&gt;
-bic(x, y) = and(x, ~y)&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&amp;quot;highlight&amp;quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&amp;quot;kt&amp;quot;&gt;int&lt;/span&gt; &lt;span class=&amp;quot;nf&amp;quot;&gt;bool_or&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;kt&amp;quot;&gt;int&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;x&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;,&lt;/span&gt; &lt;span class=&amp;quot;kt&amp;quot;&gt;int&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;y&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;){&lt;/span&gt;
-    &lt;span class=&amp;quot;k&amp;quot;&gt;return&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;bis&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;n&amp;quot;&gt;x&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;,&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;y&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;);&lt;/span&gt;
-&lt;span class=&amp;quot;p&amp;quot;&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;可以用逻辑代数通过&lt;code&gt;or&lt;/code&gt;求得&lt;code&gt;xor&lt;/code&gt;：  &lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;xor(x, y) = or(and(x, ~y), and(y, ~x))&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&amp;quot;highlight&amp;quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;int bool_xor(int x, int y){
-    return bis(bic(x, y), bic(y, x));
-}
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h3&gt;14&lt;/h3&gt;
-&lt;p&gt;基本运算，略过。&lt;/p&gt;
-&lt;h3&gt;15&lt;/h3&gt;
-&lt;p&gt;详见代码。&lt;/p&gt;
-&lt;h3&gt;16&lt;/h3&gt;
-&lt;p&gt;基本运算，略过。&lt;/p&gt;</description>
-<dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">dtysky</dc:creator>
-<pubDate>Wednesday, 08 Jun 2016 12:00:00 -00:00</pubDate>
-<guid>tag:http://dtysky.moe,2016.06.08 12:00:article/Skill-2016_06_08_b</guid>
-<category>CSAPP</category>
-<category>计算机系统</category>
-<category>信息存储</category>
-<category>数据类型</category>
-<category>指针</category>
-<category>逻辑运算</category>
-</item>
-
-<item>
-<title>【CSAPP】笔记-Cp1-计算机系统漫游</title>
-<link>http://dtysky.moe/article/Skill-2016_06_08_a</link>
-<description>&lt;p&gt;CSAPP（深入理解计算机系统）第一章“计算机系统漫游”的笔记和课后习题。&lt;br /&gt;
-&lt;a href=&amp;quot;https://github.com/dtysky/CSAPP&amp;quot;&gt;Github的同步工程在这&lt;/a&gt;  &lt;/p&gt;
-&lt;hr /&gt;
-&lt;p&gt;&lt;img alt=&amp;quot;抽象&amp;quot; src=&amp;quot;http://src.dtysky。moe/image/csapp/cp1/1.png&amp;quot; /&gt;&lt;/p&gt;
-&lt;h2&gt;编译系统&lt;/h2&gt;
-&lt;h3&gt;步骤&lt;/h3&gt;
-&lt;p&gt;一次编译分为以下步骤：  &lt;/p&gt;
-&lt;blockquote&gt;
-&lt;ol&gt;
-&lt;li&gt;预处理cpp：根据#开头的命令修改和注入代码，处理完的代码一般为“.i”文件。  &lt;/li&gt;
-&lt;li&gt;编译ccl：将“.i”文件翻译成文本“.s”文件，里面是汇编代码。  &lt;/li&gt;
-&lt;li&gt;汇编as：将汇编代码翻译成机器语言，保存在“.o”文件中。  &lt;/li&gt;
-&lt;li&gt;连接ld：将某些预编译好的代码合并到目标程序中，比如标准库中的一些函数，最终得到可执行文件。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;h3&gt;CNU项目&lt;/h3&gt;
-&lt;p&gt;GNU&apos;s Not Unix。&lt;br /&gt;
-开发出一个完整的类unix系统，内核是linux。包括EMACS、GCC、GDB、汇编器、连接器等等，GCC支持许多种编译型语言。  &lt;/p&gt;
-&lt;h2&gt;系统硬件&lt;/h2&gt;
-&lt;h3&gt;构成&lt;/h3&gt;
-&lt;p&gt;CPU、存储器（磁盘存储器算外设）和外设构成，现代中一般是CPU和存储器中由存储器总线连接，和外设则是IO总线，还有加速计算的GPU等。  &lt;/p&gt;
-&lt;p&gt;学学HDL，写个简单的CPU可以加深理解，一个简单的CPU的例子，使用Verilog编写：  &lt;/p&gt;
-&lt;p&gt;&lt;a href=&amp;quot;https://github.com/dtysky/SIMPLE_MIPS_CPU&amp;quot;&gt;SIMPLE_MIPS_CPU&lt;/a&gt;  &lt;/p&gt;
-&lt;p&gt;GPU一般由用于计算的ALU（包括加减乘除法器、逻辑运算单元），寄存器堆（特殊的高速存储器，存储特殊数据），控制译码单元（将机器码转译为各个模块的控制信号），指令存储器（存储代码数据），数据存储区（存储数据）以及连接各个模块的数据路径（指令地址计数器PC算一部分）。运行时，PC借由ALU的运算来使自己跳转，而后CPU取出PC指向的指令存储器中的数据作为指令送入控制译码单元，而后调动各模块执行操作。&lt;/p&gt;
-&lt;h2&gt;运行开销&lt;/h2&gt;
-&lt;p&gt;比如运行一个简单的打印字符串的程序，加载时，复制到主存（SDRAM），运行时，主存复制到CPU的寄存器堆中，显示时，又复制到显示设备，这些“复制”就是主要开销之一。  &lt;/p&gt;
-&lt;h3&gt;高速缓存&lt;/h3&gt;
-&lt;p&gt;高速缓存是为了解决“复制”开销而构造的，它们由SRAM构成，容量介于寄存器堆和主存之间，速度也介于寄存器堆和主存之间。  &lt;/p&gt;
-&lt;p&gt;一般来讲，会有一个CPU片上的L1缓存，容量高于寄存器堆但访问速度等同于寄存器堆，但速度高于主存两个数量级；L2缓存容量高于L1缓存，速度为L1的五分之一；一些系统拥有L3缓存。  &lt;/p&gt;
-&lt;p&gt;高速缓存中会存放一些经常会使用到的指令，合理提高cache的命中率将会有效提高性能。（大概现在还有必要？）&lt;br /&gt;
-&lt;img alt=&amp;quot;高速缓存&amp;quot; src=&amp;quot;http://src.dtysky。moe/image/csapp/cp1/2.png&amp;quot; /&gt;&lt;/p&gt;
-&lt;h2&gt;操作系统&lt;/h2&gt;
-&lt;p&gt;操作系统隔离了上层应用和底层硬件，它提供两个功能：  &lt;/p&gt;
-&lt;blockquote&gt;
-&lt;ol&gt;
-&lt;li&gt;防止硬件被失控的应用程序滥用。  &lt;/li&gt;
-&lt;li&gt;向应用程序提供简单一致的机制来控制复杂而多样的硬件设备。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;简而言之，OS通过自身高度的复杂度对上层应用提供了简单而良好的抽象，使得程序员不需要关心乱七八糟的兼容问题，使得分工和高效率成为了可能。  &lt;/p&gt;
-&lt;p&gt;这些抽象基本包括：  &lt;/p&gt;
-&lt;blockquote&gt;
-&lt;ol&gt;
-&lt;li&gt;文件：对IO设备的抽象。&lt;/li&gt;
-&lt;li&gt;虚拟存储器：对主存和IO设备的抽象。  &lt;/li&gt;
-&lt;li&gt;进程：对IO设备、主存和CPU的抽象。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;h3&gt;进程&lt;/h3&gt;
-&lt;p&gt;进程是操作系统对一个正在运行的程序的一种抽象。一个系统可以运行多个进程。&lt;br /&gt;
-但本质上，一个CPU在同一个时刻只能执行一个进程，多进程的假象（或者说也并不完全是假象）是通过交叉执行实现的，这种交叉执行的流程如下：  &lt;/p&gt;
-&lt;blockquote&gt;
-&lt;ol&gt;
-&lt;li&gt;正在执行A进程，发现需要切换到B进程。&lt;/li&gt;
-&lt;li&gt;保存A进程的状态（上下文），将执行控制权转移给B进程，执行B进程。&lt;/li&gt;
-&lt;li&gt;B进程执行一段时间，需要切换到A进程，保存B进程上下文，恢复A进程的上下文。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;h3&gt;线程&lt;/h3&gt;
-&lt;p&gt;线程是对进程的进一步分割，它们可以是同一进程中的若干执行单元，共享进程的上下文、代码和全局数据，所以一般也比多进程更加高效，也适合多并发场景。  &lt;/p&gt;
-&lt;h3&gt;虚拟存储器&lt;/h3&gt;
-&lt;p&gt;虚拟存储器是一种抽象，它使得进程可以认为它们都是在独占地使用主存，即主存对于它们而言都是一致的。&lt;br /&gt;
-虚拟存储器提供了一个抽象的&lt;strong&gt;虚拟地址空间&lt;/strong&gt;，每一个地址段中存储器的内容都有着严格的定义，它们包括：  &lt;/p&gt;
-&lt;blockquote&gt;
-&lt;ol&gt;
-&lt;li&gt;程序代码和数据：对所有进程，代码从同一固定地址开始，然后是数据。  &lt;/li&gt;
-&lt;li&gt;堆：代码和数据区后就是运行时的堆，堆是可以动态改变大小的。&lt;/li&gt;
-&lt;li&gt;共享库：存储库。  &lt;/li&gt;
-&lt;li&gt;栈：编译器使用它进行函数调用，也是可以动态改变大小的。&lt;/li&gt;
-&lt;li&gt;内核虚拟存储器：这是OS的一部分，为内核保留。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;写几段汇编，调试调试可以加深理解。&lt;/p&gt;
-&lt;h3&gt;文件&lt;/h3&gt;
-&lt;p&gt;文件就是二进制序列，在类unix系统中，一切皆为文件，系统所有的输入输出都是抽象成文件读写来实现的。&lt;/p&gt;
-&lt;h2&gt;通信&lt;/h2&gt;
-&lt;p&gt;通信通过网络实习，网络也可以被视为一个IO设备。&lt;/p&gt;
-&lt;h2&gt;一些重要概念&lt;/h2&gt;
-&lt;h3&gt;并发和并行&lt;/h3&gt;
-&lt;p&gt;并发只一个系统同时具有多个活动，并行只用并发使得一个系统更快地运行。&lt;/p&gt;
-&lt;h4&gt;线程级并发&lt;/h4&gt;
-&lt;p&gt;在单处理器系统中，并发是通过多个进程的快速切换实现的。&lt;br /&gt;
-一个处理器上如果拥有多个带有独立处理单元和高速缓存的处理器，则为多核处理器，它们共享更高层的高速缓存，但相互保持独立。&lt;br /&gt;
-超线程，即让一个处理器可以“同时”执行多个线程。要注意的是，这个同时也并非真同时，这种处理器的某些硬件有多个备份，可以在单个周期级别去决定执行哪一个线程，这不同于常规的处理器——它们需要大约20000个时钟周期去做不同线程转换，所以基本可以看做是拥有可以同时执行两个线程的能力。&lt;/p&gt;
-&lt;h4&gt;指令级并行&lt;/h4&gt;
-&lt;p&gt;一个周期可以执行多个指令，这个理论效率可以通过一些不那么疯狂和疯狂、不那么玄学和玄学的技术达到。通常，这些手段包括“流水线”、“分支预测”等。&lt;br /&gt;
-“超标量”这个术语指处理器可以比一个周期一个指令的速度更快。  &lt;/p&gt;
-&lt;h4&gt;单指令、多数据并行&lt;/h4&gt;
-&lt;p&gt;允许一条指令产生多个可以并行执行的操作称为“单指令、多数据”，即SIMD并行。比如并行对多对浮点数做加法的特殊指令。&lt;br /&gt;
-一般建议用特殊的数据类型来编写需要这些运算的程序，比如在GCC中的向量数据和SIMD优化配置。  &lt;/p&gt;</description>
-<dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">dtysky</dc:creator>
-<pubDate>Wednesday, 08 Jun 2016 11:00:00 -00:00</pubDate>
-<guid>tag:http://dtysky.moe,2016.06.08 11:00:article/Skill-2016_06_08_a</guid>
-<category>CSAPP</category>
-<category>计算机系统</category>
 </item>
 
 <item>
@@ -3907,8 +3631,7 @@ bic(x, y) = and(x, ~y)&lt;/p&gt;
 &lt;hr /&gt;
 &lt;h1&gt;感谢&lt;/h1&gt;
 &lt;p&gt;仿真图像来源：
-&lt;a href=&amp;quot;http://www.pixiv.net/member_illust.php?mode=medium&amp;amp;illust_id=49603329&amp;quot;&gt;041-マツムシソウ&lt;/a&gt;&lt;/p&gt;
-&lt;script type=&amp;quot;text/javascript&amp;quot; src=&amp;quot;http://src.dtysky.moe/MathJax/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML&amp;quot;&gt;&lt;/script&gt;</description>
+&lt;a href=&amp;quot;http://www.pixiv.net/member_illust.php?mode=medium&amp;amp;illust_id=49603329&amp;quot;&gt;041-マツムシソウ&lt;/a&gt;&lt;/p&gt;</description>
 <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">dtysky</dc:creator>
 <pubDate>Saturday, 30 May 2015 00:30:00 -00:00</pubDate>
 <guid>tag:http://dtysky.moe,2015.05.30 00:30:article/Life-test</guid>
@@ -3920,384 +3643,206 @@ bic(x, y) = and(x, ~y)&lt;/p&gt;
 </item>
 
 <item>
-<title>【FPGA/图像处理】几何变换-旋转</title>
-<link>http://dtysky.moe/article/Skill-test</link>
-<description>&lt;p&gt;旋转同样是仿射变换的一种特例，它接受一个角度，将图像绕着某个中心进行转动，适合逆向映射。旋转的实现有多种，比如两次错切的旋转&lt;sup&gt;[26]&lt;/sup&gt;、直接坐标变换&lt;sup&gt;[27]&lt;/sup&gt;等，中心点的选取方式也有许多，但对于FPGA采用图像的几何中心较为合适。。本节将会说明如何用FPGA实现旋转的模块。
-这个IP核的资源在这里：
-&lt;a href=&amp;quot;https://github.com/dtysky/FPGA-Imaging-Library/tree/Publish/Geometry/Rotate&amp;quot;&gt;Rotate&lt;/a&gt;&lt;/p&gt;
+<title>【impress.js】告别PPT从我做起</title>
+<link>http://dtysky.moe/article/Skill-2015_05_05_a</link>
+<description>&lt;p&gt;impress.js是一个牛逼的js库，它为我们开创了演示界面的新纪元，相比其他同样牛逼的类似的js库，它做到了真正的简单易用却效果强大，其提供的接口十分简洁易懂，同时却不失复杂的变化性，结合CSS能够达到你想达到的几乎任何效果，当然有些太复杂的做起来还不如直接用PPT但是，很多时候那些复杂的东西有必要吗？看需求吧www反正我觉得没有必要。  &lt;/p&gt;
 &lt;hr /&gt;
-&lt;h1&gt;3 算法实现&lt;/h1&gt;
-&lt;p&gt;明确了设计和架构，便可以进行算法的实现。本章将会说明如何实现图像处理的算法，以及如何运用它们。&lt;/p&gt;
-&lt;h2&gt;3.21 几何变换-旋转&lt;/h2&gt;
-&lt;p&gt;旋转同样是仿射变换的一种特例，它接受一个角度，将图像绕着某个中心进行转动，适合逆向映射。旋转的实现有多种，比如两次错切的旋转&lt;sup&gt;[26]&lt;/sup&gt;、直接坐标变换&lt;sup&gt;[27]&lt;/sup&gt;等，中心点的选取方式也有许多，但对于FPGA采用图像的几何中心较为合适。。本节将会说明如何用FPGA实现旋转的模块。&lt;/p&gt;
-&lt;h3&gt;3.21.1 原理&lt;/h3&gt;
-&lt;p&gt;此设计中旋转的前向映射基本原理如式3-21-1，其中angle为旋转角度,$x_c$和$y_c$分别为图像中心横纵坐标。对于逆向映射应该对此式进行调整，变换为3-21-2的形式，可见旋转操作比较复杂，不仅涉及多次符号乘法、符号加法，还涉及到三角函数的计算。&lt;/p&gt;
-&lt;p&gt;$$\begin{cases}Q[x_t,y_t] = I[x,y]  \\x_t = xc + (x - xc) * cos(a) - (y - yc)*sin(a)\\ y_t = yc + (x - xc) * sin(a) + (y - yc)*cos(a)\\x \in[0, w) ,y \in[0, h)\ \end{cases}.\ \ \ \ \ \ \ \ (3-21-1)$$&lt;/p&gt;
+&lt;h2&gt;1.获取和示例&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;在这里直接获取源代码，一个js文件，下下来即可&lt;/strong&gt;&lt;br /&gt;
+&lt;a href=&amp;quot;https://github.com/bartaz/impress.js&amp;quot;&gt;impress.js&lt;/a&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;官方示例&lt;/strong&gt;&lt;br /&gt;
+&lt;a href=&amp;quot;http://bartaz.github.io/impress.js&amp;quot;&gt;Demo by bartaz&lt;/a&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;我的示例&lt;/strong&gt;&lt;br /&gt;
+这个是纯粹为支持impress.js的终端做的，不支持的情况下采用抛出信息的处理方式。&lt;br /&gt;
+&lt;a href=&amp;quot;http://proj.dtysky.moe/&amp;quot;&gt;Publihed Projects&lt;/a&gt;&lt;br /&gt;
+这个为不支持的终端做了一下处理，其实也就是不同的CSS。&lt;br /&gt;
+&lt;a href=&amp;quot;http://fil.dtysky.moe/&amp;quot;&gt;FPGA-Imaging-Library&lt;/a&gt;  &lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2&gt;2.使用&lt;/h2&gt;
+&lt;p&gt;首先需要有一定的Html和CSS基础，这个很简单，自行了解即可，因为严格意义上这两个不算编程（基本不涉及逻辑），并且同时，impress.js的使用基本也不涉及逻辑。  &lt;/p&gt;
+&lt;h3&gt;1.链接&lt;/h3&gt;
+&lt;p&gt;这一点首先单独列出来是为了澄清一些东西，一般情况下，我们会在&lt;strong&gt;head&lt;/strong&gt;块内加入一些metadata，并链接js和CSS文件，但对于impress.js不能这么做，所以不要在header块内引用它，具体在哪里会在下面说明。  &lt;/p&gt;
+&lt;h3&gt;2.作用域&lt;/h3&gt;
+&lt;p&gt;作用域，也就是impress.js发生作用的区块，根据它的设计，你需要建立一个id为&lt;strong&gt;impress&lt;/strong&gt;的div，并将你需要作为impress.js演示对象的内容放到其中：  &lt;/p&gt;
+&lt;div class=&amp;quot;highlight&amp;quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;id&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;impress&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
 
-&lt;p&gt;$$\begin{cases}I[x,y] = Q[x_t,y_t]  \\x = (x_t - xc) * cos(a) + (y_t - yc) * sin(a) + xc\\ y = (-x_t + xc) * sin(a) + (y_t - yc) * cos(a) + yc\\x_t \in[0, w) ,y_t \in[0, h)\ \end{cases}.\ \ \ \ \ \ \ \ (3-21-2)$$&lt;/p&gt;
-
-&lt;p&gt;首先要考虑三角函数的计算，如3.1中所述，FPGA中的特殊函数计算需要用查找表来实现，所以需要编写一个脚本来生成查找表，同时由于三角函数的值可能为负数，并且verilog中符号系统是补码系统，所以需要生成的是角度和此角度下三角函数值的补码。由于正弦和余弦的值域为[-1, 1]，同时一般用于变换的角度为[0,359]，所以综合考虑，最终选择将角度划分为360个点，使用1位符号位、1位整数位和18位的小数位的数据来表示函数值，这其中的难点在于如何将一个浮点数转换为20位的定点数补码，实现函数如下。&lt;/p&gt;
-&lt;div class=&amp;quot;highlight&amp;quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  &lt;span class=&amp;quot;k&amp;quot;&gt;def&lt;/span&gt; &lt;span class=&amp;quot;nf&amp;quot;&gt;format&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;n&amp;quot;&gt;num&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;):&lt;/span&gt;
-    &lt;span class=&amp;quot;n&amp;quot;&gt;r&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;,&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;d&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;format&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;n&amp;quot;&gt;num&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;,&lt;/span&gt; &lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;f&amp;#39;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;)&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;.&lt;/span&gt;&lt;span class=&amp;quot;n&amp;quot;&gt;split&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;.&amp;#39;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;)&lt;/span&gt;
-    &lt;span class=&amp;quot;n&amp;quot;&gt;r&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt; &lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;0&amp;#39;&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;+&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;r&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;[&lt;/span&gt;&lt;span class=&amp;quot;mi&amp;quot;&gt;0&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;]&lt;/span&gt; &lt;span class=&amp;quot;k&amp;quot;&gt;if&lt;/span&gt; &lt;span class=&amp;quot;nb&amp;quot;&gt;len&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;n&amp;quot;&gt;r&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;)&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;==&lt;/span&gt; &lt;span class=&amp;quot;mi&amp;quot;&gt;1&lt;/span&gt; &lt;span class=&amp;quot;k&amp;quot;&gt;else&lt;/span&gt; &lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;1&amp;#39;&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;+&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;r&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;[&lt;/span&gt;&lt;span class=&amp;quot;mi&amp;quot;&gt;1&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;]&lt;/span&gt;
-    &lt;span class=&amp;quot;n&amp;quot;&gt;d&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt; &lt;span class=&amp;quot;nb&amp;quot;&gt;float&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;0.&amp;#39;&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;+&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;d&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;)&lt;/span&gt;
-    &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt; &lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;&amp;#39;&lt;/span&gt;
-    &lt;span class=&amp;quot;k&amp;quot;&gt;for&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;i&lt;/span&gt; &lt;span class=&amp;quot;ow&amp;quot;&gt;in&lt;/span&gt; &lt;span class=&amp;quot;nb&amp;quot;&gt;xrange&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;mi&amp;quot;&gt;18&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;):&lt;/span&gt;
-        &lt;span class=&amp;quot;n&amp;quot;&gt;d&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;d&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;*&lt;/span&gt; &lt;span class=&amp;quot;mi&amp;quot;&gt;2&lt;/span&gt;
-        &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;+=&lt;/span&gt; &lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;1&amp;#39;&lt;/span&gt; &lt;span class=&amp;quot;k&amp;quot;&gt;if&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;d&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&amp;quot;mi&amp;quot;&gt;1&lt;/span&gt; &lt;span class=&amp;quot;k&amp;quot;&gt;else&lt;/span&gt; &lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;0&amp;#39;&lt;/span&gt;
-        &lt;span class=&amp;quot;n&amp;quot;&gt;d&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;d&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;-&lt;/span&gt; &lt;span class=&amp;quot;mi&amp;quot;&gt;1&lt;/span&gt; &lt;span class=&amp;quot;k&amp;quot;&gt;if&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;d&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&amp;quot;mi&amp;quot;&gt;1&lt;/span&gt; &lt;span class=&amp;quot;k&amp;quot;&gt;else&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;d&lt;/span&gt;
-    &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;r&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;[&lt;/span&gt;&lt;span class=&amp;quot;mi&amp;quot;&gt;1&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;]&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;+&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt;
-    &lt;span class=&amp;quot;k&amp;quot;&gt;if&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;r&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;[&lt;/span&gt;&lt;span class=&amp;quot;mi&amp;quot;&gt;0&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;]&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;==&lt;/span&gt; &lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;1&amp;#39;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;:&lt;/span&gt;
-        &lt;span class=&amp;quot;k&amp;quot;&gt;if&lt;/span&gt; &lt;span class=&amp;quot;nb&amp;quot;&gt;eval&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;)&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;==&lt;/span&gt; &lt;span class=&amp;quot;mi&amp;quot;&gt;0&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;:&lt;/span&gt;
-            &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt; &lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;0&amp;#39;&lt;/span&gt;
-        &lt;span class=&amp;quot;k&amp;quot;&gt;else&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;:&lt;/span&gt;
-            &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt; &lt;span class=&amp;quot;nb&amp;quot;&gt;bin&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;mi&amp;quot;&gt;2&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;**&lt;/span&gt; &lt;span class=&amp;quot;mi&amp;quot;&gt;19&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;-&lt;/span&gt; &lt;span class=&amp;quot;nb&amp;quot;&gt;eval&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;0b&amp;#39;&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;+&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;))[&lt;/span&gt;&lt;span class=&amp;quot;mi&amp;quot;&gt;2&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;:]&lt;/span&gt;
-        &lt;span class=&amp;quot;k&amp;quot;&gt;for&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;i&lt;/span&gt; &lt;span class=&amp;quot;ow&amp;quot;&gt;in&lt;/span&gt; &lt;span class=&amp;quot;nb&amp;quot;&gt;xrange&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;mi&amp;quot;&gt;19&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;-&lt;/span&gt; &lt;span class=&amp;quot;nb&amp;quot;&gt;len&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;(&lt;/span&gt;&lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;)):&lt;/span&gt;
-            &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt; &lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;0&amp;#39;&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;+&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt;
-    &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;r&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;[&lt;/span&gt;&lt;span class=&amp;quot;mi&amp;quot;&gt;0&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;]&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;+&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt;
-    &lt;span class=&amp;quot;k&amp;quot;&gt;if&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;==&lt;/span&gt; &lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;10000000000000000000&amp;#39;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;:&lt;/span&gt;
-        &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt; &lt;span class=&amp;quot;s1&amp;quot;&gt;&amp;#39;00000000000000000000&amp;#39;&lt;/span&gt;
-    &lt;span class=&amp;quot;k&amp;quot;&gt;return&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;res&lt;/span&gt;
+&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;旋转变换同样需要符号舍入，但整数位只有1位，所以没有溢出风险，可以将其简化，仅仅裁剪输出即可。&lt;/p&gt;
-&lt;h3&gt;3.21.2 设计&lt;/h3&gt;
-&lt;p&gt;根据原理可知，Rotate核(以下简称RTT核)需要四次符号乘法、四次符号舍入操作和四次符号加法，并且需要和基于行列计数的帧控制器进行合作。故其需要的配置参数与端口如表3-21-1和表3-21-2。&lt;/p&gt;
-&lt;p&gt;&lt;center&gt;
-&lt;table border=&amp;quot;1&amp;quot; cellspacing=&amp;quot;0&amp;quot;&gt;
-&lt;tr&gt;
-&lt;th&gt;名字&lt;/th&gt;
-&lt;th&gt;类型&lt;/th&gt;
-&lt;th&gt;范围&lt;/th&gt;
-&lt;th&gt;默认值&lt;/th&gt;
-&lt;th&gt;说明&lt;/th&gt;
-&lt;/tr&gt;
-&lt;td&gt;work_mode&lt;/td&gt;
-&lt;td&gt;无符号&lt;/td&gt;
-&lt;td&gt;0为流水线模式，1为请求响应模式&lt;/td&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;模块的工作模式。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;tr&gt;
-&lt;td&gt;data_width&lt;/td&gt;
-&lt;td&gt;无符号&lt;/td&gt;
-&lt;td&gt;1 - 12&lt;/td&gt;
-&lt;td&gt;8&lt;/td&gt;
-&lt;td&gt;数据位宽。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;im_width&lt;/td&gt;
-&lt;td&gt;无符号&lt;/td&gt;
-&lt;td&gt;1 - 4096&lt;/td&gt;
-&lt;td&gt;320&lt;/td&gt;
-&lt;td&gt;图像宽度。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;im_height&lt;/td&gt;
-&lt;td&gt;无符号&lt;/td&gt;
-&lt;td&gt;1 - 4096&lt;/td&gt;
-&lt;td&gt;240&lt;/td&gt;
-&lt;td&gt;图像高度。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;im_width_bits&lt;/td&gt;
-&lt;td&gt;无符号&lt;/td&gt;
-&lt;td&gt;取决于图像宽度&lt;/td&gt;
-&lt;td&gt;9&lt;/td&gt;
-&lt;td&gt;图像宽度的位宽。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;mul_delay&lt;/td&gt;
-&lt;td&gt;无符号&lt;/td&gt;
-&lt;td&gt;取决于乘法器配置，1-14&lt;/td&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;乘法器延迟。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ram_RL&lt;/td&gt;
-&lt;td&gt;无符号&lt;/td&gt;
-&lt;td&gt;取决于帧控制器&lt;/td&gt;
-&lt;td&gt;7&lt;/td&gt;
-&lt;td&gt;帧控制器输出延迟。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-表3-21-1 配置参数
-&lt;/center&gt;
-&lt;br&gt;
-&lt;center&gt;
-&lt;table border=&amp;quot;1&amp;quot; cellspacing=&amp;quot;0&amp;quot;&gt;
-&lt;tr&gt;
-&lt;th&gt;名字&lt;/th&gt;
-&lt;th&gt;端口&lt;/th&gt;
-&lt;th&gt;类型&lt;/th&gt;
-&lt;th&gt;范围&lt;/th&gt;
-&lt;th&gt;默认值&lt;/th&gt;
-&lt;th&gt;说明&lt;/th&gt;
-&lt;/tr&gt;
-&lt;td&gt;clk&lt;/td&gt;
-&lt;td&gt;输入&lt;/td&gt;
-&lt;td&gt;无符号&lt;/td&gt;
-&lt;td&gt;无&lt;/td&gt;
-&lt;td&gt;无&lt;/td&gt;
-&lt;td&gt;Clock.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;rst_n&lt;/td&gt;
-&lt;td&gt;输入&lt;/td&gt;
-&lt;td&gt;无符号&lt;/td&gt;
-&lt;td&gt;无&lt;/td&gt;
-&lt;td&gt;无&lt;/td&gt;
-&lt;td&gt;复位，低有效。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;angle&lt;/td&gt;
-&lt;td&gt;input&lt;/td&gt;
-&lt;td&gt;无符号&lt;/td&gt;
-&lt;td&gt;0 - 359&lt;/td&gt;
-&lt;td&gt;无&lt;/td&gt;
-&lt;td&gt;旋转角度。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;in_enable&lt;/td&gt;
-&lt;td&gt;输入&lt;/td&gt;
-&lt;td&gt;无符号&lt;/td&gt;
-&lt;td&gt;无&lt;/td&gt;
-&lt;td&gt;无&lt;/td&gt;
-&lt;td&gt;输入数据使能，在流水线模式下，它是另一个复位信号，在请求响应模式下，只有在它有效的时候in_data才会被真正地改变。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;frame_in_ready&lt;/td&gt;
-&lt;td&gt;输入&lt;/td&gt;
-&lt;td&gt;无符号&lt;/td&gt;
-&lt;td&gt;无&lt;/td&gt;
-&lt;td&gt;无&lt;/td&gt;
-&lt;td&gt;连接到帧控制器的out_ready。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;frame_in_data&lt;/td&gt;
-&lt;td&gt;输入&lt;/td&gt;
-&lt;td&gt;无符号&lt;/td&gt;
-&lt;td&gt;data_width - 1 : 0&lt;/td&gt;
-&lt;td&gt;无&lt;/td&gt;
-&lt;td&gt;连接到帧控制器的out_data。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;frame_enable&lt;/td&gt;
-&lt;td&gt;output&lt;/td&gt;
-&lt;td&gt;无符号&lt;/td&gt;
-&lt;td&gt;无&lt;/td&gt;
-&lt;td&gt;无&lt;/td&gt;
-&lt;td&gt;连接到帧控制器的in_enable。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;frame_out_count_x&lt;/td&gt;
-&lt;td&gt;output&lt;/td&gt;
-&lt;td&gt;无符号&lt;/td&gt;
-&lt;td&gt;im_width_bits - 1 : 0&lt;/td&gt;
-&lt;td&gt;无&lt;/td&gt;
-&lt;td&gt;连接到帧控制器的in_count_x。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;out_count_y&lt;/td&gt;
-&lt;td&gt;output&lt;/td&gt;
-&lt;td&gt;无符号&lt;/td&gt;
-&lt;td&gt;im_width_bits - 1 : 0&lt;/td&gt;
-&lt;td&gt;无&lt;/td&gt;
-&lt;td&gt;连接到帧控制器的in_count_y。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;out_ready&lt;/td&gt;
-&lt;td&gt;output&lt;/td&gt;
-&lt;td&gt;无符号&lt;/td&gt;
-&lt;td&gt;无&lt;/td&gt;
-&lt;td&gt;无&lt;/td&gt;
-&lt;td&gt;输出数据有效，在两种模式下，这个信号都会在out_data可以被读取的时候有效。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;out_data&lt;/td&gt;
-&lt;td&gt;output&lt;/td&gt;
-&lt;td&gt;无符号&lt;/td&gt;
-&lt;td&gt;color_width - 1 : 0&lt;/td&gt;
-&lt;td&gt;无&lt;/td&gt;
-&lt;td&gt;输出数据，将会和out_ready同步输出。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-表3-21-2 端口
-&lt;/center&gt;
-&lt;/center&gt;
-&lt;br&gt;
-&lt;center&gt;
-&lt;table border=&amp;quot;1&amp;quot; cellspacing=&amp;quot;0&amp;quot;&gt;
-&lt;tr&gt;
-&lt;th&gt;名字&lt;/th&gt;
-&lt;th&gt;类型&lt;/th&gt;
-&lt;th&gt;说明&lt;/th&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Sin&lt;/td&gt;
-&lt;td&gt;SinLUT&lt;/td&gt;
-&lt;td&gt;获取角度的正弦。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Cos&lt;/td&gt;
-&lt;td&gt;CosLUT&lt;/td&gt;
-&lt;td&gt;获取角度的余弦。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;MulX1&lt;/td&gt;
-&lt;td&gt;Multiplier13Sx20SRTT&lt;/td&gt;
-&lt;td&gt;13位有符号数和20位有符号数的乘法器，被用于定点数的乘法。你可以自己配置这个乘法器，然后更改&amp;quot;mul_delay&amp;quot;，但所有的乘法器必须拥有相同的流水线级数，并且不能更改端口的配置！&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;MulX2&lt;/td&gt;
-&lt;td&gt;Multiplier13Sx20SRTT&lt;/td&gt;
-&lt;td&gt;13位有符号数和20位有符号数的乘法器，被用于定点数的乘法。你可以自己配置这个乘法器，然后更改&amp;quot;mul_delay&amp;quot;，但所有的乘法器必须拥有相同的流水线级数，并且不能更改端口的配置！&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;MulY1&lt;/td&gt;
-&lt;td&gt;Multiplier13Sx20SRTT&lt;/td&gt;
-&lt;td&gt;13位有符号数和20位有符号数的乘法器，被用于定点数的乘法。你可以自己配置这个乘法器，然后更改&amp;quot;mul_delay&amp;quot;，但所有的乘法器必须拥有相同的流水线级数，并且不能更改端口的配置！&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;MulY2&lt;/td&gt;
-&lt;td&gt;Multiplier13Sx20SRTT&lt;/td&gt;
-&lt;td&gt;13位有符号数和20位有符号数的乘法器，被用于定点数的乘法。你可以自己配置这个乘法器，然后更改&amp;quot;mul_delay&amp;quot;，但所有的乘法器必须拥有相同的流水线级数，并且不能更改端口的配置！&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;FRSX1&lt;/td&gt;
-&lt;td&gt;FixedRoundSigned&lt;/td&gt;
-&lt;td&gt;用于有符号浮点数的舍入。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;FRSX2&lt;/td&gt;
-&lt;td&gt;FixedRoundSigned&lt;/td&gt;
-&lt;td&gt;用于有符号浮点数的舍入。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;FRSY1&lt;/td&gt;
-&lt;td&gt;FixedRoundSigned&lt;/td&gt;
-&lt;td&gt;用于有符号浮点数的舍入。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;FRSY2&lt;/td&gt;
-&lt;td&gt;FixedRoundSigned&lt;/td&gt;
-&lt;td&gt;用于有符号浮点数的舍入。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-表3-3-3 子模块
-&lt;/center&gt;&lt;/p&gt;
-&lt;h3&gt;3.21.3 实现&lt;/h3&gt;
-&lt;p&gt;根据3.21.2的设计便可以实现一个RTT核，流水线模式和请求响应模式实现如下。&lt;/p&gt;
-&lt;h4&gt;3.21.3.1 流水线模式&lt;/h4&gt;
-&lt;p&gt;在帧控制器的输出使能后1个周期第一个结果被输出，开始流水化工作，波形如图3-21-1。
-&lt;center&gt;
-&lt;img alt=&amp;quot;图3-21-1 流水线模式时序&amp;quot; src=&amp;quot;http://src.dtysky.moe/image/f-i-l/3/21/1.png&amp;quot; /&gt;
-图3-21-1 流水线模式时序
-&lt;/center&gt;&lt;/p&gt;
-&lt;h4&gt;3.21.3.2 请求响应模式读取&lt;/h4&gt;
-&lt;p&gt;基本同3.21.3.1，但只有在in_enable上升沿时计数器才会加1才会被改变，波形如图3-21-2。
-&lt;center&gt;
-&lt;img alt=&amp;quot;图3-21-1 流水线模式时序&amp;quot; src=&amp;quot;http://src.dtysky.moe/image/f-i-l/3/21/2.png&amp;quot; /&gt;
-图3-21-1 流水线模式时序
-&lt;/center&gt;&lt;/p&gt;
-&lt;h4&gt;3.21.3.3 IP核GUI&lt;/h4&gt;
-&lt;p&gt;完成功能后对RTT核进行了封装，封装如图3-21-3。
-&lt;center&gt;
-&lt;img alt=&amp;quot;图3-21-3 RTT核的GUI&amp;quot; src=&amp;quot;http://src.dtysky.moe/image/f-i-l/3/21/3.png&amp;quot; /&gt;
-图3-21-3 RTT核的GUI
-&lt;/center&gt;&lt;/p&gt;
-&lt;h3&gt;3.21.4 仿真&lt;/h3&gt;
-&lt;p&gt;只对RGB图像和灰度图像进行测试，考虑到仿真设计模块比较多，出于仿真压力，我选择了一张图像的灰度模式进行三套参数的测试，原始图像如图3-21-4。&lt;/p&gt;
-&lt;p&gt;&lt;center&gt;
-&lt;img alt=&amp;quot;图3-21-4 仿真原始图像&amp;quot; src=&amp;quot;http://src.dtysky.moe/image/f-i-l/3/21/4.jpg&amp;quot; /&gt;
-图3-21-4 仿真原始图像
-&lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;仿真参数如表3-16-4所示，选择原则是可以被二进制表示和不可以被表示的值都包含。&lt;/p&gt;
-&lt;p&gt;&lt;center&gt;
-&lt;table border=&amp;quot;1&amp;quot; cellspacing=&amp;quot;0&amp;quot;&gt;
-&lt;tr&gt;
-&lt;th&gt;angle&lt;/th&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;45&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;131&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;270&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-表3-16-4 仿真参数
-&lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;仿真并进行PSNR测试，仿真结果如图3-21-5所示。
-&lt;center&gt;
-&lt;img alt=&amp;quot;图3-21-5 仿真结果&amp;quot; src=&amp;quot;http://src.dtysky.moe/image/f-i-l/3/21/5.png&amp;quot; /&gt;
-图3-21-5 仿真结果，左侧为流水线模式下的HDL功能仿真结果，中间为请求响应模式下的HDL功能仿真结果，右侧为软件仿真结果
-&lt;/center&gt;&lt;/p&gt;
-&lt;h3&gt;3.21.5 资源和时序&lt;/h3&gt;
-&lt;p&gt;最终实现与图像大小和数据位宽有关，这里只分析大小为512x512和数据位宽为8时的状况，根据Vivado生成的报表，主要资源耗费如表3-21-5。&lt;/p&gt;
-&lt;p&gt;&lt;center&gt;
-&lt;table border=&amp;quot;1&amp;quot; cellspacing=&amp;quot;0&amp;quot;&gt;
-&lt;tr&gt;
-&lt;th&gt;Slice LUTs*&lt;/th&gt;
-&lt;th&gt;Slice Registers&lt;/th&gt;
-&lt;th&gt;DSP&lt;/th&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;543&lt;/td&gt;
-&lt;td&gt;245&lt;/td&gt;
-&lt;td&gt;4&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-表3-21-5 主要资源耗费
-&lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;同时根据时序报告，最大的Data Path Delay(数据路径延迟)为4.414ns，即：&lt;/p&gt;
+&lt;p&gt;在这个div中，一般而言我们需要加入一个class为&lt;strong&gt;no-support-message&lt;/strong&gt;的div，这个div中的内容会在终端不支持impress.js的时候显示出来，比如：  &lt;/p&gt;
+&lt;div class=&amp;quot;highlight&amp;quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;class=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;no-support-message&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+    Your browser doesn&amp;#39;t support impress.js.It can&amp;#39;t phones.&lt;span class=&amp;quot;nt&amp;quot;&gt;&amp;lt;br&amp;gt;&lt;/span&gt;
+    你的浏览器不支持impress.js.请更换，它不支持手机。
+&lt;span class=&amp;quot;nt&amp;quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;当然位置和样式是由你自己决定的，比如在我的第一个实例中我这样定义：  &lt;/p&gt;
+&lt;div class=&amp;quot;highlight&amp;quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&amp;quot;nc&amp;quot;&gt;.no-support-message&lt;/span&gt; &lt;span class=&amp;quot;p&amp;quot;&gt;{&lt;/span&gt; 
+&lt;span class=&amp;quot;nb&amp;quot;&gt;display&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;:&lt;/span&gt;&lt;span class=&amp;quot;nb&amp;quot;&gt;none&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;;&lt;/span&gt; 
+&lt;span class=&amp;quot;nb&amp;quot;&gt;width&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;:&lt;/span&gt;&lt;span class=&amp;quot;m&amp;quot;&gt;940px&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;;&lt;/span&gt; 
+&lt;span class=&amp;quot;nb&amp;quot;&gt;margin&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;:&lt;/span&gt;&lt;span class=&amp;quot;m&amp;quot;&gt;0&lt;/span&gt; &lt;span class=&amp;quot;nb&amp;quot;&gt;auto&lt;/span&gt; &lt;span class=&amp;quot;m&amp;quot;&gt;24px&lt;/span&gt; &lt;span class=&amp;quot;nb&amp;quot;&gt;auto&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;;&lt;/span&gt; 
+&lt;span class=&amp;quot;nb&amp;quot;&gt;text-align&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;:&lt;/span&gt;&lt;span class=&amp;quot;nb&amp;quot;&gt;center&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;;&lt;/span&gt;
+&lt;span class=&amp;quot;p&amp;quot;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;效果就是当不支持的时候，这段内容就会显示在页面开头的中间部分。&lt;br /&gt;
+对于第二个示例，由于我采用的是其他解决方案，所以没有这段内容。  &lt;/p&gt;
+&lt;h3&gt;3.设计&lt;/h3&gt;
+&lt;p&gt;确定作用域后便可以开始设计，在上面的作用域中加入若干你需要演示的div，每个div都是一个演示页面，它们必须都拥有&lt;strong&gt;step&lt;/strong&gt;这个class，没有这个class的div会当做一般元素处理，也就是不受impress控制。&lt;br /&gt;
+第一个例子的首页：  &lt;/p&gt;
+&lt;div class=&amp;quot;highlight&amp;quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;id&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;first-page&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;class&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;step&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-x&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;0&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-y&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;0&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;h1&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;id&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;first-title&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;Published Projects&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;h1&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;p&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;id&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;first-desc&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;My published projects are here.&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;p&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;p&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;id&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;first-link&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;a&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;href&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;http://dtysky.moe&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;target&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;_blank&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;Blog&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;a&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&amp;quot;ni&amp;quot;&gt;&amp;amp;nbsp;&amp;amp;nbsp;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;a&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;href&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;https://github.com/dtysky&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;target&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;_blank&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;Github&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;a&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&amp;quot;ni&amp;quot;&gt;&amp;amp;nbsp;&amp;amp;nbsp;&lt;/span&gt;dtysky@outlook.com&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;p&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;p&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;id&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;page-top&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;Click a page you want to view, you can also press &amp;quot;←&amp;quot;, &amp;quot;→&amp;quot; or whitespace.
+    &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;br&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;点击你想进入的页面或者按下 &amp;quot;←&amp;quot;、&amp;quot;→&amp;quot;或空格键.&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;p&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;为了显示这些演示页面，必须要为step定义样式，第一个示例中定义的样式如下：  &lt;/p&gt;
+&lt;div class=&amp;quot;highlight&amp;quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&amp;quot;nc&amp;quot;&gt;.no-support-message&lt;/span&gt; &lt;span class=&amp;quot;p&amp;quot;&gt;{&lt;/span&gt; 
+&lt;span class=&amp;quot;nb&amp;quot;&gt;display&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;:&lt;/span&gt;&lt;span class=&amp;quot;nb&amp;quot;&gt;none&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;;&lt;/span&gt; 
+&lt;span class=&amp;quot;nb&amp;quot;&gt;width&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;:&lt;/span&gt;&lt;span class=&amp;quot;m&amp;quot;&gt;940px&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;;&lt;/span&gt; 
+&lt;span class=&amp;quot;nb&amp;quot;&gt;margin&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;:&lt;/span&gt;&lt;span class=&amp;quot;m&amp;quot;&gt;0&lt;/span&gt; &lt;span class=&amp;quot;nb&amp;quot;&gt;auto&lt;/span&gt; &lt;span class=&amp;quot;m&amp;quot;&gt;24px&lt;/span&gt; &lt;span class=&amp;quot;nb&amp;quot;&gt;auto&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;;&lt;/span&gt; 
+&lt;span class=&amp;quot;nb&amp;quot;&gt;text-align&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;:&lt;/span&gt;&lt;span class=&amp;quot;nb&amp;quot;&gt;center&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;;&lt;/span&gt;
+&lt;span class=&amp;quot;p&amp;quot;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;每一个页面宽度为940px，位置是浏览器页面正中，所有文字居中。&lt;br /&gt;
+你应该注意到了，和一般的属性不同，这个首页的div中拥有&lt;strong&gt;data-x&lt;/strong&gt;和&lt;strong&gt;data-y&lt;/strong&gt;两个属性，而这种属性就是impress.js效果的依赖源。&lt;br /&gt;
+这些属性定义了每一个页面的位置信息，这个位置是相对于你的浏览器主页面而言的，主页面的中心位置被定义为原点，所有的属性如下：  &lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;FMax = 226.55MHz&lt;/p&gt;
+&lt;p&gt;data-x: 距离原点的横向偏移量，像素值&lt;br /&gt;
+data-y: 距离纵向的纵向偏移量，像素值&lt;br /&gt;
+data-rotate-x: 相对当页中心点的x轴旋转偏移量，角度&lt;br /&gt;
+data-rotate-y: 相对当页中心点的y轴旋转偏移量，角度&lt;br /&gt;
+data-rotate-z: 相对当页中心点的z轴旋转偏移量，角度&lt;br /&gt;
+data-scale: 相对于主体页面的比例，比例值  &lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;即说明，Rotate核在流水线模式下，理论上在处理1080p全高清图像时可以达到109帧。
-与3.20相同，此FMax低于期望值，也来自于舍入核的加法，考虑时间此处暂时不做优化。
-由于数据路径延迟和应用的最终约束设置强相关，所以仅供参考。&lt;/p&gt;
-&lt;h3&gt;3.21.6 分析与结论&lt;/h3&gt;
-&lt;p&gt;PSNR如表3-21-6。&lt;/p&gt;
-&lt;p&gt;&lt;center&gt;
-&lt;table border=&amp;quot;1&amp;quot; cellspacing=&amp;quot;0&amp;quot;&gt;
-&lt;tr&gt;
-&lt;th&gt;1-131&lt;/th&gt;
-&lt;th&gt;1-270&lt;/th&gt;
-&lt;th&gt;1-45&lt;/th&gt;
-&lt;th&gt;Total&lt;/th&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;1000000.00&lt;/td&gt;
-&lt;td&gt;54.89&lt;/td&gt;
-&lt;td&gt;1000000.00&lt;/td&gt;
-&lt;td&gt;666684.96&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-表3-21-6 PSNR
-&lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;PSNR对于某些参数为最大值，对于一些不是，最终误差来自于符号乘法和查找表自身的误差，但PSNR均为50以上，可见在测试范围内，RTT核可以满足处理需求，设计成功。&lt;/p&gt;
-&lt;hr /&gt;
-&lt;h1&gt;参考文献&lt;/h1&gt;
-&lt;p&gt;[26] 陈芳.一种基于错切原理的图像旋转方法[J].淮阴师范学院学报（自然科学版）,2004,3(4):319-322.DOI:10.3969/j.issn.1671-6876.2004.04.016.
-[27] 王金辉.实时图像旋转系统的研究与FPGA实现[D].华中科技大学,2012.&lt;/p&gt;
-&lt;hr /&gt;
-&lt;h1&gt;感谢&lt;/h1&gt;
-&lt;p&gt;仿真图像来源：
-&lt;a href=&amp;quot;http://www.pixiv.net/member_illust.php?mode=medium&amp;amp;illust_id=49603329&amp;quot;&gt;041-マツムシソウ&lt;/a&gt;&lt;/p&gt;
-&lt;script type=&amp;quot;text/javascript&amp;quot; src=&amp;quot;http://src.dtysky.moe/MathJax/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML&amp;quot;&gt;&lt;/script&gt;</description>
+&lt;p&gt;有了这些属性，我们便可以开始设计了，具体的设计就是在上面这些块中加入属性值，这里说的已经足够清晰，自己尝试一下就可以了。  &lt;/p&gt;
+&lt;h3&gt;4.工作&lt;/h3&gt;
+&lt;p&gt;完成了页面设计之后便可以开始开始演示了，在这之前，我们需要链接impress.js并启动它，在你的impress块后加入两行代码即可：  &lt;/p&gt;
+&lt;div class=&amp;quot;highlight&amp;quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;id&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;impress&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+    ......
+&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;script&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;type&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;text/javascript&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;src&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;js/impress.js&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;script&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;script&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&amp;quot;nx&amp;quot;&gt;impress&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;().&lt;/span&gt;&lt;span class=&amp;quot;nx&amp;quot;&gt;init&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;();&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;script&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;5.其他技巧&lt;/h3&gt;
+&lt;p&gt;不知道是否只有我有这个需求，就像第一个示例一样，将演示页面分类，一块一块展示，展示完一块可以选择直接返回主页面，这个需求可以直接通过以下方式实现：  &lt;/p&gt;
+&lt;p&gt;观察启动后的标题栏，我们可以知道每一个页面的url是这么表示的：  &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;(主页面url)/#/演示页面id  &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;比如对于第一个实例的首页，url是：  &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;http://proj.dtysky.moe/#/first-page  &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;所以可以在某个演示页面中插入一个超链接：&lt;/p&gt;
+&lt;div class=&amp;quot;highlight&amp;quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;class&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;step&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+    ......
+    &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;class&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;return-first&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;a&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;href&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;#/first-page&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;b&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;Return / 返回页首&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;b&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;a&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;class为&lt;strong&gt;return-first&lt;/strong&gt;的块中有一个链接，这个链接指向了首页。  &lt;/p&gt;
+&lt;h2&gt;3.示例代码&lt;/h2&gt;
+&lt;p&gt;这里提供一个简洁版本的模板，除了主要内容之外一切皆无：&lt;br /&gt;
+将三个文件放入一个文件夹即可。  &lt;/p&gt;
+&lt;h3&gt;html&lt;/h3&gt;
+&lt;div class=&amp;quot;highlight&amp;quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&amp;quot;cp&amp;quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;html&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;lang&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;en-US&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;head&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;meta&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;charset&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;UTF-8&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;title&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;Test&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;title&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;link&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;rel&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;stylesheet&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;href&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;style.css&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;head&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;body&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;id&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;impress&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;class&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;no-support-message&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+        Your browser doesn&amp;#39;t support impress.js.It can&amp;#39;t phones.&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;br&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+        你的浏览器不支持impress.js.请更换，它不支持手机。
+    &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;id&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;first-page&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;class&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;step&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-x&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;0&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-y&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;0&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;h1&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;首页&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;h1&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;br&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;点击你想进入的页面或者按下 &amp;quot;←&amp;quot;、&amp;quot;→&amp;quot;或空格键.&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;p&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;class&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;step&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-x&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;-700&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-y&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;-200&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-scale&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;0.6&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-rotate-z&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;-45&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;h1&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;第一块-第一页&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;h1&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;class&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;step&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-x&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;-1100&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-y&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;100&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-scale&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;0.4&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-rotate-z&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;-135&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;h1&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;第一块-第二页&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;h1&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;class&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;step&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-x&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;-1300&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-y&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;-100&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-scale&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;0.2&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-rotate-z&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;-45&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;h1&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;第一块-第三页&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;h1&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;class&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;return-first&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;a&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;href&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;#/first-page&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;b&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;Return / 返回页首&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;b&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;a&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;class&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;step&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-x&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;800&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-y&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;-300&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-scale&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;0.6&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-rotate-z&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;45&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;h1&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;第二块-第一页&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;h1&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;class&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;step&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-x&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;1150&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-y&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;50&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-scale&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;0.4&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-rotate-z&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;135&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;h1&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;第二块-第二页&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;h1&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;class&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;step&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-x&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;1400&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-y&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;-200&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-scale&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;0.2&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;data-rotate-z&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;45&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;h1&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;第二块-第三页&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;h1&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;class&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;return-first&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;a&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;href&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;#/first-page&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;b&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;Return / 返回页首&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;b&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;a&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;div&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;script&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;type&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;text/javascript&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;na&amp;quot;&gt;src&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;=&lt;/span&gt;&lt;span class=&amp;quot;s&amp;quot;&gt;&amp;quot;impress.js&amp;quot;&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;script&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;script&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&amp;quot;nx&amp;quot;&gt;impress&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;().&lt;/span&gt;&lt;span class=&amp;quot;nx&amp;quot;&gt;init&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;();&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;script&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;body&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;html&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;css&lt;/h3&gt;
+&lt;div class=&amp;quot;highlight&amp;quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;h1&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;,&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;h2&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;,&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;h3&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;,&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;h4&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;,&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;h5&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;,&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;h6&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;,&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;a&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;,&lt;/span&gt;&lt;span class=&amp;quot;nt&amp;quot;&gt;p&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;{&lt;/span&gt;
+&lt;span class=&amp;quot;nb&amp;quot;&gt;font-family&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;:&lt;/span&gt; &lt;span class=&amp;quot;s2&amp;quot;&gt;&amp;quot;Microsoft YaHei&amp;quot;&lt;/span&gt; &lt;span class=&amp;quot;o&amp;quot;&gt;!&lt;/span&gt; &lt;span class=&amp;quot;n&amp;quot;&gt;important&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;;&lt;/span&gt;
+&lt;span class=&amp;quot;p&amp;quot;&gt;}&lt;/span&gt;
+&lt;span class=&amp;quot;nt&amp;quot;&gt;body&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;{&lt;/span&gt;
+    &lt;span class=&amp;quot;nb&amp;quot;&gt;margin&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;:&lt;/span&gt; &lt;span class=&amp;quot;m&amp;quot;&gt;0px&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;;&lt;/span&gt;
+&lt;span class=&amp;quot;p&amp;quot;&gt;}&lt;/span&gt;
+&lt;span class=&amp;quot;nc&amp;quot;&gt;.return-first&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;{&lt;/span&gt;
+    &lt;span class=&amp;quot;nb&amp;quot;&gt;margin-top&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;:&lt;/span&gt; &lt;span class=&amp;quot;m&amp;quot;&gt;50px&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;;&lt;/span&gt;
+&lt;span class=&amp;quot;p&amp;quot;&gt;}&lt;/span&gt;
+&lt;span class=&amp;quot;nc&amp;quot;&gt;.return-first&lt;/span&gt; &lt;span class=&amp;quot;nt&amp;quot;&gt;a&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;{&lt;/span&gt;
+    &lt;span class=&amp;quot;nb&amp;quot;&gt;font-size&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;:&lt;/span&gt; &lt;span class=&amp;quot;m&amp;quot;&gt;20px&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;;&lt;/span&gt;
+    &lt;span class=&amp;quot;nb&amp;quot;&gt;text-decoration&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;:&lt;/span&gt; &lt;span class=&amp;quot;nb&amp;quot;&gt;none&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;;&lt;/span&gt;
+    &lt;span class=&amp;quot;nb&amp;quot;&gt;color&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;:&lt;/span&gt; &lt;span class=&amp;quot;m&amp;quot;&gt;#000000&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;;&lt;/span&gt;
+&lt;span class=&amp;quot;p&amp;quot;&gt;}&lt;/span&gt;
+&lt;span class=&amp;quot;nc&amp;quot;&gt;.return-first&lt;/span&gt; &lt;span class=&amp;quot;nt&amp;quot;&gt;a&lt;/span&gt;&lt;span class=&amp;quot;nd&amp;quot;&gt;:hover&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;{&lt;/span&gt;
+    &lt;span class=&amp;quot;nb&amp;quot;&gt;font-size&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;:&lt;/span&gt; &lt;span class=&amp;quot;m&amp;quot;&gt;21px&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;;&lt;/span&gt;
+    &lt;span class=&amp;quot;nb&amp;quot;&gt;color&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;:&lt;/span&gt; &lt;span class=&amp;quot;m&amp;quot;&gt;#006688&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;;&lt;/span&gt;
+&lt;span class=&amp;quot;p&amp;quot;&gt;}&lt;/span&gt;
+&lt;span class=&amp;quot;nc&amp;quot;&gt;.step&lt;/span&gt; &lt;span class=&amp;quot;p&amp;quot;&gt;{&lt;/span&gt; 
+    &lt;span class=&amp;quot;nb&amp;quot;&gt;width&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;:&lt;/span&gt;&lt;span class=&amp;quot;m&amp;quot;&gt;940px&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;;&lt;/span&gt; 
+    &lt;span class=&amp;quot;nb&amp;quot;&gt;margin&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;:&lt;/span&gt;&lt;span class=&amp;quot;m&amp;quot;&gt;0&lt;/span&gt; &lt;span class=&amp;quot;nb&amp;quot;&gt;auto&lt;/span&gt; &lt;span class=&amp;quot;m&amp;quot;&gt;24px&lt;/span&gt; &lt;span class=&amp;quot;nb&amp;quot;&gt;auto&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;;&lt;/span&gt; 
+    &lt;span class=&amp;quot;nb&amp;quot;&gt;text-align&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;:&lt;/span&gt;&lt;span class=&amp;quot;nb&amp;quot;&gt;center&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;;&lt;/span&gt; 
+&lt;span class=&amp;quot;p&amp;quot;&gt;}&lt;/span&gt;
+&lt;span class=&amp;quot;nc&amp;quot;&gt;.no-support-message&lt;/span&gt; &lt;span class=&amp;quot;p&amp;quot;&gt;{&lt;/span&gt; 
+    &lt;span class=&amp;quot;nb&amp;quot;&gt;display&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;:&lt;/span&gt;&lt;span class=&amp;quot;nb&amp;quot;&gt;none&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;;&lt;/span&gt; 
+    &lt;span class=&amp;quot;nb&amp;quot;&gt;width&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;:&lt;/span&gt;&lt;span class=&amp;quot;m&amp;quot;&gt;940px&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;;&lt;/span&gt; 
+    &lt;span class=&amp;quot;nb&amp;quot;&gt;margin&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;:&lt;/span&gt;&lt;span class=&amp;quot;m&amp;quot;&gt;0&lt;/span&gt; &lt;span class=&amp;quot;nb&amp;quot;&gt;auto&lt;/span&gt; &lt;span class=&amp;quot;m&amp;quot;&gt;24px&lt;/span&gt; &lt;span class=&amp;quot;nb&amp;quot;&gt;auto&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;;&lt;/span&gt; 
+    &lt;span class=&amp;quot;nb&amp;quot;&gt;text-align&lt;/span&gt;&lt;span class=&amp;quot;o&amp;quot;&gt;:&lt;/span&gt;&lt;span class=&amp;quot;nb&amp;quot;&gt;center&lt;/span&gt;&lt;span class=&amp;quot;p&amp;quot;&gt;;&lt;/span&gt;
+&lt;span class=&amp;quot;p&amp;quot;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;js&lt;/h3&gt;
+&lt;p&gt;自备impress.js&lt;/p&gt;</description>
 <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">dtysky</dc:creator>
-<pubDate>Saturday, 30 May 2015 00:30:00 -00:00</pubDate>
-<guid>tag:http://dtysky.moe,2015.05.30 00:30:article/Skill-test</guid>
-<category>FPGA</category>
-<category>FPGA-Imaging-Library</category>
-<category>图像处理</category>
-<category>几何变换</category>
-<category>旋转</category>
+<pubDate>Tuesday, 05 May 2015 02:01:00 -00:00</pubDate>
+<guid>tag:http://dtysky.moe,2015.05.05 02:01:article/Skill-2015_05_05_a</guid>
+<category>impress.js</category>
+<category>PPT</category>
 </item>
 
 <item>

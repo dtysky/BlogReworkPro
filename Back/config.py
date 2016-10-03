@@ -16,6 +16,7 @@ config_dev = {
     "server_port": 4444,
     "database_name": "test",
     "allow-origin": ["http://localhost:8000"],
+    "allow-ip": ["127.0.0.1"],
     "sitemap_path": "test/sitemap.xml",
     "feeds_dir_path": "test/feeds",
     "feeds_slug": "test/feeds",
@@ -27,7 +28,8 @@ config_dev = {
 config_pd = {
     "server_ip": "127.0.0.1",
     "server_port": 4444,
-    "allow-origin": ["http://localhost:8000", "http://localhost:8000"],
+    "allow-origin": ["http://localhost:8000"],
+    "allow-host": ["127.0.0.1"],
     "database_name": "test",
     "sitemap_path": "sitemap.xml",
     "feeds_dir_path": "feeds",

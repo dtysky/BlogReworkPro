@@ -24,6 +24,7 @@ const configPd = {
 };
 
 const config = Object.assign({}, {
+    browserMode: !process.env.SERVER_SIDE,
     disqusShortName: 'dtysky',
     gaTrackingId: '......',
     tagCloudStep: 4,

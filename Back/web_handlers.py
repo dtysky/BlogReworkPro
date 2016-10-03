@@ -63,12 +63,15 @@ class WebHandler(View):
         )
 
     def _handle(self, parameters=None):
-        if not ("origin" in request.headers):
-            return self._403(parameters)
+        hasOrigin = "origin" in request.headers
         logger.info("Web, Request: %s\nFrom: %s\nUrl: %s" % (
-            self.url, request.headers["Referer"], request.url
+            self.url,
+            request.headers["Referer"] if hasOrigin else request.remote_addr,
+            request.url
         ))
-        if not (request.headers["origin"] in config["allow-origin"]):
+        if hasOrigin and (request.headers["origin"] not in config["allow-origin"]):
+            return self._403(parameters)
+        if not (request.remote_addr in config["allow-ip"]):
             return self._403(parameters)
         params = self._parse_parameters(parameters)
         data = self._find_data(

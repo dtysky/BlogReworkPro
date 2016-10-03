@@ -16,8 +16,8 @@ export default class Category extends ArticleList {
     };
 
     setTheme() {
-        const {dispatch, store} = this.props;
-        dispatch({type: actionTypes.init.theme, theme: store.get('currentName')});
+        const {dispatch, params} = this.props;
+        dispatch({type: actionTypes.init.theme, theme: params.name});
         dispatch({type: actionTypes.change.theme.default});
     }
 }

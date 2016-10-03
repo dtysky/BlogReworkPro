@@ -30,7 +30,7 @@ export function articleListReducer(
             return defaultState.merge({lists: state.get('lists')});
 
         case actionTypes.get[tag].successful: {
-            const {name} = action;
+            let {name} = action;
             let {list} = action;
             if (sort) {
                 list = list.sort((a, b) => a.date > b.date ? -1 : 1);
@@ -38,9 +38,7 @@ export function articleListReducer(
             let lists = state.get('lists');
             const maxPage = parseInt((list.length - 1) / config.articlesPerPage, 10);
             if (!name) {
-                return state.merge({
-                    state: 'successful', currentList: list, maxPage, currentPage: 0
-                });
+                name = 'all';
             }
             if (!lists.has(name)) {
                 lists = lists.set(name, list);

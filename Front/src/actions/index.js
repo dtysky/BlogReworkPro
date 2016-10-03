@@ -47,6 +47,10 @@ export default {
         music: {
             successful: 'INIT_MUSIC_SUCCESSFUL',
             failed: 'INIT_MUSIC_FAILED'
+        },
+        all: {
+            successful: 'INIT_ALL_SUCCESSFUL',
+            failed: 'INIT_ALL_FAILED'
         }
     },
     change: {

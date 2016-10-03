@@ -9,18 +9,26 @@ import express from 'express';
 import path from 'path';
 import tracer from 'tracer';
 import compression from 'compression';
-// import React from 'react';
-// import {renderToString} from 'react-dom';
-// import {match, RouterContext} from 'react-router';
+import React from 'react';
+import {renderToString} from 'react-dom/server';
+import {match, RouterContext} from 'react-router';
 import request from 'superagent';
+import {createStore, applyMiddleware} from 'redux';
+import {Provider} from 'react-redux';
+import thunkMiddleware from 'redux-thunk';
+import Immutable from 'immutable';
+
 import config from '../config';
+import routes from '../src/routes';
+import reducers from '../src/reducers';
 
 const port = config.port;
-const publicPath = path.resolve(__dirname, '../dist');
-const logPath = path.resolve(__dirname, '../logs');
+const publicPath = path.join(__dirname, '../dist');
+const logPath = path.join(__dirname, '../logs');
 const loggerConsole = tracer.colorConsole();
 const loggerFile = tracer.dailyfile({root: logPath, maxLogFiles: 30});
 const serverUrl = config.serverUrl;
+const serverUrlRelToFrontServer = config.serverUrlRelToFrontServer;
 const redirectTable = JSON.parse(fs.readFileSync(path.resolve(__dirname, './table.json')));
 
 function logInfo() {
@@ -94,7 +102,7 @@ app.get('/sitemap', (req, res) => {
 });
 
 app.get('/feeds/:slug', (req, res) => {
-    const url = `${serverUrl}/${path.join('feeds', req.params.slug.replace('.rss.xml', ''))}`;
+    const url = `${serverUrlRelToFrontServer}/${path.join('feeds', req.params.slug.replace('.rss.xml', ''))}`;
     logInfo('Forwarding', url);
     request.get(url)
         .then(response => {
@@ -105,39 +113,70 @@ app.get('/feeds/:slug', (req, res) => {
         });
 });
 
-app.get('*', (req, res) => {
-    res.sendFile(path.resolve('./dist/index.html'));
-});
+//app.get('*', (req, res) => {
+//    res.sendFile(path.resolve('./dist/index.html'));
+//});
 
-// app.get('*', (req, res) => {
-//    match(
-//        {
-//            routes: routes,
-//            location: req.url
-//        },
-//        function (error, redirectLocation, renderProps) {
-//            if (error) {
-//                return res.status(500)
-//                    .send(error.message);
-//            }
-//            if (redirectLocation) {
-//                return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-//            }
-//            if (renderProps) {
-//                return res.status(200)
-//                    .send(
-//                        fs.readFileSync('./base.html')
-//                            .toString()
-//                            .replace(
-//                                '{{markup}}',
-//                                renderToString(<RouterContext {...renderProps} />
-//                            )
-//                        )
-//                    );
-//            }
-//            return res.status(404).send('Not found');
-//        });
-// });
+
+function responseWithCheck(res, store, renderProps) {
+    setImmediate(() => {
+        if (!store.getState().state.get('initDone')) {
+            return setImmediate(responseWithCheck, res, store, renderProps);
+        }
+        console.log(renderProps.params);
+        loggerFile.info(store.getState().theme.toJSON());
+        return res.send(
+            fs.readFileSync(path.join(__dirname, './index.html')).toString().replace(
+                '{{markup}}', renderToString(
+                    <Provider store={store}>
+                        <RouterContext {...renderProps} />
+                    </Provider>
+                )
+            ).replace(
+                '{{initState}}', JSON.stringify(Immutable.fromJS(store.getState()).toJSON())
+            )
+        );
+    });
+}
+function render(req, res, renderProps) {
+    console.log(renderProps.params);
+//    let url = `${serverUrlRelToFrontServer}/${type}`;
+//    if (name) {
+//        url = `${url}/${name}`;
+//    } else {
+//        url = `${url}/all`;
+//    }
+
+    let store = createStore(
+        reducers,
+        applyMiddleware(thunkMiddleware)
+    );
+    
+    const body = renderToString(
+        <Provider store={store}>
+            <RouterContext {...renderProps} />
+        </Provider>
+    );
+
+    responseWithCheck(res, store, renderProps);
+}
+
+//render('archives');
+
+app.get('*', (req, res) => {
+    match({routes, location: req.url}, (error, redirectLocation, renderProps) => {
+        if (error) {
+            return res.status(500).send(error.message);
+        }
+        if (redirectLocation) {
+            return res.redirect(302, `${redirectLocation.pathname}${redirectLocation.search}`);
+        }
+        if (renderProps) {
+            return render(req, res, renderProps);
+        }
+        return res.status(404).send('Not found');
+    });
+});
 
 
 app.listen(port, () => {

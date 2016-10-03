@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Rework my blog II.",
   "scripts": {
-    "server-dev": "NODE_ENV=development node server/server.js",
-    "server-pd": "NODE_ENV=production forver node server/server.js",
+    "server-dev": "NODE_ENV=development SERVER_SIDE=true node server/server.js",
+    "server-pd": "NODE_ENV=production SERVER_SIDE=true forver node server/server.js",
     "watch": "./node_modules/.bin/gulp development"
   },
   "dependencies": {
@@ -48,6 +48,7 @@
     "babel-plugin-transform-flow-strip-types": "^6.8.0",
     "babel-plugin-transform-react-display-name": "^6.5.0",
     "babel-plugin-transform-regenerator": "^6.6.5",
+    "babel-plugin-transform-require-ignore": "0.0.2",
     "babel-plugin-transform-runtime": "^6.7.5",
     "babel-plugin-typecheck": "^3.9.0",
     "babel-polyfill": "^6.7.4",

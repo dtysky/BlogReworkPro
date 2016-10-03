@@ -10,19 +10,17 @@ import actionTypes from '../actions';
 import config from '../../config';
 
 const serverUrl = config.serverUrl;
+const serverUrlRelToFrontServer = config.serverUrlRelToFrontServer;
 
 export function getListSource(type: string, name: string, currentLists: Object) {
-    let url = `${serverUrl}/${type}`;
-    if (name) {
-        url = `${url}/${name}`;
-    } else {
-        url = `${url}/all`;
-    }
+    let url = `${config.browserMode ? serverUrl : serverUrlRelToFrontServer}/${type}`;
+    const realName = name || 'all';
+    url = `${url}/${realName}`;
 
     return dispatch => {
-        if (currentLists.has(name)) {
-            const list = currentLists.get(name);
-            dispatch({type: actionTypes.get[type].successful, name, list});
+        if (currentLists.has(realName)) {
+            const list = currentLists.get(realName);
+            dispatch({type: actionTypes.get[type].successful, name: realName, list});
             return Promise.resolve();
         }
 
@@ -31,26 +29,26 @@ export function getListSource(type: string, name: string, currentLists: Object) 
             .timeout(config.timeout)
             .then(res => {
                 const list = res.body.content || [];
-                dispatch({type: actionTypes.get[type].successful, name, list});
+                dispatch({type: actionTypes.get[type].successful, name: realName, list});
                 return Promise.resolve(res);
             })
             .catch(err => {
                 if (config.devMode) {
-                    console.log(err); // eslint-disable-line
+                    console.log(type, name, err); // eslint-disable-line
                 }
-                dispatch({type: actionTypes.get[type].failed, name});
+                dispatch({type: actionTypes.get[type].failed, name: realName});
                 return Promise.reject(err);
             });
     };
 }
 
 export function getArticleSource(name: string, currentArticles: Object) {
-    const url = `${serverUrl}/article/${name}`;
+    const url = `${config.browserMode ? serverUrl : serverUrlRelToFrontServer}/article/${name}`;
 
     return dispatch => {
         if (currentArticles.has(name)) {
             dispatch({type: actionTypes.get.article.successful, name});
-            return Promise.resolve();
+            return Promise.resolve(currentArticles.get(name));
         }
 
         dispatch({type: actionTypes.get.article.waiting});
@@ -63,7 +61,7 @@ export function getArticleSource(name: string, currentArticles: Object) {
             })
             .catch(err => {
                 if (config.devMode) {
-                    console.log(err); // eslint-disable-line
+                    console.log('article', name, err); // eslint-disable-line
                 }
                 dispatch({type: actionTypes.get.article.failed, name});
                 return Promise.reject(err);
@@ -72,7 +70,7 @@ export function getArticleSource(name: string, currentArticles: Object) {
 }
 
 export function initMusic(DefaultList) {
-    const url = '/music.json';
+    const url = `${config.siteUrl}/music.json`;
 
     return dispatch => {
         if (!DefaultList.isEmpty()) {
@@ -88,7 +86,7 @@ export function initMusic(DefaultList) {
             })
             .catch(err => {
                 if (config.devMode) {
-                    console.log(err); // eslint-disable-line
+                    console.log('music', err); // eslint-disable-line
                 }
                 dispatch({type: actionTypes.init.music.failed});
                 return Promise.reject(err);

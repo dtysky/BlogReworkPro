@@ -3,7 +3,7 @@
 <channel>
 <title>dtysky|一个行者的轨迹</title>
 <link>http://dtysky.moe</link><description>自由地看待世界，真诚地走向死亡</description><atom:link href="http://dtysky.moe/test/feeds/test/feeds/Life.rss.xml" rel="self"></atom:link>
-<lastBuildDate>Monday, 03 Oct 2016 12:09:16 -00:00</lastBuildDate>
+<lastBuildDate>Monday, 03 Oct 2016 23:28:01 -00:00</lastBuildDate>
 
 <item>
 <title>【FPGA/图像处理】几何变换-旋转</title>
@@ -375,8 +375,7 @@
 &lt;hr /&gt;
 &lt;h1&gt;感谢&lt;/h1&gt;
 &lt;p&gt;仿真图像来源：
-&lt;a href=&amp;quot;http://www.pixiv.net/member_illust.php?mode=medium&amp;amp;illust_id=49603329&amp;quot;&gt;041-マツムシソウ&lt;/a&gt;&lt;/p&gt;
-&lt;script type=&amp;quot;text/javascript&amp;quot; src=&amp;quot;http://src.dtysky.moe/MathJax/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML&amp;quot;&gt;&lt;/script&gt;</description>
+&lt;a href=&amp;quot;http://www.pixiv.net/member_illust.php?mode=medium&amp;amp;illust_id=49603329&amp;quot;&gt;041-マツムシソウ&lt;/a&gt;&lt;/p&gt;</description>
 <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">dtysky</dc:creator>
 <pubDate>Saturday, 30 May 2015 00:30:00 -00:00</pubDate>
 <guid>tag:http://dtysky.moe,2015.05.30 00:30:article/Life-test</guid>

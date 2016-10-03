@@ -16,6 +16,7 @@ import article from './article';
 import theme from './theme';
 import music from './music';
 import headInfo from './headInfo';
+import state from './state';
 
 export default combineReducers({
     archives,
@@ -27,5 +28,6 @@ export default combineReducers({
     article,
     theme,
     music,
-    headInfo
+    headInfo,
+    state
 });
