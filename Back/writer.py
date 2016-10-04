@@ -13,6 +13,7 @@ from copy import deepcopy as copy
 from database_writers import DatabaseWriter
 from utils import get_all_classes
 from utils import logger
+from cache import cache
 
 
 class Writer(object):
@@ -25,7 +26,7 @@ class Writer(object):
         self._articles = database.get_collection("article")
         self._database_writers = {}
         for c in get_all_classes(["database_writers.py"], DatabaseWriter):
-            obj = c(database)
+            obj = c(database, cache)
             self._database_writers[obj.flag] = obj
         self._file_path = ""
 

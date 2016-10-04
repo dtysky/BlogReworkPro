@@ -50,11 +50,12 @@ class Parser(object):
             if key not in self._meta_parsers:
                 self._error("Can not find the parser '%s' !" % key)
             tmp[key] = self._meta_parsers[key].parse(value)
-        if "authors" not in tmp:
-            tmp["authors"] = config["default_authors"]
         for meta_name, meta_obj in self._meta_parsers.items():
             if meta_obj.is_necessary() and meta_name not in tmp:
-                self._error("Meta '%s' is necessary !" % meta_name)
+                if meta_obj.default == None:
+                    self._error("Meta '%s' is necessary !" % meta_name)
+                else:
+                    tmp[meta_name] = meta_obj.default
         tmp["file"] = self._file_path
         return tmp
 

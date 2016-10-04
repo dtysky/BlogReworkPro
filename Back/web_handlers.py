@@ -19,11 +19,12 @@ from flask import Response, request
 
 class WebHandler(View):
     """
-    Parent class for handling http requests.
+    Base class for handling http requests.
     """
 
-    def __init__(self, database):
+    def __init__(self, database, cache):
         self._collection = self._get_collection(database)
+        self._cache = cache.get(self.flag)
 
     @property
     def flag(self):
@@ -39,6 +40,10 @@ class WebHandler(View):
     def collection_name(self):
         return self.flag
 
+    @property
+    def allowed_params(self):
+        return None
+
     def _get_collection(self, database):
         collection_name = self.collection_name
         if collection_name not in database.collection_names():
@@ -46,6 +51,8 @@ class WebHandler(View):
         return database.get_collection(collection_name)
 
     def _find_data(self, parameters):
+        if self.allowed_params != None and parameters not in self.allowed_params:
+            return None
         return list(self._collection.find(
             {},
             {"_id": 0}
@@ -54,17 +61,18 @@ class WebHandler(View):
     def _parse_parameters(self, parameters):
         return parameters
 
-    def _format_data(self, data, url, parameters):
+    def _format_data(self, code, data, url, parameters):
         return to_json(
             {
                 "view": url,
-                "content": data
+                "content": data,
+                "code": code
             }
         )
 
     def _handle(self, parameters=None):
         hasOrigin = "origin" in request.headers
-        logger.info("Web, Request: %s\nFrom: %s\nUrl: %s" % (
+        logger.info("Request: %s\nFrom: %s\nUrl: %s" % (
             self.url,
             request.headers["Referer"] if hasOrigin else request.remote_addr,
             request.url
@@ -74,16 +82,25 @@ class WebHandler(View):
         if not (request.remote_addr in config["allow-ip"]):
             return self._403(parameters)
         params = self._parse_parameters(parameters)
-        data = self._find_data(
-            self._parse_parameters(params)
-        )
+
+        cache = self._cache
+
+        if cache != None and cache.has(params) and not cache.is_modified(params):
+            return self._304(params, cache.get(params))
+
+        data = self._find_data(params)
         if not data:
             return self._404(parameters)
-        logger.info("Web, Data found: %s\nParameters: %s" % (
+
+        logger.info("Data found: %s\nParameters: %s" % (
             self.url, parameters
         ))
+
+        if cache != None:
+            cache.updateContent(params, data)
+
         return self._response(
-            self._format_data(data, self.url, params),
+            self._format_data(200, data, self.url, params),
             200
         )
 
@@ -101,14 +118,24 @@ class WebHandler(View):
     def dispatch_request(self, parameters=None):
         return self._handle(parameters)
 
+    # Custom code 304
+    def _304(self, parameters, data):
+        logger.info("304: %s\nParameters: %s" % (
+            self.url, parameters
+        ))
+        return self._response(
+            self._format_data(304, data, self.url, parameters),
+            200
+        )
+
     def _403(self, parameters):
-        logger.warning("Web, 403: %s\nParameters: %s" % (
+        logger.warning("403: %s\nParameters: %s" % (
             self.url, parameters
         ))
         return self._response(to_json({"message": "Not allowed!"}), 403)
 
     def _404(self, parameters):
-        logger.warning("Web, 404: %s\nParameters: %s" % (
+        logger.warning("404: %s\nParameters: %s" % (
             self.url, parameters
         ))
         return self._response(to_json({"message": "Not found!"}), 404)
@@ -124,6 +151,10 @@ class ArchivesHandler(WebHandler):
     Handling "archives" request.
     """
 
+    @property
+    def allowed_params(self):
+        return "all"
+
     pass
 
 
@@ -132,6 +163,10 @@ class TagsHandler(WebHandler):
     Handling "tags" request.
     """
 
+    @property
+    def allowed_params(self):
+        return "all"
+
     pass
 
 
@@ -139,6 +174,10 @@ class AuthorsHandler(WebHandler):
     """
     Handling "authors" request.
     """
+
+    @property
+    def allowed_params(self):
+        return "all"
 
     pass
 
@@ -163,14 +202,15 @@ class HandlerWithOneParameter(object):
             {"_id": 0}
         ))
 
-    def _format_data(self, data, url, parameters):
+    def _format_data(self, code, data, url, parameters):
         return to_json(
             {
                 "view":
                     data[0][self.view_flag]["view"] if
                     type(data[0][self.view_flag]) != list else
                     filter(lambda item: item['slug'] == parameters, data[0][self.view_flag])[0]["view"],
-                "content": data
+                "content": data,
+                "code": code
             }
         )
 
@@ -226,11 +266,12 @@ class ArticleHandler(WebHandler):
         )
         return data
 
-    def _format_data(self, data, url, parameters):
+    def _format_data(self, code, data, url, parameters):
         return to_json(
             {
                 "view": data["title"]["view"],
-                "content": data
+                "content": data,
+                "code": code
             }
         )
 
@@ -252,7 +293,7 @@ class SitemapHandler(WebHandler):
     def _parse_parameters(self, parameters):
         return parameters
 
-    def _format_data(self, data, url, parameters):
+    def _format_data(self, code, data, url, parameters):
         return data
 
     def _response(self, data, status):
@@ -295,7 +336,7 @@ class FeedsHandler(WebHandler):
     def _parse_parameters(self, parameters):
         return parameters
 
-    def _format_data(self, data, url, parameters):
+    def _format_data(self, code, data, url, parameters):
         return data
 
     def _response(self, data, status):

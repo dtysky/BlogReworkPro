@@ -18,7 +18,7 @@ from feeds_generator import FeedsGenerator
 from utils import print_database
 from utils import is_markdown_file
 from utils import logger
-from config import config
+import traceback
 
 
 class FileMonitor(FileSystemEventHandler):
@@ -67,32 +67,32 @@ class FileMonitor(FileSystemEventHandler):
         if mode == "delete":
             try:
                 self._write(path, mode)
-            except Exception, e:
-                self._error("Writing error !", e)
+            except Exception:
+                self._error("Writing error !")
         else:
             page = None
             try:
                 page = self._parse(path)
-            except Exception, e:
-                self._error("Parsing error !", e)
+            except Exception:
+                self._error("Parsing error !")
                 return
             try:
                 page = self._wrap(page)
-            except Exception, e:
-                self._error("Wrapping error !", e)
+            except Exception:
+                self._error("Wrapping error !")
                 return
             try:
                 self._write(path, mode, page)
-            except Exception, e:
-                self._error("Writing error !", e)
+            except Exception:
+                self._error("Writing error !")
         try:
             self._sitemap_generator.generate()
-        except Exception, e:
-            self._error("Sitemap generating error !", e)
+        except Exception:
+            self._error("Sitemap generating error !")
         try:
             self._feeds_generator.generate()
-        except Exception, e:
-            self._error("Feeds generating error !", e)
+        except Exception:
+            self._error("Feeds generating error !")
 
     def on_created(self, event):
         path = event.src_path
@@ -124,8 +124,8 @@ class FileMonitor(FileSystemEventHandler):
         self._work(src_path, "delete")
         self._work(dst_path, "update")
 
-    def _error(self, message, err):
-        line = "%s\n%s\nFile: %s" % (message, err, self._file_path)
+    def _error(self, message):
+        line = "%s\n%s\nFile: %s" % (message, traceback.format_exc(), self._file_path)
         logger.error(line)
         if self._debug:
             raise

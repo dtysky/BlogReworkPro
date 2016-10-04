@@ -10,11 +10,12 @@ __name__ = "MetaDataParser"
 
 
 from utils import convert_to_underline
+from config import config
 
 
 class MetaDataParser(object):
     """
-    Parent class for parsing meta data.
+    Base class for parsing meta data.
     """
 
     def __init__(self):
@@ -25,6 +26,10 @@ class MetaDataParser(object):
         return convert_to_underline(
             self.__class__.__name__.replace('Parser', '')
         )
+
+    @property
+    def default(self):
+        return None
 
     def is_necessary(self):
         return True
@@ -47,6 +52,10 @@ class AuthorsParser(MetaDataParser):
     """
     Parsing "author" metadata.
     """
+
+    @property
+    def default(self):
+        return config["default_authors"]
 
     def parse(self, content):
         import re

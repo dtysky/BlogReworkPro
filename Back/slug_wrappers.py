@@ -15,7 +15,7 @@ from utils import convert_to_underline
 
 class SlugWrapper(object):
     """
-    Parent class for parsing meta data.
+    Base class for parsing meta data.
     """
 
     def __init__(self):

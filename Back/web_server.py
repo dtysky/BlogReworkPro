@@ -14,6 +14,7 @@ from flask_compress import Compress
 from web_handlers import WebHandler
 from utils import get_all_classes
 from utils import logger
+from cache import cache
 
 
 class WebServer(object):
@@ -24,7 +25,7 @@ class WebServer(object):
     def __init__(self, database):
         self._web_handlers = {}
         for c in get_all_classes(["web_handlers.py"], WebHandler):
-            obj = c(database)
+            obj = c(database, cache)
             self._web_handlers[obj.url] = obj
         self._web_server = Flask("web_server")
         self._register(database)
@@ -35,7 +36,7 @@ class WebServer(object):
         for handler_name, handler_obj in self._web_handlers.items():
             self._web_server.add_url_rule(
                 "/%s/<string:parameters>" % handler_name,
-                view_func=handler_obj.as_view(handler_name, database)
+                view_func=handler_obj.as_view(handler_name, database, cache)
             )
             logger.info("'%s' " % handler_name, False)
         logger.info("Handlers register done !")

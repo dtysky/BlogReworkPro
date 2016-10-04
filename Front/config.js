@@ -51,8 +51,9 @@ const config = Object.assign({}, {
     /* eslint-enable */
     links: [
         {name: 'Lm7', url: 'http://lm7.xxxxxxxx.jp'},
+        {name: 'Domik', url: 'http://www.pixiv.net/member.php?id=4933015'},
         {name: 'APlayer', url: 'https://github.com/DIYgod/APlayer'},
-        {name: 'IconMoon', url: 'https://icomoon.io'},
+        {name: 'MoeNotes', url: 'http://moe-notes.dtysky.moe'},
         {name: 'F-I-L', url: 'http://fil.dtysky.moe'},
         {name: 'Nekohand', url: 'http://blog.nekohand.moe'},
         {name: 'JerryFu', url: 'http://www.jerryfu.net'}

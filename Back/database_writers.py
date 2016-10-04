@@ -11,15 +11,18 @@ __name__ = "DatabaseWriters"
 
 from utils import convert_to_underline
 from utils import logger
+from config import config
+from json import dumps as to_json
 
 
 class DatabaseWriter(object):
     """
-    Parent class for writing data.
+    Base class for writing data.
     """
 
-    def __init__(self, database):
+    def __init__(self, database, cache):
         self._collection = self._get_collection(database)
+        self._cache = cache.get(self.flag)
 
     @property
     def flag(self):
@@ -48,10 +51,22 @@ class DatabaseWriter(object):
         result["name"] = result[key]["slug"]
         return result
 
+    def _modify_cache(self, mode, params):
+        cache = self._cache
+        if cache == None:
+            return
+        if not cache.has(params):
+            return
+        if mode == "delete":
+            return cache.delete(params)
+        if mode == "modify":
+            if cache.has(params):
+                cache.modifyState(params)
+
     def insert(self, new_page):
-        self._collection.insert_one(
-            self._format_page(new_page)
-        )
+        page = self._format_page(new_page)
+        self._collection.insert_one(page)
+        self._modify_cache("modify", page["name"])
 
     def update(self, new_page, old_page):
         page = self._format_page(new_page)
@@ -62,6 +77,7 @@ class DatabaseWriter(object):
             },
             page
         )
+        self._modify_cache("modify", page["name"])
 
     def delete(self, old_page):
         page = self._format_page(old_page)
@@ -71,6 +87,7 @@ class DatabaseWriter(object):
                 "slug": page["slug"]
             }
         )
+        self._modify_cache("delete", page["name"])
 
     def _error(self, message):
         logger.error(message)
@@ -95,12 +112,15 @@ class ArchivesWriter(DatabaseWriter):
     Writing "archives" collection.
     """
 
+    def _modify_cache(self, mode, params):
+        super(ArchivesWriter, self)._modify_cache(mode, "all")
+
     pass
 
 
 class WriterWithList(object):
     """
-    Parent class for writing data which type is list.
+    Base class for writing data which type is list.
     """
 
     def _format_page(self, page):
@@ -117,6 +137,7 @@ class WriterWithList(object):
     def insert(self, new_page):
         for page in self._format_page(new_page):
             self._collection.insert_one(page)
+            self._modify_cache("modify", page["name"])
 
     def update(self, new_page, old_page):
         new_pages, old_pages = self._format_page(new_page), self._format_page(old_page)
@@ -131,6 +152,7 @@ class WriterWithList(object):
                 )
             else:
                 self._collection.insert_one(page)
+            self._modify_cache("modify", page["name"])
         for page in old_pages:
             if page not in new_pages:
                 self._collection.delete_one(
@@ -139,6 +161,7 @@ class WriterWithList(object):
                         "slug": page["slug"]
                     }
                 )
+                self._modify_cache("delete", page["name"])
 
     def delete(self, old_page):
         for page in self._format_page(old_page):
@@ -148,6 +171,7 @@ class WriterWithList(object):
                     "slug": page["slug"]
                 }
             )
+            self._modify_cache("delete", page["name"])
 
 
 class TagWriter(WriterWithList, DatabaseWriter):
@@ -229,7 +253,7 @@ class WriterWithCount(object):
             {
                 "slug": item["slug"]
             }
-        )["count"] == 0:
+        )["count"] <= 0:
             self._collection.delete_one(
                 {
                     "slug": item["slug"]
@@ -239,6 +263,7 @@ class WriterWithCount(object):
     def insert(self, new_page):
         for item in self._format_page(new_page):
             self._inc(item)
+        self._modify_cache("modify", item["slug"])
 
     def update(self, new_page, old_page):
         new_items, old_items = self._format_page(new_page), self._format_page(old_page)
@@ -250,10 +275,12 @@ class WriterWithCount(object):
         for item in old_items:
             if item["slug"] not in new_slugs:
                 self._dec(item)
+        self._modify_cache("modify", item["slug"])
 
     def delete(self, old_page):
         for item in self._format_page(old_page):
             self._dec(item)
+        self._modify_cache("modify", item["slug"])
 
 
 class TagsWriter(WriterWithCount, DatabaseWriter):
@@ -264,6 +291,9 @@ class TagsWriter(WriterWithCount, DatabaseWriter):
     def _get_slug_key(self):
         return "tags"
 
+    def _modify_cache(self, mode, params):
+        super(TagsWriter, self)._modify_cache(mode, "all")
+
 
 class AuthorsWriter(WriterWithCount, DatabaseWriter):
     """
@@ -272,6 +302,9 @@ class AuthorsWriter(WriterWithCount, DatabaseWriter):
 
     def _get_slug_key(self):
         return "authors"
+
+    def _modify_cache(self, mode, params):
+        super(AuthorsWriter, self)._modify_cache(mode, "all")
 
 
 class CategoriesWriter(WriterWithCount, DatabaseWriter):
@@ -285,3 +318,6 @@ class CategoriesWriter(WriterWithCount, DatabaseWriter):
     def _format_page(self, page):
         key = self._get_slug_key()
         return [page["metadata"][key]]
+
+    def _modify_cache(self, mode, params):
+        super(CategoriesWriter, self)._modify_cache(mode, "all")
