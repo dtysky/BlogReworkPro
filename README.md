@@ -45,10 +45,10 @@ Rework the [BlogRework](https://github.com/dtysky/BlogRework), build with docker
 8. Grunt to gulp.  
 9. Remake some resources.  
 10. Improve the theme.  
+11. Pack and compress resources.
+12. Server side rendering.
 
-#### Preparing
+#### Preparing  
 
-1. Server side rendering.  
-2. Memory cache.  
-3. Pack and compress resources.  
-4. Image pre-loading.
+1. Memory cache.  
+2. Image pre-loading.

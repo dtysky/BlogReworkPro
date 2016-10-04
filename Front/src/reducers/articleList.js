@@ -30,20 +30,17 @@ export function articleListReducer(
             return defaultState.merge({lists: state.get('lists')});
 
         case actionTypes.get[tag].successful: {
-            let {name} = action;
+            const {name} = action;
             let {list} = action;
-            if (sort) {
-                list = list.sort((a, b) => a.date > b.date ? -1 : 1);
-            }
             let lists = state.get('lists');
-            const maxPage = parseInt((list.length - 1) / config.articlesPerPage, 10);
-            if (!name) {
-                name = 'all';
-            }
             if (!lists.has(name)) {
-                lists = lists.set(name, list);
+                if (sort) {
+                    list = list.sort((a, b) => a.date > b.date ? -1 : 1); // eslint-disable-line
+                }
+                lists = lists.merge({[name]: list});
             }
             const currentList = lists.get(name);
+            const maxPage = parseInt((currentList.size - 1) / config.articlesPerPage, 10);
             return state.merge({
                 state: 'successful', currentName: name, lists, currentList, maxPage, currentPage: 0
             });

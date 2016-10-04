@@ -96,7 +96,7 @@ export default class NavBar extends Component {
                 </nav>
                 <div className="bar-container">
                     <span
-                        className="bar duration-main"
+                        className="bar"
                         ref="titleBar"
                         style={titleBarStyle}
                     />

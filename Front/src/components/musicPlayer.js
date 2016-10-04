@@ -34,7 +34,10 @@ export default class MusicPlayer extends Component {
             theme: '#ffffff',
             music: music.get('current').toJS()
         });
-        this.player.init(true);
+        this.refs.playerContainer.style.opacity = 1;
+        if (!music.get('current').isEmpty()) {
+            this.player.init(true);
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -54,7 +57,10 @@ export default class MusicPlayer extends Component {
         const backgroundColor = this.props.theme.getIn(['current', 'color']);
 
         return (
-            <div id="music-player">
+            <div
+                id="music-player"
+                ref="playerContainer"
+            >
                 <div className="hr"></div>
                 <div
                     id="player1"

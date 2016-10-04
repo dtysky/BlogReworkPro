@@ -2,7 +2,6 @@
 
 #nav-bar {
   position: relative;
-  .margin(@t: 1.5em);
   .size(@h: 3em);
 
   li {
@@ -41,5 +40,7 @@
   .bar {
     display: inline-block;
     .size(75px, 3px);
+
+    .autoprefix-transition(all .5s ease-out);
   }
 }

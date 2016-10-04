@@ -113,11 +113,6 @@ app.get('/feeds/:slug', (req, res) => {
         });
 });
 
-//app.get('*', (req, res) => {
-//    res.sendFile(path.resolve('./dist/index.html'));
-//});
-
-
 function responseWithCheck(res, store, renderProps) {
     setImmediate(() => {
         if (!store.getState().state.get('initDone')) {
@@ -133,7 +128,7 @@ function responseWithCheck(res, store, renderProps) {
                     </Provider>
                 )
             ).replace(
-                '{{initState}}', JSON.stringify(Immutable.fromJS(store.getState()).toJSON())
+                '"{{initState}}"', JSON.stringify(Immutable.fromJS(store.getState()).toJSON())
             )
         );
     });
@@ -152,7 +147,7 @@ function render(req, res, renderProps) {
         applyMiddleware(thunkMiddleware)
     );
     
-    const body = renderToString(
+    renderToString(
         <Provider store={store}>
             <RouterContext {...renderProps} />
         </Provider>
@@ -161,23 +156,26 @@ function render(req, res, renderProps) {
     responseWithCheck(res, store, renderProps);
 }
 
-//render('archives');
-
-app.get('*', (req, res) => {
-    match({routes, location: req.url}, (error, redirectLocation, renderProps) => {
-        if (error) {
-            return res.status(500).send(error.message);
-        }
-        if (redirectLocation) {
-            return res.redirect(302, `${redirectLocation.pathname}${redirectLocation.search}`);
-        }
-        if (renderProps) {
-            return render(req, res, renderProps);
-        }
-        return res.status(404).send('Not found');
+if (config.devMode) {
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve('./dist/index.html'));
     });
-});
-
+} else {
+    app.get('*', (req, res) => {
+        match({routes, location: req.url}, (error, redirectLocation, renderProps) => {
+            if (error) {
+                return res.status(500).send(error.message);
+            }
+            if (redirectLocation) {
+                return res.redirect(302, `${redirectLocation.pathname}${redirectLocation.search}`);
+            }
+            if (renderProps) {
+                return render(req, res, renderProps);
+            }
+            return res.status(404).send('Not found');
+        });
+    });
+}
 
 app.listen(port, () => {
     logInfo('Server start:', port);

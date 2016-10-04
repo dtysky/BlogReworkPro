@@ -32,7 +32,7 @@ export default class ArticleList extends Base {
 
         const currentList = store.get('currentList');
         const currentPage = store.get('currentPage');
-        const currentName = store.get('currentName');
+        const currentName = !this.props.params.name ? '' : store.get('currentName');
         const maxPage = store.get('maxPage');
         const list = currentList.slice(
             currentPage * config.articlesPerPage, (currentPage + 1) * config.articlesPerPage

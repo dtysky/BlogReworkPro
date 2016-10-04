@@ -15,12 +15,11 @@ const serverUrlRelToFrontServer = config.serverUrlRelToFrontServer;
 export function getListSource(type: string, name: string, currentLists: Object) {
     let url = `${config.browserMode ? serverUrl : serverUrlRelToFrontServer}/${type}`;
     const realName = name || 'all';
-    url = `${url}/${realName}`;
+    url = `${url}/${encodeURIComponent(realName)}`;
 
     return dispatch => {
         if (currentLists.has(realName)) {
-            const list = currentLists.get(realName);
-            dispatch({type: actionTypes.get[type].successful, name: realName, list});
+            dispatch({type: actionTypes.get[type].successful, name: realName});
             return Promise.resolve();
         }
 
@@ -43,7 +42,9 @@ export function getListSource(type: string, name: string, currentLists: Object) 
 }
 
 export function getArticleSource(name: string, currentArticles: Object) {
-    const url = `${config.browserMode ? serverUrl : serverUrlRelToFrontServer}/article/${name}`;
+    const url = `${
+            config.browserMode ? serverUrl : serverUrlRelToFrontServer
+        }/article/${encodeURIComponent(name)}`;
 
     return dispatch => {
         if (currentArticles.has(name)) {

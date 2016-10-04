@@ -75,8 +75,12 @@ p {
   }
 }
 
+#music-player {
+  opacity: 0;
+}
+
 #music-player .hr{
-  border: 1px solid #ffffff;
+  border: 1px solid #000;
 }
 
 #player1 {
@@ -92,6 +96,10 @@ p {
     .position(@r: @menu-width + 10px);
   }
 
+  #music-player .hr {
+    display: none;
+  }
+
   #player1{
     opacity: 0.6;
     position: fixed;
@@ -101,10 +109,6 @@ p {
 
     &:hover {
       opacity: 0.8;
-    }
-
-    .hr {
-      display: none;
     }
   }
 }
@@ -118,17 +122,15 @@ p {
     .position(@r: 10px);
   }
 
+  #music-player .hr {
+    display: block;
+  }
+
   #player1{
     opacity: 1;
     position: relative;
-    .margin(@b: 20px);
     .padding(@all: 5px 10%);
     .size(@w: 80%);
-    .min-size(@h: 64px);
-
-    .hr {
-      display: block;
-    }
   }
 }
 
