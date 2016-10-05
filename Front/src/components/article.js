@@ -91,11 +91,10 @@ export default class Article extends Base {
     setMusic(currentArticle) {
         const {dispatch, music} = this.props;
         const currentMusic = currentArticle.music;
-        console.log(currentMusic);
         dispatch(initMusic(music.get('default')))
             .then(() => {
                 if (currentMusic) {
-                    dispatch({type: actionTypes.change.music.current, music: currentMusic})
+                    dispatch({type: actionTypes.change.music.current, music: currentMusic});
                 } else {
                     dispatch({type: actionTypes.change.music.default});
                 }

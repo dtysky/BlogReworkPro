@@ -49,8 +49,8 @@ None.
 10. Improve the theme.  
 11. Pack and compress resources.
 12. Server side rendering.
+13. Memory cache.
 
 #### Preparing  
 
-1. Memory cache.  
-2. Resource to cloud.
+1. Resource to cloud.

@@ -40,7 +40,6 @@ export class MenuPhoneHeader extends Component {
     }
 
     render() {
-        // Todo: 修改样式注意, 拥有修改主题能力的链接之间区块空隙应当为0,来防止不必要的执行!
         return (
             <header
                 id="menu-phone-header"
@@ -118,7 +117,6 @@ export class MenuPhoneFooter extends Component { // eslint-disable-line
     }
 
     render() {
-        // Todo: 修改样式注意, 拥有修改主题能力的链接之间区块空隙应当为0,来防止不必要的执行!
         return (
             <footer
                 id="menu-phone-footer"

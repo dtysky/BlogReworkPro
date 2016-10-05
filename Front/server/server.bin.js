@@ -64,9 +64,13 @@ const app = express();
 
 app.use(log);
 app.use(redirect);
+
 app.use(compression({
     filter: (req, res) => {
         if (req.headers['x-no-compression']) {
+            return false;
+        }
+        if (!config.devMode && ['.js', '.css'].includes(path.extname(req.url))) {
             return false;
         }
         return compression.filter(req, res);
@@ -81,6 +85,9 @@ app.use((req, res, next) => {
         return res.status(403).send({message: 'Not allowed!'});
     }
     res.setHeader('Access-Control-Allow-Origin', config.siteUrl);
+    if (!config.devMode && ['.js', '.css'].includes(path.extname(req.url))) {
+        res.setHeader('Content-Encoding', 'gzip');
+    }
     return next();
 });
 
@@ -136,10 +143,8 @@ function responseWithCheck(frontUrl, backUrl, res, store, renderProps) {
                 )
             ).replace(
                 '"{{initState}}"', JSON.stringify(Immutable.fromJS(store.getState()).toJSON())
-            )
+            ).replace('{{logo}}', config.logoPath)
         );
-
-        loggerFile.info(cachePage.get(frontUrl));
 
         return res.send(cachePage.get(frontUrl));
     });
@@ -205,7 +210,7 @@ function render(req, res, renderProps) {
         });
 }
 
-if (!config.devMode) {
+if (config.devMode) {
     app.get('*', (req, res) => {
         res.sendFile(path.resolve('./dist/index.html'));
     });

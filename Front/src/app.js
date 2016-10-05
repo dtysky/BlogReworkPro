@@ -42,7 +42,7 @@ export default class APP extends Component {
     }
 
     render() {
-        const {content, params, theme, music, state, dispatch} = this.props;
+        const {content, params, theme, music, dispatch} = this.props;
         // Get component's type from static variable 'type'
         const {type} = content.type;
         const store = this.props[type];

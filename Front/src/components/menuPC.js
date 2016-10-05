@@ -48,7 +48,6 @@ export default class MenuPC extends Component {
     }
 
     render() {
-        // Todo: 修改样式注意, 拥有修改主题能力的链接之间区块空隙应当为0,来防止不必要的执行!
         return (
             <div
                 id="menu"

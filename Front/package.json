@@ -4,8 +4,9 @@
   "description": "Rework my blog II.",
   "scripts": {
     "server-dev": "NODE_ENV=development SERVER_SIDE=true node server/server.js",
-    "server-pd": "NODE_ENV=production SERVER_SIDE=true forver node server/server.js",
-    "watch": "./node_modules/.bin/gulp development"
+    "server-pd": "NODE_ENV=production SERVER_SIDE=true forever server/server.js",
+    "watch": "./node_modules/.bin/gulp development",
+    "release": "./node_modules/.bin/gulp production"
   },
   "dependencies": {
     "bluebird": "^3.4.1",

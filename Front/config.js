@@ -10,6 +10,7 @@ const configDev = {
     siteUrl: 'http://localhost:8000',
     serverUrl: 'http://localhost:4444',
     serverUrlRelToFrontServer: 'http://localhost:4444',
+    themeResourceSite: 'theme',
     port: 8000,
     devMode: true
 };
@@ -19,9 +20,14 @@ const configPd = {
     siteUrl: 'http://localhost:8000',
     serverUrl: 'http://blog-server.dtysky.moe',
     serverUrlRelToFrontServer: 'http://localhost:4444',
+    themeResourceSite: 'http://src.dtysky.moe/blog-site',
     port: 8000,
     devMode: false
 };
+
+const themeResourceSite = process.env.NODE_ENV === 'development' ?
+    configDev.themeResourceSite :
+    configPd.themeResourceSite;
 
 const config = Object.assign({}, {
     browserMode: !process.env.SERVER_SIDE,
@@ -58,6 +64,7 @@ const config = Object.assign({}, {
         {name: 'Nekohand', url: 'http://blog.nekohand.moe'},
         {name: 'JerryFu', url: 'http://www.jerryfu.net'}
     ],
+    logoPath: `${themeResourceSite}/image/logo.png`,
     themeColor: {
         Create: '#a1927d',
         Skill: '#808d6a',
@@ -83,16 +90,16 @@ const config = Object.assign({}, {
         404: '#999'
     },
     themeLeftImage: {
-        Create: '/theme/image/create.jpg',
-        Skill: '/theme/image/skill.jpg',
-        Art: '/theme/image/art.jpg',
-        Life: '/theme/image/life.jpg',
-        home: '/theme/image/home.jpg',
-        tags: '/theme/image/tags.jpg',
-        authors: '/theme/image/authors.jpg',
-        tag: '/theme/image/tags.jpg',
-        author: '/theme/image/authors.jpg',
-        404: '/theme/image/404.jpg'
+        Create: `${themeResourceSite}/image/create.jpg`,
+        Skill: `${themeResourceSite}/image/skill.jpg`,
+        Art: `${themeResourceSite}/image/art.jpg`,
+        Life: `${themeResourceSite}/image/life.jpg`,
+        home: `${themeResourceSite}/image/home.jpg`,
+        tags: `${themeResourceSite}/image/tags.jpg`,
+        authors: `${themeResourceSite}/image/authors.jpg`,
+        tag: `${themeResourceSite}/image/tags.jpg`,
+        author: `${themeResourceSite}/image/authors.jpg`,
+        404: `${themeResourceSite}/image/404.jpg`
     },
     shareTemplates: [
         ['qzone', 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url={{URL}}&title={{TITLE}}&desc={{DESCRIPTION}}&summary={{SUMMARY}}&site={{SOURCE}}'],
@@ -107,4 +114,4 @@ const config = Object.assign({}, {
     ]
 }, process.env.NODE_ENV === 'development' ? configDev : configPd);
 
-export default config;
+module.exports = config;

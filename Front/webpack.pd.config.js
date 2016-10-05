@@ -2,11 +2,9 @@ require('babel-polyfill');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
+const themeResourceSite = require('./config').themeResourceSite;
 
 module.exports = {
-    watch: true,
-    cache: true,
-    debug: true,
     entry: {
         main: [path.resolve('./src/index.js')]
     },
@@ -50,15 +48,15 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg|gif|svg)$/,
-                loader: 'url?limit=8000&emitFile=false&name=/theme/image/[name].[ext]'
+                loader: `url?limit=8000&emitFile=false&name=${themeResourceSite}/image/[name].[ext]`
             },
             {
                 test: /\/katex\/.*\.(woff|eot|woff2|ttf|svg)/,
-                loader: 'file?emitFile=false&name=/theme/font/katex/[name].[ext]'
+                loader: `file?emitFile=false&name=${themeResourceSite}/font/katex/[name].[ext]`
             },
             {
                 test: /\.woff|\.woff2|.eot|\.ttf/,
-                loader: 'url?prefix=font/&limit=8000&emitFile=false&name=/theme/font/[name].[ext]',
+                loader: `url?prefix=font/&limit=8000&emitFile=false&name=${themeResourceSite}/font/[name].[ext]`,
                 exclude: /katex/
             }
         ]
@@ -66,11 +64,11 @@ module.exports = {
 
     plugins: [
         new ExtractTextPlugin('main.css'),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.ProvidePlugin({}),
+        new webpack.optimize.DedupePlugin(),
+        new webpack.optimize.UglifyJsPlugin({minimize: true}),
         new webpack.DefinePlugin({
             'process.env': {
-                NODE_ENV: JSON.stringify('development'),
+                NODE_ENV: JSON.stringify('production'),
                 BROWSER: JSON.stringify(true)
             }
         })
