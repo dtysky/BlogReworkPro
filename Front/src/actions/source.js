@@ -71,7 +71,7 @@ export function getArticleSource(name: string, currentArticles: Object) {
 }
 
 export function initMusic(DefaultList) {
-    const url = `${config.siteUrl}/music.json`;
+    const url = '/music.json';
 
     return dispatch => {
         if (!DefaultList.isEmpty()) {
