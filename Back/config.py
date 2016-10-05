@@ -19,7 +19,7 @@ config_dev = {
     "allow-ip": ["127.0.0.1"],
     "sitemap_path": "test/sitemap.xml",
     "feeds_dir_path": "test/feeds",
-    "feeds_slug": "test/feeds",
+    "feeds_slug": "feeds",
     "content_path": "test/pages",
     "log_path": "test/logs",
     "dev_mode": True
@@ -29,13 +29,13 @@ config_pd = {
     "server_ip": "127.0.0.1",
     "server_port": 4444,
     "allow-origin": ["http://localhost:8000"],
-    "allow-host": ["127.0.0.1"],
+    "allow-ip": ["127.0.0.1"],
     "database_name": "test",
-    "sitemap_path": "sitemap.xml",
-    "feeds_dir_path": "feeds",
+    "sitemap_path": "test/sitemap.xml",
+    "feeds_dir_path": "test/feeds",
     "feeds_slug": "feeds",
-    "content_path": "pages",
-    "log_path": "logs",
+    "content_path": "test/pages",
+    "log_path": "test/logs",
     "dev_mode": False
 }
 

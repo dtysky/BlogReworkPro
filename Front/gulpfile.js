@@ -16,6 +16,7 @@ const _ = require('lodash');
 const webpack = require('webpack');
 const webpackDevConfig = require('./webpack.dev.config.js');
 const webpackPdConfig = require('./webpack.pd.config');
+const webpackServerConfig = require('./webpack.server.config');
 
 
 gulp.task('default', ['development']);
@@ -73,6 +74,17 @@ gulp.task('webpack-release', () => {
     });
 });
 
-gulp.task('production', gulpsync.sync(['clean-all', 'webpack-release']));
+gulp.task('webpack-server', () => {
+    webpack(webpackServerConfig, (err, stats) => {
+        if(err) {
+            throw new gutil.PluginError("webpack", err);
+        }
+        gutil.log('[webpack:build]', stats.toString('minimal', {
+            colors: true
+        }));
+    });
+});
+
+gulp.task('production', gulpsync.sync(['clean-all', 'webpack-release', 'webpack-server']));
 
 /* eslint-enable */

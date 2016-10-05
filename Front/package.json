@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Rework my blog II.",
   "scripts": {
-    "server-dev": "NODE_ENV=development SERVER_SIDE=true node server/server.js",
-    "server-pd": "NODE_ENV=production SERVER_SIDE=true forever server/server.js",
+    "server-dev": "NODE_ENV=development SERVER_SIDE=true node server/server.dev.js",
+    "server-pd": "forever --uid blog-frontend -a -l logs/forever.log server/server.js",
     "watch": "./node_modules/.bin/gulp development",
     "release": "./node_modules/.bin/gulp production"
   },
@@ -75,6 +75,7 @@
     "gulp-concat": "^2.6.0",
     "gulp-convert-encoding": "^1.0.0",
     "gulp-copy": "0.0.2",
+    "gulp-gzip": "^1.4.0",
     "gulp-if": "^2.0.1",
     "gulp-rename": "^1.2.2",
     "gulp-sync": "^0.1.4",

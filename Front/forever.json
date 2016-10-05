@@ -1,6 +1,0 @@
-{
-    "uid": "blog-frontend",
-    "LOGFILE": "logs/forever.log",
-    "append": true,
-    "script": "server/server.js"
-}

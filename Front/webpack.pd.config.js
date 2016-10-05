@@ -58,6 +58,10 @@ module.exports = {
                 test: /\.woff|\.woff2|.eot|\.ttf/,
                 loader: `url?prefix=font/&limit=8000&emitFile=false&name=${themeResourceSite}/font/[name].[ext]`,
                 exclude: /katex/
+            },
+            {
+                test: /\.json$/,
+                loader: 'file?emitFile=false&name=[name].[ext]'
             }
         ]
     },
@@ -69,7 +73,7 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: JSON.stringify('production'),
-                BROWSER: JSON.stringify(true)
+                SERVER_SIDE: JSON.stringify(false)
             }
         })
     ]

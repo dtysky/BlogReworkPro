@@ -1,7 +1,0 @@
-{
-    "uid": "blog-backend",
-    "COMMAND": "python/bin/python",
-    "LOGFILE": "logs/forever.log",
-    "append": true,
-    "script": "main.py"
-}

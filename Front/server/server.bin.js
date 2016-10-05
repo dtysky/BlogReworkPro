@@ -205,7 +205,7 @@ function render(req, res, renderProps) {
             renderWithCache(code, frontUrl, backUrl, res, renderProps);
         })
         .catch(error => {
-            logError('Request to backend: ', error);
+            logError('Request to backend: ', error, error.stack);
             return res.status(500).send(error.message);
         });
 }
