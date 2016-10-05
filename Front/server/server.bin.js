@@ -21,6 +21,7 @@ import Immutable from 'immutable';
 import config from '../config';
 import routes from '../src/routes';
 import reducers from '../src/reducers';
+import actionTypes from '../src/actions';
 
 const port = config.port;
 const publicPath = path.join(__dirname, '../dist');
@@ -113,14 +114,20 @@ app.get('/feeds/:slug', (req, res) => {
         });
 });
 
-function responseWithCheck(res, store, renderProps) {
+// Server side rendering
+
+let cacheStore = Immutable.fromJS({});
+let cachePage = Immutable.fromJS({});
+
+function responseWithCheck(frontUrl, backUrl, res, store, renderProps) {
     setImmediate(() => {
         if (!store.getState().state.get('initDone')) {
-            return setImmediate(responseWithCheck, res, store, renderProps);
+            return setImmediate(responseWithCheck, frontUrl, backUrl, res, store, renderProps);
         }
-        console.log(renderProps.params);
-        loggerFile.info(store.getState().theme.toJSON());
-        return res.send(
+
+        cacheStore = cacheStore.set(backUrl, store);
+        cachePage = cachePage.set(
+            frontUrl,
             fs.readFileSync(path.join(__dirname, './index.html')).toString().replace(
                 '{{markup}}', renderToString(
                     <Provider store={store}>
@@ -131,32 +138,74 @@ function responseWithCheck(res, store, renderProps) {
                 '"{{initState}}"', JSON.stringify(Immutable.fromJS(store.getState()).toJSON())
             )
         );
+
+        loggerFile.info(cachePage.get(frontUrl));
+
+        return res.send(cachePage.get(frontUrl));
     });
 }
-function render(req, res, renderProps) {
-    console.log(renderProps.params);
-//    let url = `${serverUrlRelToFrontServer}/${type}`;
-//    if (name) {
-//        url = `${url}/${name}`;
-//    } else {
-//        url = `${url}/all`;
-//    }
 
-    let store = createStore(
+function renderWithCache(code, frontUrl, backUrl, res, renderProps) {
+    const {index} = renderProps.params;
+    const {type} = renderProps.components[1].content;
+    let store;
+
+    // If type is article, the backUrl and frontUrl is sync
+    if (code === 304 && cacheStore.has(backUrl) && cachePage.has(frontUrl)) {
+        logInfo('Get from cache: ', frontUrl, ', backend: ', backUrl);
+        return res.send(cachePage.get(frontUrl));
+    }
+
+    // If the backend response didn't be modified, only change the page num
+    if (code === 304 && cacheStore.has(backUrl)) {
+        logInfo('Get from cache with changing page: ', frontUrl, ', backend: ', backUrl);
+        store = cacheStore.get(backUrl);
+        store.dispatch({type: actionTypes.reset.state.all});
+        store.dispatch({type: actionTypes.change.page[type], currentPage: index || 0});
+        store.dispatch({type: actionTypes.init.all.successful});
+        return responseWithCheck(frontUrl, backUrl, res, store, renderProps);
+    }
+
+    store = createStore(
         reducers,
         applyMiddleware(thunkMiddleware)
     );
-    
     renderToString(
         <Provider store={store}>
             <RouterContext {...renderProps} />
         </Provider>
     );
-
-    responseWithCheck(res, store, renderProps);
+    responseWithCheck(frontUrl, backUrl, res, store, renderProps);
 }
 
-if (config.devMode) {
+function render(req, res, renderProps) {
+    const frontUrl = renderProps.location.pathname;
+    const {type} = renderProps.components[1].content;
+    const {name} = renderProps.params;
+    let backUrl = `${serverUrlRelToFrontServer}/${type}`;
+    if (name) {
+        backUrl = `${backUrl}/${name}`;
+    } else {
+        backUrl = `${backUrl}/all`;
+    }
+
+    if (type === '404') {
+        return renderWithCache(304, '/404', '/404', res, renderProps);
+    }
+
+    request.get(backUrl)
+        .timeout(500)
+        .then(response => {
+            const {code} = response.body;
+            renderWithCache(code, frontUrl, backUrl, res, renderProps);
+        })
+        .catch(error => {
+            logError('Request to backend: ', error);
+            return res.status(500).send(error.message);
+        });
+}
+
+if (!config.devMode) {
     app.get('*', (req, res) => {
         res.sendFile(path.resolve('./dist/index.html'));
     });

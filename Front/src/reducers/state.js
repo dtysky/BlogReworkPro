@@ -25,6 +25,10 @@ export default function stateReducer(
             return state.merge({initDone: true});
         }
 
+        case actionTypes.reset.state.all: {
+            return state.merge({initDone: false});
+        }
+
         default:
             return state;
     }

@@ -61,7 +61,11 @@ export default class NotFound extends Component {
         dispatch({type: actionTypes.change.theme.default});
         dispatch({type: actionTypes.change.headInfo, ...this.headInfo});
         dispatch(initMusic(music.get('default')))
-            .then(() => dispatch({type: actionTypes.change.music.current, music: 'パーフェクトヴァニティ'}));
+            .then(() => {
+                dispatch({type: actionTypes.change.music.current, music: 'パーフェクトヴァニティ'});
+                dispatch({type: actionTypes.init.all.successful});
+            })
+            .catch(() => dispatch({type: actionTypes.init.all.failed}));
     }
 
     render() {
@@ -70,7 +74,7 @@ export default class NotFound extends Component {
                 <div className="img-container full-width">
                     {
                         ['1', '2', '3', '4'].map(e =>
-                            <figure className={`img${e} img`} />
+                            <figure key={e} className={`img${e} img`} />
                         )
                     }
                 </div>

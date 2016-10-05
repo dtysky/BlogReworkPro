@@ -25,11 +25,12 @@ Rework the [BlogRework](https://github.com/dtysky/BlogRework), build with docker
 1. Use tornado wsgi web server to instead of flask's built-in.  
 2. Use the virtualenv to build a independent python run-time to instead of system's built-in python.  
 3. Improve the error logger.  
-4. watchdog.observers.Observer to watchdog.observers.polling.PollingObserver.  
+4. watchdog.observers.Observer to watchdog.observers.polling.PollingObserver.
+5. Memory cache.  
 
 #### Preparing
 
-1. Memory cache.  
+None.
 
 ### Frontend
 
@@ -52,4 +53,4 @@ Rework the [BlogRework](https://github.com/dtysky/BlogRework), build with docker
 #### Preparing  
 
 1. Memory cache.  
-2. Image pre-loading.
+2. Resource to cloud.

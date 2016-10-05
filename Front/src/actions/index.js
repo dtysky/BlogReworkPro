@@ -53,6 +53,11 @@ export default {
             failed: 'INIT_ALL_FAILED'
         }
     },
+    reset: {
+        state: {
+            all: 'RESET_STATE_ALL'
+        }
+    },
     change: {
         page: {
             archives: 'CHANGE_PAGE_ARCHIVES',
