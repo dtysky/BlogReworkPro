@@ -1,5 +1,8 @@
 # BlogReworkPro
 
+**[dtysky|一个行者的轨迹](http://dtysky.moe)**  
+
+
 Rework the [BlogRework](https://github.com/dtysky/BlogRework), build with docker, flask, react, redux, gulp, webpack, es6, flow, mongodb...
 
 

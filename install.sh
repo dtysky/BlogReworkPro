@@ -1,7 +1,7 @@
 #!/usr/bin/sh
 
 echo "Used for installing all moudules..."
-echo "You must install 'mongodb', 'python 2.10.x with pip', 'node.js 5.9.0 with npm at first !'"
+echo "You must install 'mongodb', 'python 2.7.x with pip', 'node.js 5.9.0 with npm at first !'"
 
 # Install python modules
 cd Back/
@@ -12,6 +12,8 @@ if [ -d python ]; then
 else
     echo "Creating virtual env..."
     virtualenv python
+    echo "Install pip..."
+    python/bin/python ../get-pip.py
 fi
 echo "Install python modules"
 python/bin/pip install pymongo
