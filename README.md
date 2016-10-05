@@ -10,7 +10,8 @@ Rework the [BlogRework](https://github.com/dtysky/BlogRework), build with docker
 #### Finished
 
 1. Add some new shell scripts and configure files to make development and publishing easier.
-2. Access control.
+2. Access control.  
+3. Improve Forever.js for a better guard and logging.
 
 #### Preparing
 
