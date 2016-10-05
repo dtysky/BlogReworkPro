@@ -13,6 +13,7 @@ import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import Immutable from 'immutable';
 import _ from 'lodash';
+import ga from 'react-ga';
 
 import config from '../config';
 import reducers from './reducers';
@@ -51,11 +52,17 @@ const store = createStore(
     applyMiddleware(...middleware)
 );
 
+ga.initialize(config.gaTrackingId);
+function logPageView() {
+    ga.pageview(this.state.location.pathname);
+}
+
 ReactDom.render(
     <Provider store={store}>
         <Router
             routes={routes}
             history={browserHistory}
+            onUpdate={logPageView}
         />
     </Provider>,
     document.getElementById('container')

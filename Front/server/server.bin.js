@@ -78,12 +78,7 @@ app.use(compression({
     threshold: 0
 }));
 
-const siteHost = config.siteUrl.replace('https://', '').replace('http://', '');
 app.use((req, res, next) => {
-    if (req.headers.host !== siteHost) {
-        logError('403', req.headers.host, req.path);
-        return res.status(403).send({message: 'Not allowed!'});
-    }
     res.setHeader('Access-Control-Allow-Origin', config.siteUrl);
     if (!config.devMode && ['.js', '.css'].includes(path.extname(req.url))) {
         res.setHeader('Content-Encoding', 'gzip');

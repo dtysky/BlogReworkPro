@@ -17,7 +17,6 @@ Rework the [BlogRework](https://github.com/dtysky/BlogRework), build with docker
 
 1. Make docker images for happier publishing.  
 2. HTTPS.
-3. A markdown extensions for auto generating image metadata.
 
 ### Backend
 

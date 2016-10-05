@@ -6,7 +6,7 @@ echo "You must install 'mongodb', 'python 2.10.x with pip', 'node.js 5.9.0 with 
 # Install python modules
 cd Back/
 echo "Installing VirtualEnv......"
-#sudo pip2 install virtualenv
+sudo pip install virtualenv
 if [ -d python ]; then
 	echo "Back/python has been existed......"
 else

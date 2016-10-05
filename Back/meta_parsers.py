@@ -108,3 +108,15 @@ class MusicParser(MetaDataParser):
     def parse(self, content):
         import re
         return re.split(",\s*", content.strip().replace("，", ","))
+
+
+class ImagesParser(MetaDataParser):
+    """
+    Parsing "images" metadata.
+    """
+    def is_necessary(self):
+        return False
+
+    def parse(self, content):
+        import re
+        return re.split(",\s*", content.strip().replace("，", ","))

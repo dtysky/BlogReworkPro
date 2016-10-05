@@ -28,7 +28,7 @@ function generateShareInfo(article: {
         title: `${title.view} - ${config.siteTitle}`,
         description: summary,
         summary,
-        images: images && (images[0] || ''),
+        images: images && (images[0] || config.logoPath),
         site: config.siteTitle,
         site_url: config.siteUrl,
         source: url
