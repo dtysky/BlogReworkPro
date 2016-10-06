@@ -97,7 +97,8 @@ app.get('/sitemap', (req, res) => {
     logInfo('Forwarding', url);
     request.get(url)
         .then(response => {
-            res.send(response);
+            res.setHeader('Content-Type', 'text/xml');
+            res.send(response.text);
         })
         .catch(err => {
             logError(url, err);
@@ -109,7 +110,8 @@ app.get('/feeds/:slug', (req, res) => {
     logInfo('Forwarding', url);
     request.get(url)
         .then(response => {
-            res.send(response);
+            res.setHeader('Content-Type', 'text/xml');
+            res.send(response.text);
         })
         .catch(err => {
             logError(url, err);
