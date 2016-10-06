@@ -50,6 +50,10 @@ export default class NavBar extends Component {
         }
     }
 
+    componentDidMount() {
+        this.forceUpdate();
+    }
+
     shouldComponentUpdate(nextProps) {
         return !this.props.theme.get('current').equals(nextProps.theme.get('current'));
     }
