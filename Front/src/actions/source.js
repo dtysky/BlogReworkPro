@@ -49,7 +49,7 @@ export function getArticleSource(name: string, currentArticles: Object) {
     return dispatch => {
         if (currentArticles.has(name)) {
             dispatch({type: actionTypes.get.article.successful, name});
-            return Promise.resolve(currentArticles.get(name));
+            return Promise.resolve(currentArticles.get(name).toJS());
         }
 
         dispatch({type: actionTypes.get.article.waiting});
@@ -58,7 +58,7 @@ export function getArticleSource(name: string, currentArticles: Object) {
             .then(res => {
                 const article = res.body.content || {};
                 dispatch({type: actionTypes.get.article.successful, name, article});
-                return Promise.resolve(res);
+                return Promise.resolve(article);
             })
             .catch(err => {
                 if (config.devMode) {
@@ -71,7 +71,7 @@ export function getArticleSource(name: string, currentArticles: Object) {
 }
 
 export function initMusic(DefaultList) {
-    const url = '/music.json';
+    const url = `http://localhost:${config.port}/music.json`;
 
     return dispatch => {
         if (!DefaultList.isEmpty()) {

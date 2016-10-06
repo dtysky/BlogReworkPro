@@ -184,7 +184,7 @@ function render(req, res, renderProps) {
     const {name} = renderProps.params;
     let backUrl = `${serverUrlRelToFrontServer}/${type}`;
     if (name) {
-        backUrl = `${backUrl}/${name}`;
+        backUrl = `${backUrl}/${encodeURIComponent(name)}`;
     } else {
         backUrl = `${backUrl}/all`;
     }
@@ -200,7 +200,7 @@ function render(req, res, renderProps) {
             renderWithCache(code, frontUrl, backUrl, res, renderProps);
         })
         .catch(error => {
-            logError('Request to backend: ', error, error.stack);
+            logError('Request to backend: ', frontUrl, backUrl, error, error.stack);
             if (error.status && error.status === 404) {
                 return res.status(404).sendFile(config.error404File);
             }
@@ -220,6 +220,7 @@ if (config.devMode) {
                 return res.status(500).sendFile(config.error50xFile);
             }
             if (redirectLocation) {
+                logError('Match routes redirectLocation: ', redirectLocation);
                 return res.redirect(302, `${redirectLocation.pathname}${redirectLocation.search}`);
             }
             if (renderProps) {

@@ -10,7 +10,7 @@ const configDev = {
     siteUrl: 'http://localhost:8000',
     serverUrl: 'http://localhost:4444',
     serverUrlRelToFrontServer: 'http://localhost:4444',
-    themeResourceSite: 'theme',
+    themeResourceSite: '/theme',
     port: 8000,
     error404File: './404.html',
     error50xFile: './50x.html',

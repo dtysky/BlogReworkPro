@@ -52,7 +52,7 @@ export default class APP extends Component {
             <div id="container-content">
                 <Helmet
                     key='helmet'
-                    title={headInfo.title}
+                    title={headInfo.get('title')}
                     titleTemplate={'%s'}
                     meta={[
                             {name: 'keywords', content: headInfo.get('keywords')},
