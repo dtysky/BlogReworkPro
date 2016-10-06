@@ -201,19 +201,23 @@ function render(req, res, renderProps) {
         })
         .catch(error => {
             logError('Request to backend: ', error, error.stack);
-            return res.status(500).send(error.message);
+            if (error.status && error.status === 404) {
+                return res.status(404).sendFile(config.error404File);
+            }
+            return res.status(500).sendFile(config.error50xFile);
         });
 }
 
 if (config.devMode) {
     app.get('*', (req, res) => {
-        res.sendFile(path.resolve('./dist/index.html'));
+        res.sendFile(path.resolve('../dist/index.html'));
     });
 } else {
     app.get('*', (req, res) => {
         match({routes, location: req.url}, (error, redirectLocation, renderProps) => {
             if (error) {
-                return res.status(500).send(error.message);
+                logError('Match routes filed: ', error, error.stack);
+                return res.status(500).sendFile(config.error50xFile);
             }
             if (redirectLocation) {
                 return res.redirect(302, `${redirectLocation.pathname}${redirectLocation.search}`);
@@ -221,7 +225,8 @@ if (config.devMode) {
             if (renderProps) {
                 return render(req, res, renderProps);
             }
-            return res.status(404).send('Not found');
+            logError('Miss match routes: ', error, error.stack);
+            return res.status(404).sendFile(config.error404File);
         });
     });
 }

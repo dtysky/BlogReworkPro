@@ -12,6 +12,8 @@ const configDev = {
     serverUrlRelToFrontServer: 'http://localhost:4444',
     themeResourceSite: 'theme',
     port: 8000,
+    error404File: './404.html',
+    error50xFile: './50x.html',
     devMode: true
 };
 
@@ -22,6 +24,8 @@ const configPd = {
     serverUrlRelToFrontServer: 'http://localhost:4444',
     themeResourceSite: 'http://src.dtysky.moe/blog-site',
     port: 8000,
+    error404File: './404.html',
+    error50xFile: './50x.html',
     devMode: false
 };
 
