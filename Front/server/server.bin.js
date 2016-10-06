@@ -17,6 +17,7 @@ import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import Immutable from 'immutable';
+import pug from 'pug';
 
 import config from '../config';
 import routes from '../src/routes';
@@ -47,7 +48,7 @@ function logError() {
 }
 
 function log(req, res, next) {
-    logInfo('Req', req.method, req.url);
+    logInfo('Req', req.headers.referer || req.connection.remoteAddress, req.method, req.url);
     next();
 }
 
@@ -130,17 +131,23 @@ function responseWithCheck(frontUrl, backUrl, res, store, renderProps) {
         }
 
         cacheStore = cacheStore.set(backUrl, store);
+        const headInfo = store.getState().headInfo;
         cachePage = cachePage.set(
             frontUrl,
-            fs.readFileSync(path.join(__dirname, './index.html')).toString().replace(
-                '{{markup}}', renderToString(
+            pug.renderFile(path.join(__dirname, './index.jade'), {
+                title: headInfo.get('title'),
+                keywords: headInfo.get('keywords'),
+                author: headInfo.get('author'),
+                description: headInfo.get('description'),
+                rss: headInfo.get('rss'),
+                initState: JSON.stringify(Immutable.fromJS(store.getState()).toJSON()),
+                logo: config.logoPath,
+                markup: renderToString(
                     <Provider store={store}>
                         <RouterContext {...renderProps} />
                     </Provider>
                 )
-            ).replace(
-                '"{{initState}}"', JSON.stringify(Immutable.fromJS(store.getState()).toJSON())
-            ).replace('{{logo}}', config.logoPath)
+            })
         );
 
         return res.send(cachePage.get(frontUrl));
@@ -218,7 +225,7 @@ if (config.devMode) {
     app.get('*', (req, res) => {
         match({routes, location: req.url}, (error, redirectLocation, renderProps) => {
             if (error) {
-                logError('Match routes filed: ', error, error.stack);
+                logError('Match routes failed: ', error, error.stack);
                 return res.status(500).sendFile(config.error50xFile);
             }
             if (redirectLocation) {
