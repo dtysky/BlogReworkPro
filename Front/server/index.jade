@@ -1,0 +1,34 @@
+//
+   Created by dtysky on 16/10/6.
+
+doctype html
+html(lang="zh-CN")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge,chrome=1")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0, minimum-scale=1.0")
+        meta(property="fs:webmaster", content="fB13uuNNHbmPPXxy")
+        meta(name="google-site-verification", content="gxqVWk52ajnh9oLhxju0hoVBGVJUuR_NeUDHcZ9DPv8")
+        meta(name="baidu-site-verification", content="LDjaGJbVa7")
+        meta(name="msvalidate.01", content="EBCCD04141A31E93EFE59B8EB1C3EE37")
+        title #{title}
+        meta(name="keywords", content=keywords)
+        meta(name="description", content=description)
+        meta(name="author", content=author)
+        link(
+            href=rss
+            rel="alternate"
+            title=title
+            type="application/rss+xml"
+        )
+        link(rel="shortcut icon", type="image/png", href=logo)
+        link(rel="stylesheet", href="/assets/main.css")
+        script window._initState_=!{initState}
+
+    body
+        <!--[if lt IE 10]>
+        <p class="browsehappy">少女不喜欢<strong>过于保守</strong>的观察者，请到<a href="http://browsehappy.com/">此处</a>提升你的姿势水平。</p>
+        <![endif]-->
+        div#container
+            div.full!= markup
+        script(type="text/javascript", src="/assets/main.bundle.js")
