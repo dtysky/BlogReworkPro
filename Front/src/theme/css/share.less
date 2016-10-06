@@ -17,7 +17,6 @@
 #share {
   position: absolute;
   .margin(@t: -2em);
-  .position(@r: 20%);
   .size(@w: 60px);
 
   .icon-share {
@@ -28,23 +27,19 @@
 
 #share-modal {
   .icon {
+    display: inline-block;
     word-break: normal;
-    font-size: 30px;
+    position: relative;
+    .margin(@l: 10px, @t: 10px);
+    .size(50px, 50px);
+    .text(@size: 30px, @style: normal, @align: center);
+    line-height: 50px;
     font-style: normal;
     -webkit-font-smoothing: antialiased;
     -webkit-text-stroke-width: 0.2px;
     -moz-osx-font-smoothing: grayscale;
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
-    margin-left: 10px;
-    margin-top: 10px;
-    text-align: center;
     vertical-align: middle;
-    transition: background 0.6s ease-out 0s;
-
+    .autoprefix-transition(background @duration-time ease-out);
     font-family: social-share !important;
 
     &:hover {
@@ -87,5 +82,17 @@
 
   .twitter {
     .share-icon("\f06a", #55acee);
+  }
+}
+
+@media (min-width: 960px) {
+  #share {
+    .position(@r: 20%);
+  }
+}
+
+@media (max-width: 960px) {
+  #share {
+    .position(@r: 0);
   }
 }
