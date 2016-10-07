@@ -27,12 +27,10 @@
     @{end} {.wtf {color: #fff}}
   }
   .base(~'', ~'');
-  .test() when (@use-prefix = true) {
-    .base(-o-, @end);
-    .base(-webkit-, @end);
-    .base(-moz-, @end);
-    .base(-ms-, @end);
-  }
+  .base(-o-, @end);
+  .base(-webkit-, @end);
+  .base(-moz-, @end);
+  .base(-ms-, @end);
   .end();
 }
 
@@ -45,7 +43,7 @@
 
   .img {
     .size(8em, 8em);
-    .border(@l: dashed, @t: dashed, @rad: 50%);
+    .border(@l: 1px dashed black, @t: 1px dashed black, @rad: 50%);
     .background(@image: url(../image/logo.svg));
     .margin(@all: 0 auto 2.5em auto);
   }
@@ -69,10 +67,10 @@
   }
 }
 
-.autoprefix-keyframe-transform(move-up-down-1, top, 30px, 60px, 30px, false);
-.autoprefix-keyframe-transform(move-up-down-2, top, 10px, 50px, 10px, false);
-.autoprefix-keyframe-transform(move-up-down-3, top, 20px, 60px, 20px, false);
-.autoprefix-keyframe-transform(move-up-down-4, top, 30px, 60px, 30px, false);
+.autoprefix-keyframe-transform(move-up-down-1, top, 30px, 60px, 30px);
+.autoprefix-keyframe-transform(move-up-down-2, top, 10px, 50px, 10px);
+.autoprefix-keyframe-transform(move-up-down-3, top, 20px, 60px, 20px);
+.autoprefix-keyframe-transform(move-up-down-4, top, 30px, 60px, 30px);
 
 #status-404{
   display: block;
