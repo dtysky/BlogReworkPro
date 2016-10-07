@@ -42,7 +42,10 @@ export default class Pagination extends Component {
             right = left + pages > maxPage ? maxPage : left + pages;
         }
 
-        const indexes = new Array(right - left + 1).fill(0).map((i, index) => index + left);
+        const indexes = new Array(right - left + 1);
+        for (let i = left; i < left + indexes.length; i ++) {
+            indexes[i] = i;
+        }
 
         return (
             <ul id="pagination">

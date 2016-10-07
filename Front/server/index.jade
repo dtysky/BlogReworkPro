@@ -12,23 +12,29 @@ html(lang="zh-CN")
         meta(name="baidu-site-verification", content="LDjaGJbVa7")
         meta(name="msvalidate.01", content="EBCCD04141A31E93EFE59B8EB1C3EE37")
         title #{title}
-        meta(name="keywords", content=keywords)
-        meta(name="description", content=description)
-        meta(name="author", content=author)
+        meta(name="keywords", content=keywords, data-react-helmet='true')
+        meta(name="description", content=description, data-react-helmet='true')
+        meta(name="author", content=author, data-react-helmet='true')
         link(
             href=rss
             rel="alternate"
             title=title
-            type="application/rss+xml"
+            type="application/rss+xml",
+            data-react-helmet='true'
         )
         link(rel="shortcut icon", type="image/png", href=logo)
         link(rel="stylesheet", href="/assets/main.css")
+        <!--[if lt IE 10]>
+        style.
+            .duration-main {
+                -ms-transition: none;
+                transition: none;
+            }
+        <![endif]-->
         script window._initState_=!{initState}
 
+
     body
-        <!--[if lt IE 10]>
-        <p class="browsehappy">少女不喜欢<strong>过于保守</strong>的观察者，请到<a href="http://browsehappy.com/">此处</a>提升你的姿势水平。</p>
-        <![endif]-->
         div#container
             div.full!= markup
         script(type="text/javascript", src="/assets/main.bundle.js")
