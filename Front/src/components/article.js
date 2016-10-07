@@ -44,6 +44,10 @@ export default class Article extends Base {
             });
     }
 
+    componentDidMount() {
+        this.forceUpdate();
+    }
+
     componentWillReceiveProps() {}
 
     shouldComponentUpdate(nextProps) {
