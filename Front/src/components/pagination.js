@@ -43,8 +43,8 @@ export default class Pagination extends Component {
         }
 
         const indexes = new Array(right - left + 1);
-        for (let i = left; i < left + indexes.length; i ++) {
-            indexes[i] = i;
+        for (let i = 0; i < indexes.length; i ++) {
+            indexes[i] = left + i;
         }
 
         return (

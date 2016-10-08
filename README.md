@@ -56,7 +56,7 @@ Rework the [BlogRework](https://github.com/dtysky/BlogRework), a SEO friendly SP
 
 #### Preparing  
 
-1. The content in memory cache should be compressed.
+None.
 
 ## License
 

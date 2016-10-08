@@ -8,7 +8,6 @@ import fs from 'fs';
 import express from 'express';
 import path from 'path';
 import tracer from 'tracer';
-import compression from 'compression';
 import React from 'react';
 import {renderToString} from 'react-dom/server';
 import {match, RouterContext} from 'react-router';
@@ -66,19 +65,6 @@ const app = express();
 
 app.use(log);
 app.use(redirect);
-
-//app.use(compression({
-//    filter: (req, res) => {
-//        if (req.headers['x-no-compression']) {
-//            return false;
-//        }
-//        if (!config.devMode && ['.js', '.css'].includes(path.extname(req.url))) {
-//            return false;
-//        }
-//        return compression.filter(req, res);
-//    },
-//    threshold: 0
-//}));
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', config.siteUrl);
