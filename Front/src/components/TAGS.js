@@ -18,7 +18,6 @@ export default class Tags extends Base {
     static type = 'tags';
     static theme = 'tags';
     static headInfo = {
-        title: 'Tags',
         description: '所有的路标。',
         keywords: 'dtysky,Tags',
         author: 'dtysky,命月天宇',
@@ -37,7 +36,7 @@ export default class Tags extends Base {
             return <Loading key='loading' />;
         }
         const background = this.props.theme.getIn(['current', 'tagColor']);
-        const max = currentList.sort((a, b) => (b.get('count') - a.get('count'))).getIn([0, 'count']);
+        const max = config.tagCloudMax;
         const base = (max + 1) / config.tagCloudStep;
 
         return (
@@ -45,26 +44,31 @@ export default class Tags extends Base {
                 id="tag-cloud"
             >
                 {
-                    currentList.map((tag, index) =>
-                        <li
-                            className="tag-sp tag"
-                            key={index}
-                        >
-                            <span
-                                className="duration-main"
-                                style={{background, fontSize: 12 + parseInt(tag.get('count') / base, 10) * 2}}
+                    currentList.map((tag, index) => {
+                        const count = tag.get('count') >= max ? max : tag.get('count');
+                        const fontSize = 12 + parseInt(count / base, 10) * 2;
+
+                        return (
+                            <li
+                                className="tag-sp tag"
+                                key={index}
                             >
-                                {tag.get('count')}
-                            </span>
-                            <Link
-                                to={getLocalUrl('tag', tag.get('slug'))}
-                                className="duration-main"
-                                style={{fontSize: 12 + parseInt(tag.get('count') / base, 10) * 2}}
-                            >
-                                {tag.get('view')}
-                            </Link>
-                        </li>
-                    )
+                                <span
+                                    className="duration-main"
+                                    style={{background, fontSize}}
+                                >
+                                    {tag.get('count')}
+                                </span>
+                                <Link
+                                    to={getLocalUrl('tag', tag.get('slug'))}
+                                    className="duration-main"
+                                    style={{fontSize}}
+                                >
+                                    {tag.get('view')}
+                                </Link>
+                            </li>
+                        );
+                    })
                 }
             </ul>
         );

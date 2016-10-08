@@ -53,7 +53,8 @@ entity_ref = {
     ">": "&gt;",
     "&": "&amp;",
     "'": "&apos;",
-    '"': "&quot;"
+    '"': "&quot;",
+    "": ""
 }
 
 
@@ -132,9 +133,8 @@ class FeedsGenerator(object):
                         config["site_title"],
                         config["site_url"],
                         config["site_description"],
-                        "%s/%s/%s" % (
+                        "%s/%s" % (
                             config["site_url"],
-                            config["feeds_slug"],
                             file_name
                         ),
                         time

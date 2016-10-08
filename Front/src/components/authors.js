@@ -17,7 +17,6 @@ export default class Authors extends Base {
     static type = 'authors';
     static theme = 'authors';
     static headInfo = {
-        title: 'Authors',
         description: '所有的少女都在此。',
         keywords: 'dtysky,Authors',
         author: 'dtysky,命月天宇',

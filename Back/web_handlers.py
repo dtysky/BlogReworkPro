@@ -325,10 +325,7 @@ class FeedsHandler(WebHandler):
         if parameters not in indexes:
             return None
         with open(
-            "%s/%s" % (
-                        config["feeds_dir_path"],
-                        indexes[parameters]
-                )
+            config["feeds_dir_path"].encode("utf-8") + "/" + indexes[parameters].encode("utf-8")
         ) as f:
             result = f.read()
         return result

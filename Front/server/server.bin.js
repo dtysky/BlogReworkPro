@@ -94,7 +94,7 @@ app.get('/sitemap', (req, res) => {
 });
 
 app.get('/feeds/:slug', (req, res) => {
-    const url = `${serverUrlRelToFrontServer}/${path.join('feeds', req.params.slug.replace('.rss.xml', ''))}`;
+    const url = `${serverUrlRelToFrontServer}/${path.join('feeds', encodeURIComponent(req.params.slug.replace('.rss.xml', '')))}`;
     logInfo('Forwarding', url);
     request.get(url)
         .then(response => {
@@ -210,7 +210,7 @@ function render(req, res, renderProps) {
 
 if (config.devMode) {
     app.get('*', (req, res) => {
-        res.sendFile(path.resolve('../dist/index.html'));
+        res.sendFile(path.join(publicPath, 'index.html'));
     });
 } else {
     app.get('*', (req, res) => {

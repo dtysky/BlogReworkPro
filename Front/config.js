@@ -38,6 +38,7 @@ const config = Object.assign({}, {
     disqusShortName: 'dtysky',
     gaTrackingId: '......',
     tagCloudStep: 4,
+    tagCloudMax: 12,
     articlesPerPage: 10,
     pagePerPagination: 5,
     timeout: 2000,
