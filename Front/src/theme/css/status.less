@@ -42,14 +42,26 @@
   .text(@align: center);
 
   .img {
-    .size(8em, 8em);
-    .border(@l: 1px dashed black, @t: 1px dashed black, @rad: 50%);
     .background(@image: url(../image/logo.svg));
     .margin(@all: 0 auto 2.5em auto);
   }
 
   p {
     .text(@color: darkslategrey);
+  }
+}
+
+@media (min-width: 960px) {
+  .status .img {
+    .border(@l: 3px dashed black, @t: 3px dashed black, @rad: 50%);
+    .size(12em, 12em);
+  }
+}
+
+@media (max-width: 960px) {
+  .status .img {
+    .border(@l: 2px dashed black, @t: 2px dashed black, @rad: 50%);
+    .size(8em, 8em);
   }
 }
 

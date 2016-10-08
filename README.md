@@ -33,7 +33,7 @@ Rework the [BlogRework](https://github.com/dtysky/BlogRework), a SEO friendly SP
 
 #### Preparing
 
-None.
+1. The content in memory cache should be compressed.
 
 ### Frontend
 
@@ -56,7 +56,7 @@ None.
 
 #### Preparing  
 
-None.
+1. The content in memory cache should be compressed.
 
 ## License
 

@@ -18,6 +18,7 @@ import {Provider} from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import Immutable from 'immutable';
 import pug from 'pug';
+import zlib from 'zlib';
 
 import config from '../config';
 import routes from '../src/routes';
@@ -66,18 +67,18 @@ const app = express();
 app.use(log);
 app.use(redirect);
 
-app.use(compression({
-    filter: (req, res) => {
-        if (req.headers['x-no-compression']) {
-            return false;
-        }
-        if (!config.devMode && ['.js', '.css'].includes(path.extname(req.url))) {
-            return false;
-        }
-        return compression.filter(req, res);
-    },
-    threshold: 0
-}));
+//app.use(compression({
+//    filter: (req, res) => {
+//        if (req.headers['x-no-compression']) {
+//            return false;
+//        }
+//        if (!config.devMode && ['.js', '.css'].includes(path.extname(req.url))) {
+//            return false;
+//        }
+//        return compression.filter(req, res);
+//    },
+//    threshold: 0
+//}));
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', config.siteUrl);
@@ -134,7 +135,7 @@ function responseWithCheck(frontUrl, backUrl, res, store, renderProps) {
         const headInfo = store.getState().headInfo;
         cachePage = cachePage.set(
             frontUrl,
-            pug.renderFile(path.join(__dirname, './index.jade'), {
+            zlib.gzipSync(pug.renderFile(path.join(__dirname, './index.jade'), {
                 title: headInfo.get('title'),
                 keywords: headInfo.get('keywords'),
                 author: headInfo.get('author'),
@@ -147,9 +148,11 @@ function responseWithCheck(frontUrl, backUrl, res, store, renderProps) {
                         <RouterContext {...renderProps} />
                     </Provider>
                 )
-            })
+            }))
         );
 
+        res.setHeader('Content-Type', 'text/html');
+        res.setHeader('Content-Encoding', 'gzip');
         return res.send(cachePage.get(frontUrl));
     });
 }
@@ -162,6 +165,8 @@ function renderWithCache(code, frontUrl, backUrl, res, renderProps) {
     // If type is article, the backUrl and frontUrl is sync
     if (code === 304 && cacheStore.has(backUrl) && cachePage.has(frontUrl)) {
         logInfo('Get from cache: ', frontUrl, ', backend: ', backUrl);
+        res.setHeader('Content-Type', 'text/html');
+        res.setHeader('Content-Encoding', 'gzip');
         return res.send(cachePage.get(frontUrl));
     }
 
