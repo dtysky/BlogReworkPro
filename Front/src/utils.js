@@ -27,7 +27,6 @@ function parseExpression(raw: string, delimit: string, delimitEscaped: string, m
         if (/<pre>/g.test(line)) {
             ignoreMode = true;
         }
-        console.log(line, ignoreMode);
         if (!regex.test(line) || ignoreMode) {
             return line;
         }
