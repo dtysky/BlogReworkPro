@@ -21,10 +21,18 @@ export function redirectTo404() {
 
 function parseExpression(raw: string, delimit: string, delimitEscaped: string, mathMode: boolean) {
     const regex = new RegExp(`${_.escapeRegExp(delimit)}(.+?)${_.escapeRegExp(delimitEscaped)}`, 'g');
+    let ignoreMode = false;
 
     return raw.split('\n').map(line => {
-        if (!regex.test(line)) {
+        if (/<pre>/g.test(line)) {
+            ignoreMode = true;
+        }
+        console.log(line, ignoreMode);
+        if (!regex.test(line) || ignoreMode) {
             return line;
+        }
+        if (ignoreMode && /<\/pre>/g.test(line)) {
+            ignoreMode = false;
         }
         return line.split(regex).map((snippet, index) => {
             // $$aa$$bb$$cc$$ => ['', 'aa', 'bb', 'cc', ''], we don't need 'bb'
