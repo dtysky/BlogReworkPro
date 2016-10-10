@@ -141,8 +141,10 @@ class WriterWithList(object):
 
     def update(self, new_page, old_page):
         new_pages, old_pages = self._format_page(new_page), self._format_page(old_page)
+        old_metas = map(lambda meta: meta["slug"], old_page['metadata'][self._get_slug_key()])
+        new_metas = map(lambda meta: meta["slug"], new_page['metadata'][self._get_slug_key()])
         for page in new_pages:
-            if page in old_pages:
+            if page["name"] in old_metas:
                 self._collection.replace_one(
                     {
                         "name": page["name"],
@@ -154,7 +156,7 @@ class WriterWithList(object):
                 self._collection.insert_one(page)
             self._modify_cache("modify", page["name"])
         for page in old_pages:
-            if page not in new_pages:
+            if page["name"] not in new_metas:
                 self._collection.delete_one(
                     {
                         "name": page["name"],
