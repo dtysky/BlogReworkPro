@@ -2,6 +2,7 @@
 
 **[dtysky|一个行者的轨迹](http://dtysky.moe)**  
 
+**[系列教程](http://dtysky.moe/article/Create-2016_10_14_a)**
 
 Rework the [BlogRework](https://github.com/dtysky/BlogRework), a SEO friendly SPA, build with docker, flask, markdown, react, redux, react-router, immutable, gulp, webpack, es6, flow, mongodb...
 
