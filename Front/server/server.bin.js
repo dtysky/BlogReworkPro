@@ -48,7 +48,11 @@ function logError() {
 }
 
 function log(req, res, next) {
-    logInfo('Req', req.headers.referer || req.connection.remoteAddress, req.method, req.url);
+    logInfo(
+        'Req',
+        req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+        req.get('User-Agent'), req.method, req.url
+    );
     next();
 }
 
@@ -134,7 +138,7 @@ function responseWithCheck(frontUrl, backUrl, res, store, renderProps) {
                         <RouterContext {...renderProps} />
                     </Provider>
                 )
-            }))
+            }), {level: 9})
         );
 
         res.setHeader('Content-Type', 'text/html');
