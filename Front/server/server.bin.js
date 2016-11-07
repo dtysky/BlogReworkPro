@@ -164,6 +164,10 @@ function renderWithCache(code, frontUrl, backUrl, res, renderProps) {
     if (code === 304 && cacheStore.has(backUrl)) {
         logInfo('Get from cache with changing page: ', frontUrl, ', backend: ', backUrl);
         store = cacheStore.get(backUrl);
+        if (index > store.getState()[type].get('maxPage')) {
+            return res.redirect('/404');
+            // return renderWithCache(304, '/404', '/404', res, renderProps);
+        }
         store.dispatch({type: actionTypes.reset.state.all});
         store.dispatch({type: actionTypes.change.page[type], currentPage: index || 0});
         store.dispatch({type: actionTypes.init.all.successful});
