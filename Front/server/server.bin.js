@@ -123,9 +123,11 @@ function responseWithCheck(frontUrl, backUrl, res, store, renderProps) {
 
         cacheStore = cacheStore.set(backUrl, store);
         const headInfo = store.getState().headInfo;
+        const theme = store.getState().theme;
         cachePage = cachePage.set(
             frontUrl,
             zlib.gzipSync(pug.renderFile(path.join(__dirname, './index.jade'), {
+                color: theme.getIn('current', 'color'),
                 title: headInfo.get('title'),
                 keywords: headInfo.get('keywords'),
                 author: headInfo.get('author'),

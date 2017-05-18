@@ -54,9 +54,10 @@ export default class APP extends Component {
                     title={headInfo.get('title')}
                     titleTemplate={'%s'}
                     meta={[
-                            {name: 'keywords', content: headInfo.get('keywords')},
-                            {name: 'author', content: headInfo.get('author')},
-                            {name: 'description', content: headInfo.get('description')}
+                        {name: 'keywords', content: headInfo.get('keywords')},
+                        {name: 'author', content: headInfo.get('author')},
+                        {name: 'description', content: headInfo.get('description')},
+                        {name: 'theme-color', content: theme.getIn('current', 'color')}
                     ]}
                     link={[
                         {
